@@ -11,7 +11,14 @@ from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms, utils
 from PIL import Image
 
+# =========================================
+# Data preprocessing/Setup
+# =========================================
+
+
 # custom Dataset class to make sure that samples have correct labels
+# https://blog.roboflow.com/pytorch-custom-dataset/
+# https://docs.pytorch.org/tutorials/beginner/basics/data_tutorial.html
 class CSE144Dataset(Dataset):
 
     def __init__(self, root_dir, transform=None, resize=None):
@@ -81,9 +88,32 @@ def dataset_unittest():
 
 
 # We'll use this directory on my pc for the actual full-scale training
+
+# create dataset instance
 transform = transforms.ToTensor()
 dataset = CSE144Dataset(r"C:\Users\eewilson\Documents\University\CSE144\finalproject_data\train", transform=transform, resize=(224, 224))
 num_classes = 100
 
 dataset_unittest()
 
+
+
+
+# split dataset into train and validate
+
+#TODO: https://www.geeksforgeeks.org/deep-learning/how-to-split-a-dataset-using-pytorch/
+
+
+
+
+
+# create DataLoaders
+
+
+
+
+
+
+# =========================================
+# Model Training 
+# =========================================
