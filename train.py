@@ -43,11 +43,10 @@ class CSE144Dataset(Dataset):
     Defines a Dataset class, needed for pytorch to handle data loading.
     Applies any needed transforms to images.
     """
-    def __init__(self, images, labels, transform=None, resize=None):
+    def __init__(self, images, labels, transform=None):
         self.images = images
         self.labels = labels
         self.transform = transform 
-        self.resize = resize
         
         # TODO add data augmentation
 
@@ -58,11 +57,6 @@ class CSE144Dataset(Dataset):
         path = self.images[idx] 
         image = Image.open(path).convert("RGB")
 
-        # resize
-        if self.resize:
-            new_h, new_w = self.resize
-            image = transforms.functional.resize(image, (new_h, new_w))
-        
         # transform 
         if self.transform:
             image = self.transform(image)
@@ -71,7 +65,10 @@ class CSE144Dataset(Dataset):
 
 
 def dataset_unittest(dataset):
-    
+    """
+    Unit test for checking dataset processing.
+    Print out statistics about a Dataset, as well as a grid of labeled images.
+    """
     print(f"Dataset size: {len(dataset)}")
     # Grab a single sample
     sample = dataset[25]
@@ -127,7 +124,6 @@ preprocess = weights.transforms()
 
 train_transform = transforms.Compose([
     transforms.RandomHorizontalFlip(),
-    transforms.RandomRotation(180),
     transforms.ColorJitter(),
     preprocess
     ])
@@ -135,18 +131,17 @@ val_transform = transforms.Compose([
     preprocess
     ])
 
-train_dataset = CSE144Dataset(train_images, train_labels, transform=train_transform, resize=[224, 224])
-val_dataset = CSE144Dataset(val_images, val_labels, transform=val_transform, resize=[224, 224])
+train_dataset = CSE144Dataset(train_images, train_labels, transform=train_transform)
+val_dataset = CSE144Dataset(val_images, val_labels, transform=val_transform)
 
-#dataset_unittest(train_dataset)
-#dataset_unittest(val_dataset)
-
+dataset_unittest(train_dataset)
+dataset_unittest(val_dataset)
 
 # create DataLoaders
+# https://docs.pytorch.org/tutorials/beginner/basics/data_tutorial.html
 
-
-
-
+train_dataloader = DataLoader(train_dataset, batch_size=32, shuffle=True)
+val_dataloader = DataLoader(val_dataset, batch_size=32, shuffle=True)
 
 
 # =========================================
