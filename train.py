@@ -11,6 +11,7 @@ from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms, utils
 from PIL import Image
 from sklearn.model_selection import train_test_split
+from torchvision.models import efficientnet_v2_s, EfficientNet_V2_S_Weights
 
 # =========================================
 # Data preprocessing/Setup
@@ -115,12 +116,23 @@ train_images, val_images, train_labels, val_labels = train_test_split(
 print("Number of training samples:", len(train_images))
 print("Number of validation samples:", len(val_images))
 
-# define transforms for training and validation data
+# define transforms for training and validation data.
+# use the transforms that pytorch packages with pre-trained models to get 
+# correct resize and normalization ("preprocess").
+# https://docs.pytorch.org/vision/stable/models.html
+# https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.efficientnet_v2_s.html#torchvision.models.efficientnet_v2_s
+
+weights = EfficientNet_V2_S_Weights.DEFAULT
+preprocess = weights.transforms()
+
 train_transform = transforms.Compose([
-    transforms.ToTensor()
+    transforms.RandomHorizontalFlip(),
+    transforms.RandomRotation(180),
+    transforms.ColorJitter(),
+    preprocess
     ])
 val_transform = transforms.Compose([
-    transforms.ToTensor()
+    preprocess
     ])
 
 train_dataset = CSE144Dataset(train_images, train_labels, transform=train_transform, resize=[224, 224])
@@ -128,7 +140,6 @@ val_dataset = CSE144Dataset(val_images, val_labels, transform=val_transform, res
 
 #dataset_unittest(train_dataset)
 #dataset_unittest(val_dataset)
-
 
 
 # create DataLoaders
