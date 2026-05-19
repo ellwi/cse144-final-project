@@ -1,5 +1,6 @@
 University of California Santa Cruz  
 CSE 144 Applied Machine Learning Final Project  
+Piet Rottinghuis
 Elina Wilson  
 
 ### About model  
