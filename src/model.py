@@ -1,4 +1,10 @@
 """
+Builds and returns model from pretrained backbone with all blocks except head frozen.
+Also contains unfreeze(block) which does exactly that, used to gradually unfreeze blocks
+in train.py to fine-tune model.
+
+
+
 Job: Build and configure neural networks
 
 This is your model factory.
@@ -17,45 +23,38 @@ What it SHOULD NOT do:
 
 Think: “model architecture definition only”
 """
+import torch
+from torchvision.models import efficientnet_v2_s, EfficientNet_V2_S_Weights
+import torch.nn as nn
 
-class MNISTCNN(nn.Module):
-    """Input: (B,1,28,28) -> Output: (B,10)"""
-    def __init__(self, num_classes=10):
-        super().__init__()
-        self.features = None  # Define your convolutional layers here
-        self.classifier = None  # Define your fully connected layers here
+def unfreeze(blocks):
+    """
+    Unfreeze all parameters in the specified blocks.
+    Usage: 
+        model.unfreeze(model.features) to unfreeze all blocks
+        model.unfreeze(model.features[-1]) to unfreeze final block before classifier
+        ...etc
+    """
+    for param in blocks.parameters():
+        param.requires_grad = True
 
-        self.features = nn.Sequential(
-            nn.Conv2d(in_channels=1, out_channels=32, kernel_size=3, padding=1),
-            nn.BatchNorm2d(32),
-            nn.ReLU(),
-            nn.MaxPool2d(kernel_size=2),
+def build_model():
+    # load pretrained backbone
+    weights = EfficientNet_V2_S_Weights
+    model = efficientnet_v2_s(weights=weights)
 
-            nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, padding=1),
-            nn.BatchNorm2d(64),
-            nn.ReLU(),
-            nn.MaxPool2d(kernel_size=2),
+    # replace classification head
+    in_features = model.classifier[1].in_features
+    model.classifier = nn.Linear(in_features, 100) # same number of inputs, but 100 classes
 
-            nn.Conv2d(in_channels=64, out_channels=128, kernel_size=3, padding=1),
-            nn.ReLU()
-        )
+    # freeze all features (not-classifier layers)
+    for param in model.features.parameters():
+        param.requires_grad = False
+    
+    return model
 
-        self.classifier = nn.Sequential(
-            nn.Flatten(),
-            nn.Linear(128 * 7 * 7, 256),
-            nn.ReLU(),
-            nn.Dropout(0.3),
-            nn.Linear(256, num_classes)
-        )    
+if __name__ == 'main':
+    model = build_model()
 
-    def forward(self, x):
-        # Pass input through features, then classifier
-        x = self.features(x)
-        x = self.classifier(x)
-        return x
-
-model = MNISTCNN().to(device)
-print(model)
-
-
-class 
+    print(model)
+    print(model.classifier) # view default structure
