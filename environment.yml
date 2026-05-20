@@ -1,0 +1,16 @@
+name: cse144-final
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.10
+
+  # Core scientific stack
+  - numpy
+  - pandas
+  - matplotlib
+  - scikit-learn
+  - tqdm
+
+  # needed to allow pip installs
+  - pip
