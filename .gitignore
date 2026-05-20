@@ -1,1 +1,17 @@
 /data
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Build / packaging outputs
+build/
+dist/
+*.egg-info/
+*.egg
+.wheelhouse/
+
+# Editable install artifacts
+src/*.egg-info/
