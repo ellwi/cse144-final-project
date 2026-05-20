@@ -1,3 +1,23 @@
+"""
+Job: Build and configure neural networks
+
+This is your model factory.
+
+Responsibilities:
+    Load pretrained backbone (EfficientNet, ConvNeXt, etc.)
+    Replace classification head (100 classes)
+    Freeze/unfreeze logic (optional early on)
+    Return ready-to-train model
+Example responsibility:
+    build_model(config) → torch.nn.Module
+What it SHOULD NOT do:
+    Training logic
+    Loss computation
+    Dataset handling
+
+Think: “model architecture definition only”
+"""
+
 class MNISTCNN(nn.Module):
     """Input: (B,1,28,28) -> Output: (B,10)"""
     def __init__(self, num_classes=10):
