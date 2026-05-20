@@ -12,5 +12,5 @@ What it should NOT do:
     No CSV formatting (that’s submission.py or predict.py)
     No training logic
 
-👉 Think: “model → predictions
+Think: “model → predictions
 ”"""
