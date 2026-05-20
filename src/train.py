@@ -1,3 +1,25 @@
+"""
+Job: Run the training pipeline end-to-end
+
+This is the main engine of the project.
+
+Responsibilities:
+    Load config
+    Initialize dataset + dataloaders
+    Build model
+    Define optimizer + scheduler
+    Run training loop
+    Run validation loop
+    Save checkpoints
+    Track best model
+Core loops:
+    train_one_epoch()
+    validate()
+    main()
+
+Think: “make the model learn”
+"""
+
 
 import dataset
 
