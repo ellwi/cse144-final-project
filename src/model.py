@@ -36,3 +36,6 @@ class MNISTCNN(nn.Module):
 
 model = MNISTCNN().to(device)
 print(model)
+
+
+class 

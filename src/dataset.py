@@ -137,16 +137,6 @@ val_transform = transforms.Compose([
     preprocess
     ])
 
-train_dataset = CSE144Dataset(train_images, train_labels, transform=train_transform)
-val_dataset = CSE144Dataset(val_images, val_labels, transform=val_transform)
 
-dataset_unittest(train_dataset)
-dataset_unittest(val_dataset)
-
-# create DataLoaders
-# https://docs.pytorch.org/tutorials/beginner/basics/data_tutorial.html
-
-train_dataloader = DataLoader(train_dataset, batch_size=32, shuffle=True)
-val_dataloader = DataLoader(val_dataset, batch_size=32, shuffle=True)
 
 
