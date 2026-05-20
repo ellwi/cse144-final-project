@@ -16,7 +16,7 @@ this section should contain the exact commands needed to generate `submission.cs
 
 ## Developer environment setup
 
-Build the base conda environment. This will hold the base python installation and core python packages. We want to be able to build this enviornment agnostic of the hardware, operating system, and if our package exists yet. This is why we are not including torch packages or our package in this enviornment yet.
+We first create a base conda environment. This environment contains the Python installation and core scientific packages. It is designed to be independent of the project code and does not include deep learning frameworks such as PyTorch.
 
 ```bash
 conda env create -f environment.yml
@@ -28,14 +28,16 @@ Activate the environment:
 conda activate cse144-final
 ```
 
-Now install the specific ML libraries. These will likley be different for each developer, so check what versions work with your system. Here is a sample command for installing torch and torchvision:
+Install PyTorch (GPU-enabled backend)
 
+PyTorch is installed separately because its installation depends on system-specific CUDA configuration. This ensures compatibility across different machines (e.g., local GPU machines, Colab, or lab servers).
 ```bash
-pip install torch torchvision timm
+pip install torch torchvision
 ```
 
-Now install our project into the environment. This will allow us to import our package and use it in our code. We install in editable mode so that we can make changes to the code and have them reflected without needing to reinstall the package.
+Install project package
 
+Finally, install the project in editable mode. This allows the source code in src/ to be imported as a Python package and ensures that changes to the code are immediately reflected without needing to reinstall.
 ```bash
 pip install -e .
 ```
