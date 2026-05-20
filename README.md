@@ -32,12 +32,12 @@ Install PyTorch (GPU-enabled backend)
 
 PyTorch is installed separately because its installation depends on system-specific CUDA configuration. This ensures compatibility across different machines (e.g., local GPU machines, Colab, or lab servers).
 ```bash
-pip install torch torchvision
+python -m pip install torch torchvision
 ```
 
 Install project package
 
 Finally, install the project in editable mode. This allows the source code in src/ to be imported as a Python package and ensures that changes to the code are immediately reflected without needing to reinstall.
 ```bash
-pip install -e .
+python -m pip install -e .
 ```
