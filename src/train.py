@@ -35,3 +35,13 @@ dataset.dataset_unittest(val_dataset)
 # https://docs.pytorch.org/tutorials/beginner/basics/data_tutorial.html
 train_dataloader = dataset.DataLoader(train_dataset, batch_size=32, shuffle=True)
 val_dataloader = dataset.DataLoader(val_dataset, batch_size=32, shuffle=True)
+
+# define optimizer
+feature_lr = 1e-4
+classifier_lr = 1e-3
+weight_decay = 1e-4 # this is L2 regularization
+
+optimizer = torch.optim.AdamW([
+    {'params': blocks.parameters(), 'lr': feature_lr},
+    {'params': blocks.parameters(), 'lr': classifier_lr}
+], weight_decay=weight_decay)
