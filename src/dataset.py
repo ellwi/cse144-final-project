@@ -2,6 +2,24 @@
 Load data from root directory and create Dataset class.
 Separate into train and validation Datasets.
 Create Dataloaders. 
+
+
+Job: Turn raw image folders into model-ready batches
+
+This file is responsible for everything related to data access.
+
+Responsibilities:
+    Read image paths from train/ and test/
+    Map folder names → integer labels (0–99)
+    Define Dataset class
+    Create train/val splits (or interface with split files later)
+    Return (image_tensor, label) pairs
+What it SHOULD NOT do:
+    No model logic
+    No training loops
+    No augmentation definitions (those go in transforms.py)
+
+Think: “data loading + labeling only”
 """
 
 import os
