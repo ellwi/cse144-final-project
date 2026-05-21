@@ -38,14 +38,16 @@ def unfreeze(blocks):
     for param in blocks.parameters():
         param.requires_grad = True
 
-def build_model():
+def build_model(num_classes=100):
     # load pretrained backbone
     weights = EfficientNet_V2_S_Weights
     model = efficientnet_v2_s(weights=weights)
 
-    # replace classification head
-    in_features = model.classifier[1].in_features
-    model.classifier = nn.Linear(in_features, 100) # same number of inputs, but 100 classes
+    # replace linear classification head
+    # efficientnet classifier: [nn.Sequential, nn.Linear]
+    in_features = model.classifier[-1].in_features
+    model.classifier[-1] = nn.Linear(in_features, num_classes) # same number of inputs, but 100 classes
+
 
     # freeze all features (not-classifier layers)
     for param in model.features.parameters():

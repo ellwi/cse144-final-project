@@ -22,30 +22,111 @@ Think: “make the model learn”
 
 
 import dataset
+import model
 import torch
+import torch.nn as nn
 
-# create training and validation datasets
-train_dataset = dataset.CSE144Dataset(dataset.train_images, dataset.train_labels, transform=dataset.train_transform)
-val_dataset = dataset.CSE144Dataset(dataset.val_images, dataset.val_labels, transform=dataset.val_transform)
+def train(net, train_dataloader, optimizer, criterion, epochs=1, output_path=None):
+    """
+    Function for training a neural network for specified number of epochs.
+    Specify an output path to save the trained model to disk.
+    """
+    for epoch in range(epochs):
+        
+        running_loss = 0.0
+        for i, data in enumerate(train_dataloader, 0):
+            inputs, labels = data
+            inputs, labels = data[0].to(device), data[1].to(device)
 
-# run unit tests
-dataset.dataset_unittest(train_dataset)
-dataset.dataset_unittest(val_dataset)
+            # zero the parameter gradients
+            optimizer.zero_grad()
 
-# create DataLoaders
-# https://docs.pytorch.org/tutorials/beginner/basics/data_tutorial.html
-train_dataloader = dataset.DataLoader(train_dataset, batch_size=32, shuffle=True)
-val_dataloader = dataset.DataLoader(val_dataset, batch_size=32, shuffle=True)
+            # forward + backward + optimize
+            outputs = net(inputs)
+            loss = criterion(outputs, labels)
+            loss.backward()
+            optimizer.step()
 
-# define optimizer
-feature_lr = 1e-4
-classifier_lr = 1e-3
-weight_decay = 1e-4 # this is L2 regularization
+            # print statistics
+            running_loss += loss.item()
+            if i % 2000 == 1999:    # print every 2000 mini-batches
+                print(f'[{epoch + 1}, {i + 1:5d}] loss: {running_loss / 2000:.3f}')
+                running_loss = 0.0
+    print('Finished Training')
 
-optimizer = torch.optim.AdamW([
-    {'params': blocks.parameters(), 'lr': feature_lr},
-    {'params': blocks.parameters(), 'lr': classifier_lr}
-], weight_decay=weight_decay)
+    if output_path:
+        torch.save(net.state_dict(), output_path)
+
+    # return the trained version of the network
+    return net
+
+def validate(net, val_dataloader):
+    """
+    Function for validating a neural network's performace. 
+    """
+    correct = 0
+    total = 0
+
+    # frozen layers because we're not training
+    with torch.no_grad():
+        for data in val_dataloader:
+            images, labels = data
+            images, labels = data[0].to(device), data[1].to(device)
+
+            # run images through neural network 
+            outputs = net(images)
+            # predicted label is the output with max weight/energy
+            _, predicted = torch.max(outputs, 1)
+            total += labels.size(0)
+            correct += (predicted == labels).sum().item()
+
+    print(f'Accuracy of the network on the 10000 test images: {100 * correct // total} %')
+
+if __name__ == 'main':
+
+    # ======================================
+    # https://docs.pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html
+    # First test: train head only for 10 epochs
+    # ======================================
+
+    # build the neural network and give it gpu information
+    net = model.build_model()
+    device = torch.device(torch.accelerator.current_accelerator().type if torch.accelerator.is_available() else 'cpu')
+    net.to(device)
+    # Assuming that we are on a CUDA machine, this should print a CUDA device:
+    print(device)
+    
+    # create training and validation datasets
+    train_dataset = dataset.CSE144Dataset(dataset.train_images, dataset.train_labels, transform=dataset.train_transform)
+    val_dataset = dataset.CSE144Dataset(dataset.val_images, dataset.val_labels, transform=dataset.val_transform)
+
+    # run unit tests
+    # dataset.dataset_unittest(train_dataset)
+    # dataset.dataset_unittest(val_dataset)
+
+    # create DataLoaders
+    # https://docs.pytorch.org/tutorials/beginner/basics/data_tutorial.html
+    train_dataloader = dataset.DataLoader(train_dataset, batch_size=32, shuffle=True)
+    val_dataloader = dataset.DataLoader(val_dataset, batch_size=32, shuffle=True)
+
+    # define optimizer
+    feature_lr = 1e-4
+    classifier_lr = 1e-3
+    weight_decay = 1e-4 # this is L2 regularization
+    optimizer = torch.optim.AdamW([
+        {'params': net.parameters(), 'lr': feature_lr},
+        {'params': net.parameters(), 'lr': classifier_lr}
+    ], weight_decay=weight_decay)
+
+    # define loss function
+    criterion = nn.CrossEntropyLoss()
+
+
+    # use the train function to train it and you're done!
+    net = train(net, train_dataloader, optimizer, criterion, epochs=10)
+    # validate with the validation function
+    validate(net, val_dataloader)
+
 
 
 def apply_freezing_strategy(model: torch.nn.Module) -> None:
