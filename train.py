@@ -4,7 +4,7 @@ Script entry point for running training on the dataset.
 
 from cse144_final_project.dataset import get_dataloaders
 from cse144_final_project.model import build_model
-from cse144_final_project.train import fit
+from cse144_final_project.train import fit, apply_freezing_strategy
 from cse144_final_project.utils import set_seed
 
 import argparse
@@ -39,8 +39,11 @@ def main():
     model = build_model(num_classes=100, pretrained=True)
     model = model.to(device)
 
+    apply_freezing_strategy(model)
+
     loss_fn = nn.CrossEntropyLoss()
-    optimizer = optim.AdamW(model.parameters(), lr=1e-4)
+    # Only parameters with requires_grad=True will be updated by the optimizer, so this will automatically exclude frozen layers.
+    optimizer = optim.AdamW(filter(lambda p: p.requires_grad, model.parameters()), lr=1e-4)
 
     # This is where the training loop happens.
     # History should be a dictionary with this format: {"train_loss": [], "train_acc": [], "val_loss": [], "val_acc": []}
