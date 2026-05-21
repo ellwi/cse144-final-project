@@ -55,5 +55,18 @@ def main():
         save_path=args.outdir
     )
 
+    # Quick summary output of training results. Temporarily here for now, will likley move to a seperate module later.
+    best_epoch = max(
+        range(len(history["val_acc"])),
+        key=lambda i: history["val_acc"][i]
+    )
+
+    print("\nTraining complete.")
+    print(f"Best epoch:      {best_epoch + 1}")
+    print(f"Best val acc:    {history['val_acc'][best_epoch]:.4f}")
+    print(f"Best val loss:   {history['val_loss'][best_epoch]:.4f}")
+    print(f"Train acc @ best:{history['train_acc'][best_epoch]:.4f}")
+    print(f"Checkpoint saved to: {args.outdir}")
+
 if __name__ == "__main__":
     main()
