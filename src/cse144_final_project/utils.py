@@ -52,3 +52,16 @@ def set_seed(seed: int = 42) -> None:
 
     torch.backends.cuda.matmul.allow_tf32 = False
     torch.backends.cudnn.allow_tf32 = False
+
+
+def load_checkpoint(model: torch.nn.Module, checkpoint_path: Path) -> None:
+    """
+    Loads model weights from a checkpoint file.
+
+    Args:
+        model (torch.nn.Module): The model instance to load weights into.
+        checkpoint_path (Path): Path to the checkpoint file (.pth or .pt) containing the model state_dict.
+    """
+
+    checkpoint = torch.load(checkpoint_path, map_location="cpu")
+    model.load_state_dict(checkpoint["model_state_dict"])
