@@ -36,7 +36,7 @@ def main():
     )
     
     # Model should be type nn.Module
-    model = build_model(num_classes=100, pretrained=True)
+    model = build_model()
     model = model.to(device)
 
     apply_freezing_strategy(model)
