@@ -42,6 +42,7 @@ def main():
     loss_fn = nn.CrossEntropyLoss()
     optimizer = optim.AdamW(model.parameters(), lr=1e-4)
 
+    # This is where the training loop happens.
     # History should be a dictionary with this format: {"train_loss": [], "train_acc": [], "val_loss": [], "val_acc": []}
     # Each epoch should append entries to each of these lists
     history = fit(
