@@ -1,23 +1,21 @@
 """
-Job: Run the training pipeline end-to-end
+Training functionality for model optimization and evaluation.
 
-This is the main engine of the project.
+This module contains the reusable training logic used by the project.
+It is responsible for executing training and validation loops, tracking
+metrics, and managing checkpointing.
 
-Responsibilities:
-    Load config
-    Initialize dataset + dataloaders
-    Build model
-    Define optimizer + scheduler
-    Run training loop
-    Run validation loop
-    Save checkpoints
-    Track best model
-Core loops:
-    train_one_epoch()
-    validate()
-    main()
+The functions in this module are intentionally model-agnostic and
+dataset-agnostic. Models, dataloaders, optimizers, loss functions, and
+other experiment-specific components should be constructed by the
+entrypoint scripts and passed into these functions.
 
-Think: “make the model learn”
+Typical responsibilities include:
+    - Training a model for one epoch
+    - Evaluating a model on a validation set
+    - Running multi-epoch training via `fit`
+    - Tracking training and validation metrics
+    - Saving checkpoints
 """
 
 
