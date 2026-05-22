@@ -32,10 +32,9 @@ def train(device, net, train_dataloader, optimizer, criterion, epochs=1, output_
     Specify an output path to save the trained model to disk.
     """
     for epoch in range(epochs):
-        
+        print(f'Entering training epoch {epoch}...')
         running_loss = 0.0
         for i, data in enumerate(train_dataloader, 0):
-            inputs, labels = data
             inputs, labels = data[0].to(device), data[1].to(device)
 
             # zero the parameter gradients
@@ -70,7 +69,6 @@ def validate(device, net, val_dataloader):
     # frozen layers because we're not training
     with torch.no_grad():
         for data in val_dataloader:
-            images, labels = data
             images, labels = data[0].to(device), data[1].to(device)
 
             # run images through neural network 
@@ -80,7 +78,7 @@ def validate(device, net, val_dataloader):
             total += labels.size(0)
             correct += (predicted == labels).sum().item()
 
-    print(f'Accuracy of the network on the 1079 test images: {100 * correct // total} %')
+    print(f'Accuracy of the network on the {total} validation images: {100 * correct // total} %')
 
 def main():
     # ======================================
@@ -89,17 +87,19 @@ def main():
     # ======================================
 
     # build the neural network and give it gpu information
+    print('Building model...')
     net = model.build_model()
     device = torch.device(torch.accelerator.current_accelerator().type if torch.accelerator.is_available() else 'cpu') # type: ignore
     net.to(device)
     # Assuming that we are on a CUDA machine, this should print a CUDA device:
-    print(device)
+    print(f'Your device is: {device}')
     
     # run unit tests
     # dataset_unittest(train_dataset)
     # dataset_unittest(val_dataset)
 
     # create CSE144Datasets
+    print('Generating training and validation datasets...')
     path = r"C:\Users\eewilson\Documents\University\CSE144\finalproject_data\train"
     train_dataset, val_dataset = dataset.get_datasets(path)
 
@@ -113,20 +113,22 @@ def main():
     classifier_lr = 1e-3
     weight_decay = 1e-4 # this is L2 regularization
     optimizer = torch.optim.AdamW([
-        {'params': net.parameters(), 'lr': feature_lr},
-        {'params': net.parameters(), 'lr': classifier_lr}
+        {'params': net.features.parameters(), 'lr': feature_lr},
+        {'params': net.classifier.parameters(), 'lr': classifier_lr}
     ], weight_decay=weight_decay)
 
     # define loss function
     criterion = nn.CrossEntropyLoss()
 
     # use the train function to train it and you're done!
+    print('\nBeginning training now:')
     net = train(device, net, train_dataloader, optimizer, criterion, epochs=10)
     # validate with the validation function
+    print('\nBeginning validation now:')
     validate(device, net, val_dataloader)
 
 
-if __name__ == 'main':
+if __name__ == '__main__':
     main()
 
 
