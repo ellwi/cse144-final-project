@@ -27,42 +27,61 @@ import torch
 import torch.nn as nn
 import time
 
-def train(device, net, train_dataloader, optimizer, criterion, epochs=1, output_path=None):
+def fit(net=net,
+        train_loader=train_loader,
+        val_loader=val_loader,
+        optimizer=optimizer,
+        criterion=criterion,
+        device=device,
+        epochs=10,
+        save_path=args.outdir):
+    
+    # track time
+    start = time.time()
+
+    # training and validation loop 
+    for epoch in range(epochs):
+        # train
+        print(f'Entering training epoch {epoch}...')
+        net, running_loss = train_one_epoch(device, net, train_loader, optimizer, criterion)
+        print(f'[epoch {epoch + 1}] loss: {running_loss / len(train_loader):.3f}')
+
+        # validate
+        validate(device, net, val_loader)
+
+    elapsed = time.time() - start
+    print(f'Finished Training in {elapsed/60:.1f} minutes')
+
+    if save_path:
+        torch.save(net.state_dict(), save_path)
+    
+    # return the trained version of the network
+    return net
+
+def train_one_epoch(device, net, train_loader, optimizer, criterion):
     """
     Function for training a neural network for specified number of epochs.
     Specify an output path to save the trained model to disk.
     """
-    start = time.time()
-    for epoch in range(epochs):
-        print(f'Entering training epoch {epoch}...')
-        running_loss = 0.0
-        for i, data in enumerate(train_dataloader, 0):
-            inputs, labels = data[0].to(device), data[1].to(device)
+    running_loss = 0.0
+    for i, data in enumerate(train_loader, 0):
+        inputs, labels = data[0].to(device), data[1].to(device)
 
-            # zero the parameter gradients
-            optimizer.zero_grad()
+        # zero the parameter gradients
+        optimizer.zero_grad()
 
-            # forward + backward + optimize
-            outputs = net(inputs)
-            loss = criterion(outputs, labels)
-            loss.backward()
-            optimizer.step()
+        # forward + backward + optimize
+        outputs = net(inputs)
+        loss = criterion(outputs, labels)
+        loss.backward()
+        optimizer.step()
 
-            # print statistics
-            running_loss += loss.item()
-            if i == len(train_dataloader) - 1:
-                print(f'[epoch {epoch + 1}] loss: {running_loss / len(train_dataloader):.3f}')
-                running_loss = 0.0
-    elapsed = time.time() - start
-    print(f'Finished Training in {elapsed/60:.1f} minutes')
+        # save running loss
+        running_loss += loss.item()            
+    return net, running_loss
 
-    if output_path:
-        torch.save(net.state_dict(), output_path)
 
-    # return the trained version of the network
-    return net
-
-def validate(device, net, val_dataloader):
+def validate(device, net, val_loader):
     """
     Function for validating a neural network's performace. 
     """
@@ -71,7 +90,7 @@ def validate(device, net, val_dataloader):
 
     # frozen layers because we're not training
     with torch.no_grad():
-        for data in val_dataloader:
+        for data in val_loader:
             images, labels = data[0].to(device), data[1].to(device)
 
             # run images through neural network 
@@ -125,10 +144,7 @@ def main():
 
     # use the train function to train it and you're done!
     print('\nBeginning training now:')
-    net = train(device, net, train_dataloader, optimizer, criterion, epochs=10)
-    # validate with the validation function
-    print('\nBeginning validation now:')
-    validate(device, net, val_dataloader)
+    net = fit(device, net, train_dataloader, optimizer, criterion, epochs=10)
 
 
 if __name__ == '__main__':
