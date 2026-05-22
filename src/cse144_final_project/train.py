@@ -27,14 +27,7 @@ import torch
 import torch.nn as nn
 import time
 
-def fit(net=net,
-        train_loader=train_loader,
-        val_loader=val_loader,
-        optimizer=optimizer,
-        criterion=criterion,
-        device=device,
-        epochs=10,
-        save_path=args.outdir):
+def fit(net, train_loader, val_loader, optimizer, criterion, device, epochs, save_path):
     
     # track time
     start = time.time()
@@ -42,14 +35,20 @@ def fit(net=net,
     # training and validation loop 
     performance = {"train_loss": [], "train_acc": [], "val_loss": [], "val_acc": []}
     for epoch in range(epochs):
-        # train
+        # 1. train
         print(f'Entering training epoch {epoch}...')
         train_loss, train_accuracy = train_one_epoch(device, net, train_loader, optimizer, criterion)
         print(f'[epoch {epoch}] loss: {train_loss / len(train_loader):.3f}')
 
-        # validate
+        # 2. validate
         val_loss, val_accuracy = validate(device, net, val_loader, criterion)
         print(f'[epoch {epoch}] accuracy: {val_accuracy} %')
+
+        # 3. record in performance dictionary
+        performance["train_loss"].append(train_loss)
+        performance["train_acc"].append(train_accuracy)
+        performance["val_loss"].append(val_loss)
+        performance["val_acc"].append(val_accuracy)
 
     elapsed = time.time() - start
     print(f'Finished Training in {elapsed/60:.1f} minutes')
@@ -57,8 +56,8 @@ def fit(net=net,
     if save_path:
         torch.save(net.state_dict(), save_path)
     
-    # return the trained version of the network
-    return net
+    # return the performance dictionary
+    return performance
 
 def train_one_epoch(device, net, train_loader, optimizer, criterion):
     """
@@ -69,7 +68,7 @@ def train_one_epoch(device, net, train_loader, optimizer, criterion):
     total = 0
 
     running_loss = 0.0
-    running_accuracy = 
+    accuracy = 0.0
 
     for i, data in enumerate(train_loader, 0):
         inputs, labels = data[0].to(device), data[1].to(device)
@@ -121,12 +120,6 @@ def validate(device, net, val_loader, criterion):
 
     accuracy = 100 * correct // total
     return running_loss, accuracy
-
-def main():
-    return
-
-if __name__ == '__main__':
-    main()
 
 
 def apply_freezing_strategy(model: torch.nn.Module) -> None:
