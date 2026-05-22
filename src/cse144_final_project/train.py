@@ -25,12 +25,14 @@ import dataset
 import model
 import torch
 import torch.nn as nn
+import time
 
 def train(device, net, train_dataloader, optimizer, criterion, epochs=1, output_path=None):
     """
     Function for training a neural network for specified number of epochs.
     Specify an output path to save the trained model to disk.
     """
+    start = time.time()
     for epoch in range(epochs):
         print(f'Entering training epoch {epoch}...')
         running_loss = 0.0
@@ -48,10 +50,11 @@ def train(device, net, train_dataloader, optimizer, criterion, epochs=1, output_
 
             # print statistics
             running_loss += loss.item()
-            if i % 2000 == 1999:    # print every 2000 mini-batches
-                print(f'[{epoch + 1}, {i + 1:5d}] loss: {running_loss / 2000:.3f}')
+            if i == len(train_dataloader) - 1:
+                print(f'[epoch {epoch + 1}] loss: {running_loss / len(train_dataloader):.3f}')
                 running_loss = 0.0
-    print('Finished Training')
+    elapsed = time.time() - start
+    print(f'Finished Training in {elapsed/60:.1f} minutes')
 
     if output_path:
         torch.save(net.state_dict(), output_path)
