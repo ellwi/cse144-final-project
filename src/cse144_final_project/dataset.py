@@ -158,6 +158,18 @@ def get_datasets(path):
 
     return train_dataset, val_dataset
 
+def get_dataloaders(data_dir, batch_size=32, num_workers=2, shuffle=True):
+    """
+    
+    """
+    train_dataset, val_dataset = get_datasets(data_dir)
+    # create DataLoaders
+    # https://docs.pytorch.org/tutorials/beginner/basics/data_tutorial.html
+    train_dataloader = DataLoader(train_dataset, batch_size=batch_size, num_workers=num_workers, shuffle=shuffle)
+    val_dataloader = DataLoader(val_dataset, batch_size=batch_size, num_workers=num_workers, shuffle=shuffle)
+
+    return train_dataloader, val_dataloader
+
 def main():
     path = r"C:\Users\eewilson\Documents\University\CSE144\finalproject_data\train"
     train_dataset, val_dataset = get_datasets(path)

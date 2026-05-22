@@ -27,51 +27,86 @@ import torch
 import torch.nn as nn
 import time
 
-def train(device, net, train_dataloader, optimizer, criterion, epochs=1, output_path=None):
+def fit(net, train_loader, val_loader, optimizer, criterion, device, epochs, save_path):
+    
+    # track time
+    start = time.time()
+
+    # training and validation loop 
+    performance = {"train_loss": [], "train_acc": [], "val_loss": [], "val_acc": []}
+    for epoch in range(epochs):
+        # 1. train
+        print(f'Entering training epoch {epoch}...')
+        train_loss, train_accuracy = train_one_epoch(device, net, train_loader, optimizer, criterion)
+        print(f'[epoch {epoch}] loss: {train_loss / len(train_loader):.3f}')
+
+        # 2. validate
+        val_loss, val_accuracy = validate(device, net, val_loader, criterion)
+        print(f'[epoch {epoch}] accuracy: {val_accuracy} %')
+
+        # 3. record in performance dictionary
+        performance["train_loss"].append(train_loss)
+        performance["train_acc"].append(train_accuracy)
+        performance["val_loss"].append(val_loss)
+        performance["val_acc"].append(val_accuracy)
+
+    elapsed = time.time() - start
+    print(f'Finished Training in {elapsed/60:.1f} minutes')
+
+    if save_path:
+        torch.save(net.state_dict(), save_path)
+    
+    # return the performance dictionary
+    return performance
+
+def train_one_epoch(device, net, train_loader, optimizer, criterion):
     """
     Function for training a neural network for specified number of epochs.
     Specify an output path to save the trained model to disk.
     """
-    start = time.time()
-    for epoch in range(epochs):
-        print(f'Entering training epoch {epoch}...')
-        running_loss = 0.0
-        for i, data in enumerate(train_dataloader, 0):
-            inputs, labels = data[0].to(device), data[1].to(device)
+    correct = 0
+    total = 0
 
-            # zero the parameter gradients
-            optimizer.zero_grad()
+    running_loss = 0.0
+    accuracy = 0.0
 
-            # forward + backward + optimize
-            outputs = net(inputs)
-            loss = criterion(outputs, labels)
-            loss.backward()
-            optimizer.step()
+    for i, data in enumerate(train_loader, 0):
+        inputs, labels = data[0].to(device), data[1].to(device)
 
-            # print statistics
-            running_loss += loss.item()
-            if i == len(train_dataloader) - 1:
-                print(f'[epoch {epoch + 1}] loss: {running_loss / len(train_dataloader):.3f}')
-                running_loss = 0.0
-    elapsed = time.time() - start
-    print(f'Finished Training in {elapsed/60:.1f} minutes')
+        # zero the parameter gradients
+        optimizer.zero_grad()
 
-    if output_path:
-        torch.save(net.state_dict(), output_path)
+        # forward + backward + optimize
+        outputs = net(inputs)
 
-    # return the trained version of the network
-    return net
+        # predicted label is the output with max weight/energy
+        _, predicted = torch.max(outputs, 1)
+        total += labels.size(0)
+        correct += (predicted == labels).sum().item()
+        
+        loss = criterion(outputs, labels)
+        loss.backward()
+        optimizer.step()
 
-def validate(device, net, val_dataloader):
+        # save loss and accuracy
+        running_loss += loss.item()
+    
+    accuracy = 100 * correct // total
+    return running_loss, accuracy
+
+
+def validate(device, net, val_loader, criterion):
     """
     Function for validating a neural network's performace. 
     """
     correct = 0
     total = 0
 
+    running_loss = 0.0
+
     # frozen layers because we're not training
     with torch.no_grad():
-        for data in val_dataloader:
+        for data in val_loader:
             images, labels = data[0].to(device), data[1].to(device)
 
             # run images through neural network 
@@ -81,58 +116,10 @@ def validate(device, net, val_dataloader):
             total += labels.size(0)
             correct += (predicted == labels).sum().item()
 
-    print(f'Accuracy of the network on the {total} validation images: {100 * correct // total} %')
+            running_loss += criterion(outputs, labels).item()
 
-def main():
-    # ======================================
-    # https://docs.pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html
-    # First test: train head only for 10 epochs
-    # ======================================
-
-    # build the neural network and give it gpu information
-    print('Building model...')
-    net = model.build_model()
-    device = torch.device(torch.accelerator.current_accelerator().type if torch.accelerator.is_available() else 'cpu') # type: ignore
-    net.to(device)
-    # Assuming that we are on a CUDA machine, this should print a CUDA device:
-    print(f'Your device is: {device}')
-    
-    # run unit tests
-    # dataset_unittest(train_dataset)
-    # dataset_unittest(val_dataset)
-
-    # create CSE144Datasets
-    print('Generating training and validation datasets...')
-    path = r"C:\Users\eewilson\Documents\University\CSE144\finalproject_data\train"
-    train_dataset, val_dataset = dataset.get_datasets(path)
-
-    # create DataLoaders
-    # https://docs.pytorch.org/tutorials/beginner/basics/data_tutorial.html
-    train_dataloader = dataset.DataLoader(train_dataset, batch_size=32, shuffle=True)
-    val_dataloader = dataset.DataLoader(val_dataset, batch_size=32, shuffle=True)
-
-    # define optimizer
-    feature_lr = 1e-4
-    classifier_lr = 1e-3
-    weight_decay = 1e-4 # this is L2 regularization
-    optimizer = torch.optim.AdamW([
-        {'params': net.features.parameters(), 'lr': feature_lr},
-        {'params': net.classifier.parameters(), 'lr': classifier_lr}
-    ], weight_decay=weight_decay)
-
-    # define loss function
-    criterion = nn.CrossEntropyLoss()
-
-    # use the train function to train it and you're done!
-    print('\nBeginning training now:')
-    net = train(device, net, train_dataloader, optimizer, criterion, epochs=10)
-    # validate with the validation function
-    print('\nBeginning validation now:')
-    validate(device, net, val_dataloader)
-
-
-if __name__ == '__main__':
-    main()
+    accuracy = 100 * correct // total
+    return running_loss, accuracy
 
 
 def apply_freezing_strategy(model: torch.nn.Module) -> None:
