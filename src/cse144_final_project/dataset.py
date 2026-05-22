@@ -27,7 +27,6 @@ os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 # "multiple copies of the OpenMP runtime have been linked into the program...As an unsafe, unsupported, undocumented workaround you can set 
 # the environment variable KMP_DUPLICATE_LIB_OK=TRUE to allow the program to continue to execute" lol
 
-import torch
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -117,43 +116,57 @@ def dataset_unittest(dataset):
     grid = utils.make_grid(images[:16], normalize=True)
     plt.figure(figsize=(12, 6))
     plt.imshow(grid.permute(1, 2, 0))
-    plt.title([str(l.item()) for l in labels[:16]])
+    plt.title([str(l.item()) for l in labels[:16]]) # type: ignore
     plt.axis("off")
     plt.show()
 
+def get_datasets(path):
 
-# We'll use this directory on my pc for the actual full-scale training
+    # collect lists of images and labels from directory 
+    images, lables = collect_samples(path)
 
-# collect lists of images and labels from directory 
-images, lables = collect_samples(r"C:\Users\eewilson\Documents\University\CSE144\finalproject_data\train")
+    # split dataset into train and validate
+    # https://www.geeksforgeeks.org/deep-learning/how-to-split-a-dataset-using-pytorch/
 
+    train_images, val_images, train_labels, val_labels = train_test_split(
+        images, lables, test_size=0.2, stratify=lables, random_state=7
+    )
+    print("Number of training samples:", len(train_images))
+    print("Number of validation samples:", len(val_images))
 
-# split dataset into train and validate
-# https://www.geeksforgeeks.org/deep-learning/how-to-split-a-dataset-using-pytorch/
+    # define transforms for training and validation data.
+    # use the transforms that pytorch packages with pre-trained models to get 
+    # correct resize and normalization ("preprocess").
+    # https://docs.pytorch.org/vision/stable/models.html
+    # https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.efficientnet_v2_s.html#torchvision.models.efficientnet_v2_s
 
-train_images, val_images, train_labels, val_labels = train_test_split(
-    images, lables, test_size=0.2, stratify=lables, random_state=7
-)
-print("Number of training samples:", len(train_images))
-print("Number of validation samples:", len(val_images))
+    weights = EfficientNet_V2_S_Weights.DEFAULT
+    preprocess = weights.transforms()
 
-# define transforms for training and validation data.
-# use the transforms that pytorch packages with pre-trained models to get 
-# correct resize and normalization ("preprocess").
-# https://docs.pytorch.org/vision/stable/models.html
-# https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.efficientnet_v2_s.html#torchvision.models.efficientnet_v2_s
+    train_transform = transforms.Compose([
+        transforms.RandomHorizontalFlip(),
+        transforms.ColorJitter(),
+        preprocess
+        ])
+    val_transform = transforms.Compose([
+        preprocess
+        ])
+    
+    # create training and validation datasets
+    train_dataset = CSE144Dataset(train_images, train_labels, transform=train_transform)
+    val_dataset = CSE144Dataset(val_images, val_labels, transform=val_transform)
 
-weights = EfficientNet_V2_S_Weights.DEFAULT
-preprocess = weights.transforms()
+    return train_dataset, val_dataset
 
-train_transform = transforms.Compose([
-    transforms.RandomHorizontalFlip(),
-    transforms.ColorJitter(),
-    preprocess
-    ])
-val_transform = transforms.Compose([
-    preprocess
-    ])
+def main():
+    path = r"C:\Users\eewilson\Documents\University\CSE144\finalproject_data\train"
+    train_dataset, val_dataset = get_datasets(path)
+    dataset_unittest(train_dataset)
+    #dataset_unittest(val_dataset)
+
+if __name__ == '__main__':
+    main()
+    
 
 
 
