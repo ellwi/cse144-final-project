@@ -39,6 +39,7 @@ def unfreeze(blocks):
 
 def build_model(num_classes=100):
     # load pretrained backbone
+    print('Loading efficientnet_v2_s...')
     weights = EfficientNet_V2_S_Weights.DEFAULT
     model = efficientnet_v2_s(weights=weights)
 
