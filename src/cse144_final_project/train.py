@@ -26,7 +26,7 @@ import model
 import torch
 import torch.nn as nn
 
-def train(net, train_dataloader, optimizer, criterion, epochs=1, output_path=None):
+def train(device, net, train_dataloader, optimizer, criterion, epochs=1, output_path=None):
     """
     Function for training a neural network for specified number of epochs.
     Specify an output path to save the trained model to disk.
@@ -60,7 +60,7 @@ def train(net, train_dataloader, optimizer, criterion, epochs=1, output_path=Non
     # return the trained version of the network
     return net
 
-def validate(net, val_dataloader):
+def validate(device, net, val_dataloader):
     """
     Function for validating a neural network's performace. 
     """
@@ -80,10 +80,9 @@ def validate(net, val_dataloader):
             total += labels.size(0)
             correct += (predicted == labels).sum().item()
 
-    print(f'Accuracy of the network on the 10000 test images: {100 * correct // total} %')
+    print(f'Accuracy of the network on the 1079 test images: {100 * correct // total} %')
 
-if __name__ == 'main':
-
+def main():
     # ======================================
     # https://docs.pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html
     # First test: train head only for 10 epochs
@@ -91,18 +90,18 @@ if __name__ == 'main':
 
     # build the neural network and give it gpu information
     net = model.build_model()
-    device = torch.device(torch.accelerator.current_accelerator().type if torch.accelerator.is_available() else 'cpu')
+    device = torch.device(torch.accelerator.current_accelerator().type if torch.accelerator.is_available() else 'cpu') # type: ignore
     net.to(device)
     # Assuming that we are on a CUDA machine, this should print a CUDA device:
     print(device)
     
-    # create training and validation datasets
-    train_dataset = dataset.CSE144Dataset(dataset.train_images, dataset.train_labels, transform=dataset.train_transform)
-    val_dataset = dataset.CSE144Dataset(dataset.val_images, dataset.val_labels, transform=dataset.val_transform)
-
     # run unit tests
-    # dataset.dataset_unittest(train_dataset)
-    # dataset.dataset_unittest(val_dataset)
+    # dataset_unittest(train_dataset)
+    # dataset_unittest(val_dataset)
+
+    # create CSE144Datasets
+    path = r"C:\Users\eewilson\Documents\University\CSE144\finalproject_data\train"
+    train_dataset, val_dataset = dataset.get_datasets(path)
 
     # create DataLoaders
     # https://docs.pytorch.org/tutorials/beginner/basics/data_tutorial.html
@@ -121,12 +120,14 @@ if __name__ == 'main':
     # define loss function
     criterion = nn.CrossEntropyLoss()
 
-
     # use the train function to train it and you're done!
-    net = train(net, train_dataloader, optimizer, criterion, epochs=10)
+    net = train(device, net, train_dataloader, optimizer, criterion, epochs=10)
     # validate with the validation function
-    validate(net, val_dataloader)
+    validate(device, net, val_dataloader)
 
+
+if __name__ == 'main':
+    main()
 
 
 def apply_freezing_strategy(model: torch.nn.Module) -> None:

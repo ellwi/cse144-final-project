@@ -23,7 +23,6 @@ What it SHOULD NOT do:
 
 Think: “model architecture definition only”
 """
-import torch
 from torchvision.models import efficientnet_v2_s, EfficientNet_V2_S_Weights
 import torch.nn as nn
 
@@ -40,14 +39,13 @@ def unfreeze(blocks):
 
 def build_model(num_classes=100):
     # load pretrained backbone
-    weights = EfficientNet_V2_S_Weights
+    weights = EfficientNet_V2_S_Weights.DEFAULT
     model = efficientnet_v2_s(weights=weights)
 
     # replace linear classification head
     # efficientnet classifier: [nn.Sequential, nn.Linear]
     in_features = model.classifier[-1].in_features
-    model.classifier[-1] = nn.Linear(in_features, num_classes) # same number of inputs, but 100 classes
-
+    model.classifier[-1] = nn.Linear(in_features, num_classes) # type: ignore # same number of inputs, but new number of classes
 
     # freeze all features (not-classifier layers)
     for param in model.features.parameters():
@@ -55,8 +53,12 @@ def build_model(num_classes=100):
     
     return model
 
-if __name__ == 'main':
+def main():
     model = build_model()
 
     print(model)
-    print(model.classifier) # view default structure
+    print(model.classifier) # view structure
+
+if __name__ == '__main__':
+    main()
+    
