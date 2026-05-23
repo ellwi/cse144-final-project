@@ -20,9 +20,6 @@ Core loops:
 Think: “make the model learn”
 """
 
-
-import dataset
-import model
 import torch
 import torch.nn as nn
 import time
