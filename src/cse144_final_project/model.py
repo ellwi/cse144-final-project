@@ -51,13 +51,13 @@ class BaseTransferModel(nn.Module, ABC):
         for param in self.parameters():
             param.requires_grad = False
 
-    def get_parameter_groups(self, backbone_lr, classifier_ler):
+    def get_parameter_groups(self, backbone_lr, classifier_lr):
         """
         Get parameter groups for the optimizer with different learning rates for backbone and classifier.
         """
         return [
             {'params': self._get_backbone_params(), 'lr': backbone_lr},
-            {'params': self._get_classifier_params(), 'lr': classifier_ler}
+            {'params': self._get_classifier_params(), 'lr': classifier_lr}
         ]
 
     @abstractmethod
