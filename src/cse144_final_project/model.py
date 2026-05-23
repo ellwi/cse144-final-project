@@ -63,14 +63,16 @@ class BaseTransferModel(nn.Module, ABC):
     @abstractmethod
     def _get_classifier_params(self):
         """
-        Get the parameters of the classifier head.
+        Get the parameters of the classifier head. Different models have different attribute names for the classifier head, so this method should be implemented by each subclass to return the correct parameters.
         """
+        pass
 
     @abstractmethod
     def _get_backbone_params(self):
         """
-        Get the parameters of the backbone.
+        Get the parameters of the backbone. Different models have different attribute names for the backbone, so this method should be implemented by each subclass to return the correct parameters.
         """
+        pass
 
     @abstractmethod
     def get_trainable_classifier_blocks(self) -> list[nn.Module]:
