@@ -90,14 +90,6 @@ class EfficientNetV2STM(BaseTransferModel):
 
     def get_trainable_backbone_blocks(self) -> list[nn.Module]:
         return list(self.model.features)
-    
-
-def freeze_all_params(model: nn.Module) -> None:
-    """
-    Freeze all parameters in the model.
-    """
-    for param in model.parameters():
-        param.requires_grad = False
 
 
 def build_model(num_classes=100) -> BaseTransferModel:
