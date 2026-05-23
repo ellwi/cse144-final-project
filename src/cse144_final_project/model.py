@@ -42,6 +42,8 @@ class BaseTransferModel(nn.Module, ABC):
         """
         Do not call forward directly. Use 'model(x)' instead, which will call this method under the hood. This is a standard PyTorch convention.
         """
+        if not hasattr(self, "model"):
+            raise NotImplementedError("Subclasses must define self.model")
         return self.model(x)
 
     def freeze_all_params(self) -> None:
