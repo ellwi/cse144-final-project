@@ -52,10 +52,10 @@ class BaseTransferModel(nn.Module, ABC):
             param.requires_grad = False
 
     @abstractmethod
-    def get_classifier_module(self) -> nn.Module:
+    def get_trainable_classifier_blocks(self) -> list[nn.Module]:
         """
-        This method should return the specific module within the model that serves as the classification head. 
-        This is important for applying different learning rates or unfreezing strategies to the classifier head during training.
+        This method should return a list of modules (blocks) from the model classifier head. Don't return backbone blocks here.
+        The order of the list should reflect the order in which the blocks should be unfrozen. Index 0 should be the first layer of the classifier head, and the last index should be the final classification layer.
         """
         pass
 
@@ -85,8 +85,8 @@ class EfficientNetV2STM(BaseTransferModel):
         in_features = self.model.classifier[-1].in_features
         self.model.classifier[-1] = nn.Linear(in_features, num_classes) # type: ignore # same number of inputs, but new number of classes
 
-    def get_classifier_module(self) -> nn.Module:
-        return self.model.classifier
+    def get_trainable_classifier_blocks(self) -> list[nn.Module]:
+        return [self.model.classifier[-1]]
 
     def get_trainable_backbone_blocks(self) -> list[nn.Module]:
         return list(self.model.features)
