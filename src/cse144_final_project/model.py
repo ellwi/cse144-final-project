@@ -29,32 +29,6 @@ from torchvision.models import efficientnet_v2_s, EfficientNet_V2_S_Weights
 import torch.nn as nn
 
 
-def freeze_all_params(model: nn.Module) -> None:
-    """
-    Freeze all parameters in the model.
-    """
-    for param in model.parameters():
-        param.requires_grad = False
-
-
-def build_model(num_classes=100):
-    # load pretrained backbone
-    print('Building model...')
-    print(f'Loading {efficientnet_v2_s}...')
-    weights = EfficientNet_V2_S_Weights.DEFAULT
-    model = efficientnet_v2_s(weights=weights)
-
-    # replace linear classification head
-    # efficientnet classifier: [nn.Sequential, nn.Linear]
-    in_features = model.classifier[-1].in_features
-    model.classifier[-1] = nn.Linear(in_features, num_classes) # type: ignore # same number of inputs, but new number of classes
-
-    # freeze all layers of the model
-    freeze_all_params(model)
-    
-    return model
-
-
 class BaseTransferModel(nn.Module, ABC):
     """
     This class serves as a base interface for creating transfer learning models. It defines the structure and expected methods for any transfer learning model we want to implement.
@@ -116,3 +90,21 @@ class EfficientNetV2STM(BaseTransferModel):
 
     def get_trainable_backbone_blocks(self) -> list[nn.Module]:
         return list(self.model.features)
+    
+
+def freeze_all_params(model: nn.Module) -> None:
+    """
+    Freeze all parameters in the model.
+    """
+    for param in model.parameters():
+        param.requires_grad = False
+
+
+def build_model(num_classes=100) -> BaseTransferModel:
+    # load pretrained backbone
+    print('Building model...')
+    print(f'Loading {efficientnet_v2_s}...')
+    model = EfficientNetV2STM(num_classes=num_classes)
+    model.freeze_all_params() # freeze all parameters by default, we will unfreeze later in training loop
+    
+    return model
