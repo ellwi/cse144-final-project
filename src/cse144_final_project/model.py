@@ -26,16 +26,14 @@ Think: “model architecture definition only”
 from torchvision.models import efficientnet_v2_s, EfficientNet_V2_S_Weights
 import torch.nn as nn
 
-def unfreeze(blocks):
+
+def freeze_all_params(model: nn.Module) -> None:
     """
-    Unfreeze all parameters in the specified blocks.
-    Usage: 
-        model.unfreeze(model.features) to unfreeze all blocks
-        model.unfreeze(model.features[-1]) to unfreeze final block before classifier
-        ...etc
+    Freeze all parameters in the model.
     """
-    for param in blocks.parameters():
-        param.requires_grad = True
+    for param in model.parameters():
+        param.requires_grad = False
+
 
 def build_model(num_classes=100):
     # load pretrained backbone
@@ -49,9 +47,8 @@ def build_model(num_classes=100):
     in_features = model.classifier[-1].in_features
     model.classifier[-1] = nn.Linear(in_features, num_classes) # type: ignore # same number of inputs, but new number of classes
 
-    # freeze all features (not-classifier layers)
-    for param in model.features.parameters():
-        param.requires_grad = False
+    # freeze all layers of the model
+    freeze_all_params(model)
     
     return model
 
