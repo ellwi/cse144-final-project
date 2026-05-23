@@ -108,6 +108,12 @@ class EfficientNetV2STM(BaseTransferModel):
         in_features = self.model.classifier[-1].in_features
         self.model.classifier[-1] = nn.Linear(in_features, num_classes) # type: ignore # same number of inputs, but new number of classes
 
+    def _get_classifier_params(self):
+        return self.model.classifier.parameters()
+    
+    def _get_backbone_params(self):
+        return self.model.features.parameters()
+
     def get_trainable_classifier_blocks(self) -> list[nn.Module]:
         return [self.model.classifier[-1]]
 
