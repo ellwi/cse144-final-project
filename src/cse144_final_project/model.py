@@ -93,3 +93,26 @@ class BaseTransferModel(nn.Module, ABC):
         This allows for a gradual unfreezing strategy during fine-tuning.
         """
         pass
+
+
+class EfficientNetV2STM(BaseTransferModel):
+    """
+    EfficientNetV2-S transfer learning model for CSE144.
+    """
+
+    def __init__(self, num_classes=100):
+        super().__init__()
+
+        weights = EfficientNet_V2_S_Weights.DEFAULT
+        self.model = efficientnet_v2_s(weights=weights)
+
+        # replace linear classification head
+        # efficientnet classifier: [nn.Sequential, nn.Linear]
+        in_features = self.model.classifier[-1].in_features
+        self.model.classifier[-1] = nn.Linear(in_features, num_classes) # type: ignore # same number of inputs, but new number of classes
+
+    def get_classifier_module(self) -> nn.Module:
+        return self.model.classifier
+
+    def get_trainable_blocks(self) -> list[nn.Module]:
+        return list(self.model.features)
