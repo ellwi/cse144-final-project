@@ -29,7 +29,12 @@ def main():
 
     set_seed(42)
 
-    device = torch.device(torch.accelerator.current_accelerator().type if torch.accelerator.is_available() else 'cpu') # type: ignore
+    # torch.accelerator is a new API and isn't shipped with all versions of PyTorch. If it's not available, we can fall back to the traditional device selection method.
+    if hasattr(torch, 'accelerator') and torch.accelerator.is_available():
+        device = torch.device(torch.accelerator.current_accelerator().type if torch.accelerator.is_available() else 'cpu') # type: ignore
+    else:
+        device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
     # Assuming that we are on a CUDA machine, this should print a CUDA device:
     print(f'Your device is: {device}')
 
