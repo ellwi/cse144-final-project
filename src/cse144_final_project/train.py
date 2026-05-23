@@ -26,6 +26,7 @@ import model
 import torch
 import torch.nn as nn
 import time
+from cse144_final_project.model import BaseTransferModel
 
 def fit(net, train_loader, val_loader, optimizer, criterion, device, epochs, save_path):
     
@@ -122,22 +123,28 @@ def validate(device, net, val_loader, criterion):
     return running_loss, accuracy
 
 
-def apply_freezing_strategy(model: torch.nn.Module) -> None:
+def apply_unfreezing_strategy(model: BaseTransferModel, classifier_layers: int = -1, backbone_layers: int = -1) -> None:
     """
     Apply a freezing strategy to the model's parameters.
+    """ 
 
-    This implementation freezes all parameters except the final classification head. Pytorch models typically have an attribute like
-    `model.fc` or `model.classifier` that contains the final linear layer(s) responsible for classification. The rest of the model (the "backbone") is frozen to preserve pretrained features.
-    """
+    if classifier_layers > 0:
+        # unfreeze classifier head layers
+        classifier_blocks = model.get_trainable_classifier_blocks()
+        unfreeze_from_end(classifier_blocks, classifier_layers)
     
-    # freeze everything
-    for p in model.parameters():
-        p.requires_grad = False
+    if backbone_layers > 0:
+        # unfreeze backbone layers
+        backbone_blocks = model.get_trainable_backbone_blocks()
+        unfreeze_from_end(backbone_blocks, backbone_layers)
 
-    # unfreeze head only
-    if hasattr(model, "fc"):
-        for p in model.fc.parameters():
-            p.requires_grad = True
-    if hasattr(model, "classifier"):
-        for p in model.classifier.parameters():
-            p.requires_grad = True
+
+def unfreeze_from_end(blocks: list[nn.Module], num_layers_to_unfreeze: int) -> None:
+    """
+    Unfreeze the last `num_layers_to_unfreeze` layers in the provided list of model blocks.
+    """
+    len_blocks = len(blocks)
+    unfreeze_count = min(num_layers_to_unfreeze, len_blocks)
+    for block in blocks[-unfreeze_count:]:
+        for param in block.parameters():
+            param.requires_grad = True
