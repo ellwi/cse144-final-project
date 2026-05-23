@@ -86,7 +86,7 @@ class BaseTransferModel(nn.Module, ABC):
         pass
 
     @abstractmethod
-    def get_trainable_blocks(self) -> list[nn.Module]:
+    def get_trainable_backbone_blocks(self) -> list[nn.Module]:
         """
         This method should return a list of modules (blocks) from the model backbone. Don't return classifier head blocks here.
         The order of the list should reflect the order in which the blocks should be unfrozen. Index 0 should be the first layer of the backbone, and the last index should be right before the classifier head.
@@ -114,5 +114,5 @@ class EfficientNetV2STM(BaseTransferModel):
     def get_classifier_module(self) -> nn.Module:
         return self.model.classifier
 
-    def get_trainable_blocks(self) -> list[nn.Module]:
+    def get_trainable_backbone_blocks(self) -> list[nn.Module]:
         return list(self.model.features)
