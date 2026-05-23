@@ -60,7 +60,6 @@ def main():
     # use the fit function to train it and you're done!
     print('\nBeginning training now:')
 
-    path = r"C:\Users\eewilson\Documents\University\CSE144\finalproject_data\train"
     history = fit(
         net=net,
         train_loader=train_loader,
@@ -69,7 +68,7 @@ def main():
         criterion=criterion,
         device=device,
         epochs=10,
-        save_path=path
+        save_path=args.outdir
     )
 
     # Quick summary output of training results. Temporarily here for now, will likley move to a seperate module later.
