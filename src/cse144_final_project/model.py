@@ -23,6 +23,8 @@ What it SHOULD NOT do:
 
 Think: “model architecture definition only”
 """
+from abc import ABC, abstractmethod
+
 from torchvision.models import efficientnet_v2_s, EfficientNet_V2_S_Weights
 import torch.nn as nn
 
@@ -53,49 +55,41 @@ def build_model(num_classes=100):
     return model
 
 
-class BaseTransferModel:
+class BaseTransferModel(nn.Module, ABC):
     """
     This class serves as a base interface for creating transfer learning models. It defines the structure and expected methods for any transfer learning model we want to implement.
     Subclasses should implement all of the abstract methods defined here to ensure consistency and compatibility with the training pipeline.
     """
 
-    # model attribute should be defined in the subclass's __init__ method, and should be an instance of torch.nn.Module representing the entire model architecture, including the backbone and the classifier head.
-    _model: nn.Module
+    def __init__(self):
+        super().__init__()
 
-    def __init__(self, num_classes=100):
+    def forward(self, x):
         """
-        MUST IMPLEMENT
+        Do not call forward directly. Use 'model(x)' instead, which will call this method under the hood. This is a standard PyTorch convention.
         """
-        raise NotImplementedError("Subclasses should implement the __init__ method to initialize the model architecture.")
-
-    def get_model(self) -> nn.Module:
-        """
-        Returns the underlying Pytorch model instance.
-        """
-        return self._model
+        return self.model(x)
 
     def freeze_all_params(self) -> None:
         """
         Freeze all parameters in the model. This is a default assumption we make because most of our stategy will rely on transfer learning and unfreezing only a few layers.
         """
-        for param in self._model.parameters():
+        for param in self.parameters():
             param.requires_grad = False
 
+    @abstractmethod
     def get_classifier_module(self) -> nn.Module:
         """
-        MUST IMPLEMENT
-
         This method should return the specific module within the model that serves as the classification head. 
         This is important for applying different learning rates or unfreezing strategies to the classifier head during training.
         """
-        raise NotImplementedError("Subclasses should implement this method to return the classifier module.")
-    
+        pass
+
+    @abstractmethod
     def get_trainable_blocks(self) -> list[nn.Module]:
         """
-        MUST IMPLEMENT
-
-        This method should return a list of modules (blocks) in the model that can be unfrozen during training.
+        This method should return a list of modules (blocks) from the model backbone. Don't return classifier head blocks here.
         The order of the list should reflect the order in which the blocks should be unfrozen. Index 0 should be the first layer of the backbone, and the last index should be right before the classifier head.
         This allows for a gradual unfreezing strategy during fine-tuning.
         """
-        raise NotImplementedError("Subclasses should implement this method to return a list of trainable blocks in order of unfreezing.")
+        pass
