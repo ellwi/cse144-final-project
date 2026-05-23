@@ -74,6 +74,13 @@ class BaseTransferModel:
         """
         return self._model
 
+    def freeze_all_params(self) -> None:
+        """
+        Freeze all parameters in the model. This is a default assumption we make because most of our stategy will rely on transfer learning and unfreezing only a few layers.
+        """
+        for param in self._model.parameters():
+            param.requires_grad = False
+
     def get_classifier_module(self) -> nn.Module:
         """
         MUST IMPLEMENT
