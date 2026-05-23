@@ -55,10 +55,7 @@ def main():
     feature_lr = 1e-4
     classifier_lr = 1e-3
     weight_decay = 1e-4 # this is L2 regularization
-    optimizer = torch.optim.AdamW([
-        {'params': net.features.parameters(), 'lr': feature_lr},
-        {'params': net.classifier.parameters(), 'lr': classifier_lr}
-    ], weight_decay=weight_decay)
+    optimizer = torch.optim.AdamW(net.get_parameter_groups(feature_lr, classifier_lr), weight_decay=weight_decay)
 
     # This is where the training loop happens.
     # History should be a dictionary with this format: {"train_loss": [], "train_acc": [], "val_loss": [], "val_acc": []}
