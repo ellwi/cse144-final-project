@@ -4,7 +4,7 @@ Script entry point for running training on the dataset.
 
 from cse144_final_project.dataset import get_dataloaders
 from cse144_final_project.model import build_model
-from cse144_final_project.train import fit, apply_freezing_strategy
+from cse144_final_project.train import fit, apply_unfreezing_strategy
 from cse144_final_project.utils import set_seed
 
 import argparse
@@ -40,6 +40,8 @@ def main():
     net = build_model(num_classes=100)
     net = net.to(device)
 
+    # unfreeze layers for training
+    apply_unfreezing_strategy(net, classifier_layers=1, backbone_layers=0)
 
     # define loss function
     criterion = nn.CrossEntropyLoss()
