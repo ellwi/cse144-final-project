@@ -34,12 +34,7 @@ def main():
     print(f'Your device is: {device}')
 
     # create DataLoaders with get_dataloaders() function from dataset.py
-    train_loader, val_loader = get_dataloaders(
-        data_dir=args.datadir,
-        batch_size=32,
-        num_workers=2
-        shuffle=True
-    )
+    train_loader, val_loader = get_dataloaders(data_dir=args.datadir, batch_size=32, num_workers=2, shuffle=True)
     
     # build the neural network with build_model() function from model.py
     net = build_model(num_classes=100)
