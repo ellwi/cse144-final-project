@@ -51,13 +51,3 @@ def build_model(num_classes=100):
     freeze_all_params(model)
     
     return model
-
-def main():
-    model = build_model()
-
-    print(model)
-    print(model.classifier) # view structure
-
-if __name__ == '__main__':
-    main()
-    
