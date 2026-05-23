@@ -96,7 +96,7 @@ def build_model(num_classes=100) -> BaseTransferModel:
     # load pretrained backbone
     print('Building model...')
     print(f'Loading {efficientnet_v2_s}...')
-    model = EfficientNetV2STM(num_classes=num_classes)
+    model = EfficientNetV2STM(num_classes=num_classes) # This can be swapped out for a different BaseTransferModel subclass and all pipeline code will work safely.
     model.freeze_all_params() # freeze all parameters by default, we will unfreeze later in training loop
     
     return model
