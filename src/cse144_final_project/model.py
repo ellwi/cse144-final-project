@@ -63,13 +63,21 @@ class BaseTransferModel:
     _model: nn.Module
 
     def __init__(self, num_classes=100):
+        """
+        MUST IMPLEMENT
+        """
         raise NotImplementedError("Subclasses should implement the __init__ method to initialize the model architecture.")
 
     def get_model(self) -> nn.Module:
+        """
+        Returns the underlying Pytorch model instance.
+        """
         return self._model
 
     def get_classifier_module(self) -> nn.Module:
         """
+        MUST IMPLEMENT
+
         This method should return the specific module within the model that serves as the classification head. 
         This is important for applying different learning rates or unfreezing strategies to the classifier head during training.
         """
@@ -77,6 +85,8 @@ class BaseTransferModel:
     
     def get_trainable_blocks(self) -> list[nn.Module]:
         """
+        MUST IMPLEMENT
+
         This method should return a list of modules (blocks) in the model that can be unfrozen during training.
         The order of the list should reflect the order in which the blocks should be unfrozen. Index 0 should be the first layer of the backbone, and the last index should be right before the classifier head.
         This allows for a gradual unfreezing strategy during fine-tuning.
