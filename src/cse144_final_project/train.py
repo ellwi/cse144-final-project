@@ -53,7 +53,7 @@ def fit(net, train_loader, val_loader, optimizer, criterion, device, epochs, sav
     print(f'Finished Training in {elapsed/60:.1f} minutes')
 
     if save_path:
-        save_fp = Path(save_path) / "model_checkpoint.pth"
+        save_fp = Path(save_path) / "checkpoint.pth"
         print(f'Saving model checkpoint to: {save_fp}')
         torch.save(net.state_dict(), save_fp)
     
