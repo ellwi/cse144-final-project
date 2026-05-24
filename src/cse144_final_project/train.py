@@ -1,23 +1,17 @@
 """
-Job: Run the training pipeline end-to-end
-
-This is the main engine of the project.
+src/train.py
 
 Responsibilities:
-    Load config
-    Initialize dataset + dataloaders
-    Build model
-    Define optimizer + scheduler
     Run training loop
     Run validation loop
     Save checkpoints
     Track best model
-Core loops:
+Functions:
+    fit()
     train_one_epoch()
     validate()
-    main()
-
-Think: “make the model learn”
+    apply_unfreezing_strategy()S
+    unfreeze_from_end()
 """
 
 import torch
@@ -27,12 +21,14 @@ from cse144_final_project.model import BaseTransferModel
 from pathlib import Path
 
 def fit(net, train_loader, val_loader, optimizer, criterion, device, epochs, save_path):
-    
+    """
+    Fits a neural network to input data from train_loader and val_loader.
+    Used by train.py wrapper, which defines all parameters. 
+    """
     # track time
     start = time.time()
     best_accuracy = 0.0
     
-
     # training and validation loop 
     performance = {"train_loss": [], "train_acc": [], "val_loss": [], "val_acc": []}
     for epoch in range(epochs):
@@ -46,19 +42,20 @@ def fit(net, train_loader, val_loader, optimizer, criterion, device, epochs, sav
         val_loss, val_accuracy = validate(device, net, val_loader, criterion)
         print(f'[epoch {epoch}] validation loss: {val_loss} %')
         print(f'[epoch {epoch}] validation accuracy: {val_accuracy} %')
-        
-        if val_accuracy > best_accuracy:
-            best_accuracy = val_accuracy
-            if save_path:
-                save_fp = Path(save_path) / "checkpoint.pth"
-                print(f'Saving model checkpoint to: {save_fp}')
-                torch.save(net.state_dict(), save_fp)
 
         # 3. record in performance dictionary
         performance["train_loss"].append(train_loss)
         performance["train_acc"].append(train_accuracy)
         performance["val_loss"].append(val_loss)
         performance["val_acc"].append(val_accuracy)
+
+         # 4 keep track of best model
+        if val_accuracy > best_accuracy:
+            best_accuracy = val_accuracy
+            if save_path:
+                save_fp = Path(save_path) / "checkpoint.pth"
+                print(f'Saving model checkpoint to: {save_fp}')
+                torch.save(net.state_dict(), save_fp)
 
     elapsed = time.time() - start
     print(f'Finished Training in {elapsed/60:.1f} minutes')        
@@ -68,8 +65,7 @@ def fit(net, train_loader, val_loader, optimizer, criterion, device, epochs, sav
 
 def train_one_epoch(device, net, train_loader, optimizer, criterion):
     """
-    Function for training a neural network for specified number of epochs.
-    Specify an output path to save the trained model to disk.
+    Trains a neural network for one epoch; used by fit().
     """
     net.train()
 
@@ -108,7 +104,7 @@ def train_one_epoch(device, net, train_loader, optimizer, criterion):
 
 def validate(device, net, val_loader, criterion):
     """
-    Function for validating a neural network's performace. 
+    Validates a neural network's performance; used by fit(). 
     """
     net.eval()
 
