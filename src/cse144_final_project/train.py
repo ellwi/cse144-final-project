@@ -30,6 +30,8 @@ def fit(net, train_loader, val_loader, optimizer, criterion, device, epochs, sav
     
     # track time
     start = time.time()
+    best_accuracy = 0.0
+    
 
     # training and validation loop 
     performance = {"train_loss": [], "train_acc": [], "val_loss": [], "val_acc": []}
@@ -42,6 +44,13 @@ def fit(net, train_loader, val_loader, optimizer, criterion, device, epochs, sav
         # 2. validate
         val_loss, val_accuracy = validate(device, net, val_loader, criterion)
         print(f'[epoch {epoch}] accuracy: {val_accuracy} %')
+        
+        if val_accuracy > best_accuracy:
+            best_accuracy = val_accuracy
+            if save_path:
+                save_fp = Path(save_path) / "checkpoint.pth"
+                print(f'Saving model checkpoint to: {save_fp}')
+                torch.save(net.state_dict(), save_fp)
 
         # 3. record in performance dictionary
         performance["train_loss"].append(train_loss)
@@ -50,12 +59,7 @@ def fit(net, train_loader, val_loader, optimizer, criterion, device, epochs, sav
         performance["val_acc"].append(val_accuracy)
 
     elapsed = time.time() - start
-    print(f'Finished Training in {elapsed/60:.1f} minutes')
-
-    if save_path:
-        save_fp = Path(save_path) / "checkpoint.pth"
-        print(f'Saving model checkpoint to: {save_fp}')
-        torch.save(net.state_dict(), save_fp)
+    print(f'Finished Training in {elapsed/60:.1f} minutes')        
     
     # return the performance dictionary
     return performance
@@ -65,6 +69,8 @@ def train_one_epoch(device, net, train_loader, optimizer, criterion):
     Function for training a neural network for specified number of epochs.
     Specify an output path to save the trained model to disk.
     """
+    net.train()
+
     correct = 0
     total = 0
 
@@ -100,6 +106,8 @@ def validate(device, net, val_loader, criterion):
     """
     Function for validating a neural network's performace. 
     """
+    net.eval()
+
     correct = 0
     total = 0
 
