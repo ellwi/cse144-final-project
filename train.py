@@ -18,6 +18,7 @@ def parse_args():
     parser = argparse.ArgumentParser(description="Train a model on the CSE144 dataset")
     parser.add_argument("--datadir", type=Path, default="./data/train", help="Path to training data directory")
     parser.add_argument("--outdir", type=Path, default="./outputs/checkpoints", help="Directory to save model checkpoints")
+    parser.add_argument("--epochs", type=int, default=10, help="Number of training epochs")
     parser.add_argument("--unfreeze-classifier-layers", type=int, default=0, help="Number of classifier head layers to unfreeze for training. Default is 0, which means all layers are frozen.")
     parser.add_argument("--unfreeze-backbone-layers", type=int, default=0, help="Number of backbone layers to unfreeze for training. Default is 0, which means all layers are frozen.")
     return parser.parse_args()
@@ -72,7 +73,7 @@ def main():
         optimizer=optimizer,
         criterion=criterion,
         device=device,
-        epochs=10,
+        epochs=args.epochs,
         save_path=args.outdir
     )
 
