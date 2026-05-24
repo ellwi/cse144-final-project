@@ -166,7 +166,7 @@ def get_dataloaders(data_dir, batch_size=32, num_workers=2, shuffle=True):
     # create DataLoaders
     # https://docs.pytorch.org/tutorials/beginner/basics/data_tutorial.html
     train_dataloader = DataLoader(train_dataset, batch_size=batch_size, num_workers=num_workers, shuffle=shuffle)
-    val_dataloader = DataLoader(val_dataset, batch_size=batch_size, num_workers=num_workers, shuffle=shuffle)
+    val_dataloader = DataLoader(val_dataset, batch_size=batch_size, num_workers=num_workers, shuffle=False)
 
     return train_dataloader, val_dataloader
 
