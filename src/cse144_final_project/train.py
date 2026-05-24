@@ -24,6 +24,7 @@ import torch
 import torch.nn as nn
 import time
 from cse144_final_project.model import BaseTransferModel
+from pathlib import Path
 
 def fit(net, train_loader, val_loader, optimizer, criterion, device, epochs, save_path):
     
@@ -52,7 +53,9 @@ def fit(net, train_loader, val_loader, optimizer, criterion, device, epochs, sav
     print(f'Finished Training in {elapsed/60:.1f} minutes')
 
     if save_path:
-        torch.save(net.state_dict(), save_path)
+        save_fp = Path(save_path) / "model_checkpoint.pth"
+        print(f'Saving model checkpoint to: {save_fp}')
+        torch.save(net.state_dict(), save_fp)
     
     # return the performance dictionary
     return performance
