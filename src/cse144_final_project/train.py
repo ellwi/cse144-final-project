@@ -39,11 +39,13 @@ def fit(net, train_loader, val_loader, optimizer, criterion, device, epochs, sav
         # 1. train
         print(f'Entering training epoch {epoch}...')
         train_loss, train_accuracy = train_one_epoch(device, net, train_loader, optimizer, criterion)
-        print(f'[epoch {epoch}] loss: {train_loss / len(train_loader):.3f}')
+        print(f'[epoch {epoch}] training loss: {train_loss}')
+        print(f'[epoch {epoch}] training accuracy: {train_accuracy}')
 
         # 2. validate
         val_loss, val_accuracy = validate(device, net, val_loader, criterion)
-        print(f'[epoch {epoch}] accuracy: {val_accuracy} %')
+        print(f'[epoch {epoch}] validation loss: {val_loss} %')
+        print(f'[epoch {epoch}] validation accuracy: {val_accuracy} %')
         
         if val_accuracy > best_accuracy:
             best_accuracy = val_accuracy
@@ -99,6 +101,8 @@ def train_one_epoch(device, net, train_loader, optimizer, criterion):
         running_loss += loss.item()
     
     accuracy = 100 * correct // total
+    running_loss = running_loss / len(train_loader)
+
     return running_loss, accuracy
 
 
@@ -128,6 +132,8 @@ def validate(device, net, val_loader, criterion):
             running_loss += criterion(outputs, labels).item()
 
     accuracy = 100 * correct // total
+    running_loss = running_loss / len(val_loader)
+    
     return running_loss, accuracy
 
 
