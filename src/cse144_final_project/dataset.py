@@ -169,17 +169,3 @@ def get_dataloaders(data_dir, batch_size=32, num_workers=2, shuffle=True):
     val_dataloader = DataLoader(val_dataset, batch_size=batch_size, num_workers=num_workers, shuffle=False)
 
     return train_dataloader, val_dataloader
-
-def main():
-    path = r"C:\Users\eewilson\Documents\University\CSE144\finalproject_data\train"
-    train_dataset, val_dataset = get_datasets(path)
-    dataset_unittest(train_dataset)
-    #dataset_unittest(val_dataset)
-
-if __name__ == '__main__':
-    main()
-    
-
-
-
-
