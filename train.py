@@ -18,6 +18,8 @@ def parse_args():
     parser = argparse.ArgumentParser(description="Train a model on the CSE144 dataset")
     parser.add_argument("--datadir", type=Path, default="./data/train", help="Path to training data directory")
     parser.add_argument("--outdir", type=Path, default="./outputs/checkpoints", help="Directory to save model checkpoints")
+    parser.add_argument("--unfreeze-classifier-layers", type=int, default=0, help="Number of classifier head layers to unfreeze for training. Default is 0, which means all layers are frozen.")
+    parser.add_argument("--unfreeze-backbone-layers", type=int, default=0, help="Number of backbone layers to unfreeze for training. Default is 0, which means all layers are frozen.")
     return parser.parse_args()
 
 
@@ -45,7 +47,7 @@ def main():
     net = net.to(device)
 
     # unfreeze layers for training
-    apply_unfreezing_strategy(net, classifier_layers=1, backbone_layers=0)
+    apply_unfreezing_strategy(net, classifier_layers=args.unfreeze_classifier_layers, backbone_layers=args.unfreeze_backbone_layers)
 
     # define loss function
     criterion = nn.CrossEntropyLoss()
