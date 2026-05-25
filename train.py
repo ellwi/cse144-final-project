@@ -5,7 +5,7 @@ Script entry point for running training on the dataset.
 from cse144_final_project.dataset import get_dataloaders
 from cse144_final_project.model import build_model
 from cse144_final_project.train import fit, apply_unfreezing_strategy
-from cse144_final_project.utils import set_seed
+from cse144_final_project.utils import set_seed, make_plots
 
 import argparse
 from pathlib import Path
@@ -31,7 +31,8 @@ def main():
     # https://docs.pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html
 
     x = datetime.datetime.now()
-    logfile = x.strftime("%d") + "_" + x.strftime("%m") + "_" + x.strftime("%y") + "_" + x.strftime("%X") + "_log.txt"
+    now = x.strftime("%d") + "_" + x.strftime("%m") + "_" + x.strftime("%y") + "_" + x.strftime("%X")
+    logfile = now + "_log.txt"
     logging.basicConfig(filename=logfile, level=logging.INFO)
     
     args = parse_args()
@@ -96,6 +97,10 @@ def main():
     logging.info(f"Best val loss:   {history['val_loss'][best_epoch]:.4f}")
     logging.info(f"Train acc @ best:{history['train_acc'][best_epoch]:.4f}")
     logging.info(f"Checkpoint saved to: {args.outdir}")
+
+    # create loss and accuracy plots for training/validation
+    plotfile = now + ".png"
+    make_plots(history, plotfile)
 
 if __name__ == "__main__":
     main()
