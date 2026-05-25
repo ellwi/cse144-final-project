@@ -27,6 +27,7 @@ import random
 import numpy as np
 import torch
 import os
+import matplotlib.pyplot as plt
 
 def set_seed(seed: int = 42) -> None:
     """
@@ -65,3 +66,25 @@ def load_checkpoint(model: torch.nn.Module, checkpoint_path: Path) -> None:
 
     checkpoint = torch.load(checkpoint_path, map_location="cpu")
     model.load_state_dict(checkpoint["model_state_dict"])
+
+def make_plots(history, plotfile):
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4))
+
+    # loss plot
+    ax1.plot(history['train_loss'], label='train')
+    ax1.plot(history['val_loss'], label='val')
+    ax1.set_title('Loss')
+    ax1.set_xlabel('Epoch')
+    ax1.set_ylabel('Loss')
+    ax1.legend()
+
+    # accuracy plot
+    ax2.plot(history['train_acc'], label='train')
+    ax2.plot(history['val_acc'], label='val')
+    ax2.set_title('Accuracy')
+    ax2.set_xlabel('Epoch')
+    ax2.set_ylabel('Accuracy (%)')
+    ax2.legend()
+
+    plt.tight_layout()
+    plt.savefig(plotfile)
