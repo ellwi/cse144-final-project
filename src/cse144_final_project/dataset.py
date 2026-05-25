@@ -35,6 +35,7 @@ from torchvision import transforms, utils
 from PIL import Image
 from sklearn.model_selection import train_test_split
 from torchvision.models import efficientnet_v2_s, EfficientNet_V2_S_Weights
+import logging
 
 # =========================================
 # Data preprocessing/Setup
@@ -131,8 +132,8 @@ def get_datasets(path):
     train_images, val_images, train_labels, val_labels = train_test_split(
         images, lables, test_size=0.2, stratify=lables, random_state=7
     )
-    print("Number of training samples:", len(train_images))
-    print("Number of validation samples:", len(val_images))
+    logging.info("Number of training samples:", len(train_images))
+    logging.info("Number of validation samples:", len(val_images))
 
     # define transforms for training and validation data.
     # use the transforms that pytorch packages with pre-trained models to get 

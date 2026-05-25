@@ -13,6 +13,9 @@ from pathlib import Path
 import torch
 import torch.nn as nn
 
+import logging
+import datetime
+
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Train a model on the CSE144 dataset")
@@ -26,19 +29,23 @@ def parse_args():
 
 def main():
     # https://docs.pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html
+
+    x = datetime.datetime.now()
+    logfile = x.strftime("%d") + "_" + x.strftime("%m") + "_" + x.strftime("%y") + "_" + x.strftime("%X") + "_log.txt"
+    logging.basicConfig(filename=logfile, level=logging.INFO)
     
     args = parse_args()
 
     set_seed(42)
 
     # torch.accelerator is a new API and isn't shipped with all versions of PyTorch. If it's not available, we can fall back to the traditional device selection method.
-    if hasattr(torch, 'accelerator') and torch.accelerator.is_available():
+    if hasattr(torch, 'accelerator') and torch.accelerator.is_available(): # type: ignore
         device = torch.device(torch.accelerator.current_accelerator().type if torch.accelerator.is_available() else 'cpu') # type: ignore
     else:
         device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
     # Assuming that we are on a CUDA machine, this should print a CUDA device:
-    print(f'Your device is: {device}')
+    logging.info(f'Your device is: {device}')
 
     # create DataLoaders with get_dataloaders() function from dataset.py
     train_loader, val_loader = get_dataloaders(data_dir=args.datadir, batch_size=32, num_workers=2, shuffle=True)
@@ -64,7 +71,7 @@ def main():
     # Each epoch should append entries to each of these lists
 
     # use the fit function to train it and you're done!
-    print('\nBeginning training now:')
+    logging.info('\nBeginning training now:')
 
     history = fit(
         net=net,
@@ -83,12 +90,12 @@ def main():
         key=lambda i: history["val_acc"][i]
     )
 
-    print("\nTraining complete.")
-    print(f"Best epoch:      {best_epoch + 1}")
-    print(f"Best val acc:    {history['val_acc'][best_epoch]:.4f}")
-    print(f"Best val loss:   {history['val_loss'][best_epoch]:.4f}")
-    print(f"Train acc @ best:{history['train_acc'][best_epoch]:.4f}")
-    print(f"Checkpoint saved to: {args.outdir}")
+    logging.info("\nTraining complete.")
+    logging.info(f"Best epoch:      {best_epoch + 1}")
+    logging.info(f"Best val acc:    {history['val_acc'][best_epoch]:.4f}")
+    logging.info(f"Best val loss:   {history['val_loss'][best_epoch]:.4f}")
+    logging.info(f"Train acc @ best:{history['train_acc'][best_epoch]:.4f}")
+    logging.info(f"Checkpoint saved to: {args.outdir}")
 
 if __name__ == "__main__":
     main()
