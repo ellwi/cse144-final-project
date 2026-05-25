@@ -19,7 +19,6 @@ import torch.nn as nn
 import time
 from cse144_final_project.model import BaseTransferModel
 from pathlib import Path
-import logging
 
 def fit(net, train_loader, val_loader, optimizer, criterion, device, epochs, save_path):
     """
@@ -34,15 +33,15 @@ def fit(net, train_loader, val_loader, optimizer, criterion, device, epochs, sav
     performance = {"train_loss": [], "train_acc": [], "val_loss": [], "val_acc": []}
     for epoch in range(epochs):
         # 1. train
-        logging.info(f'Entering training epoch {epoch}...')
+        print(f'Entering training epoch {epoch}...')
         train_loss, train_accuracy = train_one_epoch(device, net, train_loader, optimizer, criterion)
-        logging.info(f'[epoch {epoch}] training loss: {train_loss:.3f}')
-        logging.info(f'[epoch {epoch}] training accuracy: {train_accuracy} %')
+        print(f'[epoch {epoch}] training loss: {train_loss:.3f}')
+        print(f'[epoch {epoch}] training accuracy: {train_accuracy} %')
 
         # 2. validate
         val_loss, val_accuracy = validate(device, net, val_loader, criterion)
-        logging.info(f'[epoch {epoch}] validation loss: {val_loss:.3f}')
-        logging.info(f'[epoch {epoch}] validation accuracy: {val_accuracy} %')
+        print(f'[epoch {epoch}] validation loss: {val_loss:.3f}')
+        print(f'[epoch {epoch}] validation accuracy: {val_accuracy} %')
 
         # 3. record in performance dictionary
         performance["train_loss"].append(train_loss)
@@ -57,11 +56,11 @@ def fit(net, train_loader, val_loader, optimizer, criterion, device, epochs, sav
                 save_fp = Path(save_path)
                 save_fp.mkdir(parents=True, exist_ok=True)
                 save_fp = save_fp / "checkpoint.pth"
-                logging.info(f'Saving model checkpoint to: {save_fp}')
+                print(f'Saving model checkpoint to: {save_fp}')
                 torch.save(net.state_dict(), save_fp)
 
     elapsed = time.time() - start
-    logging.info(f'Finished Training in {elapsed/60:.1f} minutes')        
+    print(f'Finished Training in {elapsed/60:.1f} minutes')        
     
     # return the performance dictionary
     return performance
