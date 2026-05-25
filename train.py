@@ -13,8 +13,7 @@ from pathlib import Path
 import torch
 import torch.nn as nn
 
-import logging
-import datetime
+import os
 
 
 def parse_args():
@@ -29,11 +28,6 @@ def parse_args():
 
 def main():
     # https://docs.pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html
-
-    x = datetime.datetime.now()
-    now = x.strftime("%d") + "_" + x.strftime("%m") + "_" + x.strftime("%y") + "_" + x.strftime("%X")
-    logfile = now + "_log.txt"
-    logging.basicConfig(filename=logfile, level=logging.INFO)
     
     args = parse_args()
 
@@ -46,7 +40,7 @@ def main():
         device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
     # Assuming that we are on a CUDA machine, this should print a CUDA device:
-    logging.info(f'Your device is: {device}')
+    print(f'Your device is: {device}')
 
     # create DataLoaders with get_dataloaders() function from dataset.py
     train_loader, val_loader = get_dataloaders(data_dir=args.datadir, batch_size=32, num_workers=2, shuffle=True)
@@ -72,7 +66,7 @@ def main():
     # Each epoch should append entries to each of these lists
 
     # use the fit function to train it and you're done!
-    logging.info('\nBeginning training now:')
+    print('\nBeginning training now:')
 
     history = fit(
         net=net,
@@ -91,16 +85,15 @@ def main():
         key=lambda i: history["val_acc"][i]
     )
 
-    logging.info("\nTraining complete.")
-    logging.info(f"Best epoch:      {best_epoch + 1}")
-    logging.info(f"Best val acc:    {history['val_acc'][best_epoch]:.4f}")
-    logging.info(f"Best val loss:   {history['val_loss'][best_epoch]:.4f}")
-    logging.info(f"Train acc @ best:{history['train_acc'][best_epoch]:.4f}")
-    logging.info(f"Checkpoint saved to: {args.outdir}")
+    print("\nTraining complete.")
+    print(f"Best epoch:      {best_epoch + 1}")
+    print(f"Best val acc:    {history['val_acc'][best_epoch]:.4f}")
+    print(f"Best val loss:   {history['val_loss'][best_epoch]:.4f}")
+    print(f"Train acc @ best:{history['train_acc'][best_epoch]:.4f}")
+    print(f"Checkpoint saved to: {args.outdir}")
 
     # create loss and accuracy plots for training/validation
-    plotfile = now + ".png"
-    make_plots(history, plotfile)
+    make_plots(history, args.outdir)
 
 if __name__ == "__main__":
     main()

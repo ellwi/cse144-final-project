@@ -67,7 +67,7 @@ def load_checkpoint(model: torch.nn.Module, checkpoint_path: Path) -> None:
     checkpoint = torch.load(checkpoint_path, map_location="cpu")
     model.load_state_dict(checkpoint["model_state_dict"])
 
-def make_plots(history, plotfile):
+def make_plots(history, outdir):
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4))
 
     # loss plot
@@ -87,4 +87,5 @@ def make_plots(history, plotfile):
     ax2.legend()
 
     plt.tight_layout()
-    plt.savefig(plotfile)
+    figpath = os.path.join(outdir, "loss_accuracy.png")
+    plt.savefig(figpath)
