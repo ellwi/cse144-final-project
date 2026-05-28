@@ -20,7 +20,20 @@ import time
 from cse144_final_project.model import BaseTransferModel
 from pathlib import Path
 
-def fit(net, train_loader, val_loader, optimizer, criterion, device, epochs, save_path):
+"""from torchvision.transforms.v2 import CutMix, MixUp
+
+cutmix = CutMix(num_classes=100, alpha=1.0)
+mixup = MixUp(num_classes=100, alpha=0.2)
+
+def apply_cutmix_or_mixup(inputs, labels, p=0.2):
+    if torch.rand(1) > p:
+        return inputs, labels  # 1-p batches pass through clean
+    if torch.rand(1) < 0.5:
+        return cutmix(inputs, labels)
+    else:
+        return mixup(inputs, labels)"""
+
+def fit(net, train_loader, val_loader, optimizer, criterion, device, epochs, save_path, scheduler=None):
     """
     Fits a neural network to input data from train_loader and val_loader.
     Used by train.py wrapper, which defines all parameters. 
@@ -49,7 +62,7 @@ def fit(net, train_loader, val_loader, optimizer, criterion, device, epochs, sav
         performance["val_loss"].append(val_loss)
         performance["val_acc"].append(val_accuracy)
 
-         # 4 keep track of best model
+        # 4. keep track of best model
         if val_accuracy > best_accuracy:
             best_accuracy = val_accuracy
             if save_path:
@@ -80,6 +93,9 @@ def train_one_epoch(device, net, train_loader, optimizer, criterion):
     for i, data in enumerate(train_loader, 0):
         inputs, labels = data[0].to(device), data[1].to(device)
 
+        # apply cutmix/mixup
+        # inputs, labels = apply_cutmix_or_mixup(inputs, labels)
+
         # zero the parameter gradients
         optimizer.zero_grad()
 
@@ -89,7 +105,13 @@ def train_one_epoch(device, net, train_loader, optimizer, criterion):
         # predicted label is the output with max weight/energy
         _, predicted = torch.max(outputs, 1)
         total += labels.size(0)
-        correct += (predicted == labels).sum().item()
+        #correct += (predicted == labels).sum().item()
+
+        if labels.ndim == 2:  # soft labels from cutmix/mixup
+            hard_labels = labels.argmax(dim=1)
+        else:
+            hard_labels = labels
+        correct += (predicted == hard_labels).sum().item()
         
         loss = criterion(outputs, labels)
         loss.backward()
@@ -98,9 +120,9 @@ def train_one_epoch(device, net, train_loader, optimizer, criterion):
         # save loss and accuracy
         running_loss += loss.item()
     
-    accuracy = 100 * correct // total
+    accuracy = 100 * correct / total
     running_loss = running_loss / len(train_loader)
-
+    
     return running_loss, accuracy
 
 
@@ -125,11 +147,11 @@ def validate(device, net, val_loader, criterion):
             # predicted label is the output with max weight/energy
             _, predicted = torch.max(outputs, 1)
             total += labels.size(0)
+            
             correct += (predicted == labels).sum().item()
-
             running_loss += criterion(outputs, labels).item()
 
-    accuracy = 100 * correct // total
+    accuracy = 100 * correct / total
     running_loss = running_loss / len(val_loader)
     
     return running_loss, accuracy
