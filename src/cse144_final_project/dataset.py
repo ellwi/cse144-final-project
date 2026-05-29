@@ -35,7 +35,6 @@ from torchvision import transforms, utils
 from PIL import Image
 from sklearn.model_selection import train_test_split
 from torchvision.models import efficientnet_v2_s, EfficientNet_V2_S_Weights
-import logging
 
 # =========================================
 # Data preprocessing/Setup
@@ -121,7 +120,7 @@ def dataset_unittest(dataset):
     plt.axis("off")
     plt.show()
 
-def get_datasets(path):
+def get_datasets(path, model):
 
     # collect lists of images and labels from directory 
     images, lables = collect_samples(path)
@@ -132,8 +131,8 @@ def get_datasets(path):
     train_images, val_images, train_labels, val_labels = train_test_split(
         images, lables, test_size=0.2, stratify=lables, random_state=7
     )
-    logging.info("Number of training samples:", len(train_images))
-    logging.info("Number of validation samples:", len(val_images))
+    print("Number of training samples:", len(train_images))
+    print("Number of validation samples:", len(val_images))
 
     # define transforms for training and validation data.
     # use the transforms that pytorch packages with pre-trained models to get 
@@ -141,17 +140,41 @@ def get_datasets(path):
     # https://docs.pytorch.org/vision/stable/models.html
     # https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.efficientnet_v2_s.html#torchvision.models.efficientnet_v2_s
 
-    weights = EfficientNet_V2_S_Weights.DEFAULT
-    preprocess = weights.transforms()
+    if model=="EfficientNet_V2_S":
+        weights = EfficientNet_V2_S_Weights.DEFAULT
+        preprocess = weights.transforms()
 
-    train_transform = transforms.Compose([
-        transforms.RandomHorizontalFlip(),
-        transforms.ColorJitter(),
-        preprocess
-        ])
-    val_transform = transforms.Compose([
-        preprocess
-        ])
+        train_transform = transforms.Compose([
+            transforms.RandomHorizontalFlip(),
+            transforms.RandomRotation(15),
+            transforms.RandomResizedCrop(384, scale=(0.7, 1.0)), #384 is efficientnet scale
+            transforms.ColorJitter(brightness=0.3, contrast=0.3, saturation=0.3, hue=0.1),
+            transforms.RandomGrayscale(p=0.1),
+            transforms.ToTensor(),
+            transforms.RandomErasing(p=0.3),
+            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+            ])
+        val_transform = transforms.Compose([
+            preprocess
+            ])
+        
+    if model=="ConvNeXtSmall":
+        weights = EfficientNet_V2_S_Weights.DEFAULT
+        preprocess = weights.transforms()
+
+        train_transform = transforms.Compose([
+            transforms.RandomHorizontalFlip(),
+            transforms.RandomRotation(15),
+            transforms.RandomResizedCrop(224, scale=(0.7, 1.0)),
+            transforms.ColorJitter(brightness=0.3, contrast=0.3, saturation=0.3, hue=0.1),
+            transforms.RandomGrayscale(p=0.1),
+            transforms.ToTensor(),
+            transforms.RandomErasing(p=0.3),
+            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+            ])
+        val_transform = transforms.Compose([
+            preprocess
+            ])
     
     # create training and validation datasets
     train_dataset = CSE144Dataset(train_images, train_labels, transform=train_transform)
@@ -159,11 +182,11 @@ def get_datasets(path):
 
     return train_dataset, val_dataset
 
-def get_dataloaders(data_dir, batch_size=32, num_workers=2, shuffle=True):
+def get_dataloaders(data_dir, model, batch_size=32, num_workers=2, shuffle=True):
     """
     
     """
-    train_dataset, val_dataset = get_datasets(data_dir)
+    train_dataset, val_dataset = get_datasets(data_dir, model)
     # create DataLoaders
     # https://docs.pytorch.org/tutorials/beginner/basics/data_tutorial.html
     train_dataloader = DataLoader(train_dataset, batch_size=batch_size, num_workers=num_workers, shuffle=shuffle)
