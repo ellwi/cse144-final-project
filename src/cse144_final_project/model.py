@@ -26,6 +26,7 @@ Think: “model architecture definition only”
 from abc import ABC, abstractmethod
 
 from torchvision.models import efficientnet_v2_s, EfficientNet_V2_S_Weights
+from torchvision.models import convnext_small, ConvNeXt_Small_Weights
 import torch.nn as nn
 
 
@@ -122,12 +123,39 @@ class EfficientNetV2STM(BaseTransferModel):
     def get_trainable_backbone_blocks(self) -> list[nn.Module]:
         return list(self.model.features)
 
+class ConvNeXtSmallTM(BaseTransferModel):
+    """
+    ConvNeXt-Small transfer learning model for CSE144.
+    """
+    def __init__(self, num_classes=100):
+        super().__init__()
+        weights = ConvNeXt_Small_Weights.DEFAULT
+        self.model = convnext_small(weights=weights)
+        # replace the final linear layer
+        # convnext classifier: [LayerNorm2d, Flatten, Linear]
+        in_features = self.model.classifier[-1].in_features
+        self.model.classifier[-1] = nn.Linear(in_features, num_classes)
 
-def build_model(num_classes=100) -> BaseTransferModel:
+    def _get_classifier_params(self):
+        return self.model.classifier.parameters()
+
+    def _get_backbone_params(self):
+        return self.model.features.parameters()
+
+    def get_trainable_classifier_blocks(self) -> list[nn.Module]:
+        return [self.model.classifier[-1]]
+
+    def get_trainable_backbone_blocks(self) -> list[nn.Module]:
+        return list(self.model.features)
+
+def build_model(model, num_classes=100) -> BaseTransferModel:
     # load pretrained backbone
     print('Building model...')
-    print(f'Loading {efficientnet_v2_s}...')
-    model = EfficientNetV2STM(num_classes=num_classes) # This can be swapped out for a different BaseTransferModel subclass and all pipeline code will work safely.
+    print(f'Loading {model}...')
+    if model == "EfficientNet_V2_S":
+        model = EfficientNetV2STM(num_classes=num_classes) # This can be swapped out for a different BaseTransferModel subclass and all pipeline code will work safely.
+    if model == "ConvNeXtSmall":
+        model = ConvNeXtSmallTM(num_classes=num_classes)
     model.freeze_all_params() # freeze all parameters by default, we will unfreeze later in training loop
     
     return model

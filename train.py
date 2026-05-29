@@ -12,6 +12,9 @@ from pathlib import Path
 
 import torch
 import torch.nn as nn
+from torch.optim.lr_scheduler import CosineAnnealingLR
+
+import os
 
 import os
 
@@ -20,6 +23,8 @@ def parse_args():
     parser = argparse.ArgumentParser(description="Train a model on the CSE144 dataset")
     parser.add_argument("--datadir", type=Path, default="./data/train", help="Path to training data directory")
     parser.add_argument("--outdir", type=Path, default="./outputs/checkpoints", help="Directory to save model checkpoints")
+    parser.add_argument("--checkpoint", type=Path, default=None, help="Path to a model checkpoint to load before training")
+    parser.add_argument("--model", type=str, default='EfficientNet_V2_S', help="Pretrained model to use for transfer learning. Options are defined in model.py.")
     parser.add_argument("--epochs", type=int, default=10, help="Number of training epochs")
     parser.add_argument("--unfreeze-classifier-layers", type=int, default=1, help="Number of classifier head layers to unfreeze for training. Default is 0, which means all layers are frozen.")
     parser.add_argument("--unfreeze-backbone-layers", type=int, default=0, help="Number of backbone layers to unfreeze for training. Default is 0, which means all layers are frozen.")
@@ -43,31 +48,54 @@ def main():
     print(f'Your device is: {device}')
 
     # create DataLoaders with get_dataloaders() function from dataset.py
-    train_loader, val_loader = get_dataloaders(data_dir=args.datadir, batch_size=32, num_workers=2, shuffle=True)
+    train_loader, val_loader = get_dataloaders(data_dir=args.datadir, model=args.model, batch_size=32, num_workers=2, shuffle=True)
     
     # build the neural network with build_model() function from model.py
-    net = build_model(num_classes=100)
+    net = build_model(model=args.model, num_classes=100)
+
+    if args.checkpoint is not None:
+        net.load_state_dict(torch.load(args.checkpoint, map_location=device))
+        print(f"Loaded checkpoint from: {args.checkpoint}")
+    
     net = net.to(device)
 
     # unfreeze layers for training
     apply_unfreezing_strategy(net, classifier_layers=args.unfreeze_classifier_layers, backbone_layers=args.unfreeze_backbone_layers)
 
     # define loss function
-    criterion = nn.CrossEntropyLoss()
+    criterion = nn.CrossEntropyLoss(label_smoothing=0.1)
     
     # define optimizer
-    feature_lr = 1e-4
-    classifier_lr = 1e-3
+    feature_lr = 1e-5
+    classifier_lr = 1e-4
     weight_decay = 1e-4 # this is L2 regularization
     optimizer = torch.optim.AdamW(net.get_parameter_groups(feature_lr, classifier_lr), weight_decay=weight_decay)
+
+    # adaptive learning rate scheduler
+    
+    """scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
+        optimizer,
+        mode='min',        # reduce when val_loss stops decreasing
+        factor=0.5,        # halve the LR
+        patience=5,        # wait x epochs before reducing
+    )"""
+
+
+    """scheduler = CosineAnnealingLR(
+        optimizer,
+        T_max=10,    # match your epoch count
+        eta_min=1e-7  # floor — don't go to zero
+    )"""
 
     # This is where the training loop happens.
     # History should be a dictionary with this format: {"train_loss": [], "train_acc": [], "val_loss": [], "val_acc": []}
     # Each epoch should append entries to each of these lists
 
     # use the fit function to train it and you're done!
-    print('\nBeginning training now:')
+    print(f"optimizer={optimizer}")
+    print(f"criterion={criterion}")
 
+    print('\nBeginning training now:\n')
     history = fit(
         net=net,
         train_loader=train_loader,
@@ -76,7 +104,8 @@ def main():
         criterion=criterion,
         device=device,
         epochs=args.epochs,
-        save_path=args.outdir
+        save_path=args.outdir,
+        #scheduler=scheduler
     )
 
     # Quick summary output of training results. Temporarily here for now, will likley move to a seperate module later.
@@ -86,7 +115,7 @@ def main():
     )
 
     print("\nTraining complete.")
-    print(f"Best epoch:      {best_epoch + 1}")
+    print(f"Best epoch:      {best_epoch}")
     print(f"Best val acc:    {history['val_acc'][best_epoch]:.4f}")
     print(f"Best val loss:   {history['val_loss'][best_epoch]:.4f}")
     print(f"Train acc @ best:{history['train_acc'][best_epoch]:.4f}")
