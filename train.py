@@ -16,6 +16,8 @@ from torch.optim.lr_scheduler import CosineAnnealingLR
 
 import os
 
+import os
+
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Train a model on the CSE144 dataset")
