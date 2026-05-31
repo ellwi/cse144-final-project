@@ -14,3 +14,19 @@ What it should NOT do:
 
 Think: “model → predictions
 ”"""
+import torch
+
+def predict(device, net, test_loader, criterion):
+    net.eval()
+    all_predictions = []
+    
+    with torch.no_grad():
+        for images, labels in test_loader:
+            images = images.to(device)
+            outputs = net(images)
+            _, predicted = torch.max(outputs, 1)
+            all_predictions.extend(predicted.cpu().numpy())
+    
+    test_dataset = test_loader.dataset
+    filenames = [test_dataset.__getfilename__(i) for i in range(len(test_dataset))]
+    return filenames, all_predictions

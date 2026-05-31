@@ -35,7 +35,7 @@ from torchvision import transforms, utils
 from PIL import Image
 from sklearn.model_selection import train_test_split
 from torchvision.models import efficientnet_v2_s, EfficientNet_V2_S_Weights
-import logging
+from torchvision.models import convnext_small, ConvNeXt_Small_Weights
 
 # =========================================
 # Data preprocessing/Setup
@@ -46,19 +46,28 @@ import logging
 # https://blog.roboflow.com/pytorch-custom-dataset/
 # https://docs.pytorch.org/tutorials/beginner/basics/data_tutorial.html
 
-def collect_samples(root_dir):
+def collect_samples(root_dir, test=False):
     """
     Grabs the images and folder labels from root and creates a list of each
     """
     images = []
     labels = []
-    for folder_name in os.listdir(root_dir):
+    
+    if test:
+        for file_name in sorted(os.listdir(root_dir), key=lambda x: int(os.path.splitext(x)[0])):
+            labels.append(-1) # use a dummy label because we don't actually know their labels
+            image = os.path.join(root_dir, file_name)
+            images.append(image)
+    
+    else:
+        for folder_name in os.listdir(root_dir):
             label = int(folder_name)
             folder_path = os.path.join(root_dir, folder_name)
             # go through all images in folder
             for image_name in os.listdir(folder_path):
                 images.append(os.path.join(folder_path, image_name))
                 labels.append(label)
+    
     return images, labels
 
 
@@ -86,6 +95,9 @@ class CSE144Dataset(Dataset):
             image = self.transform(image)
 
         return image, self.labels[idx]
+    
+    def __getfilename__(self, idx):
+        return os.path.basename(self.images[idx])
 
 
 def dataset_unittest(dataset):
@@ -121,25 +133,16 @@ def dataset_unittest(dataset):
     plt.axis("off")
     plt.show()
 
-def get_datasets(path, model):
-
-    # collect lists of images and labels from directory 
-    images, lables = collect_samples(path)
-
-    # split dataset into train and validate
-    # https://www.geeksforgeeks.org/deep-learning/how-to-split-a-dataset-using-pytorch/
-
-    train_images, val_images, train_labels, val_labels = train_test_split(
-        images, lables, test_size=0.2, stratify=lables, random_state=7
-    )
-    logging.info("Number of training samples:", len(train_images))
-    logging.info("Number of validation samples:", len(val_images))
-
+def transform(model="EfficientNet_V2_S"):
+    """
     # define transforms for training and validation data.
     # use the transforms that pytorch packages with pre-trained models to get 
     # correct resize and normalization ("preprocess").
     # https://docs.pytorch.org/vision/stable/models.html
     # https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.efficientnet_v2_s.html#torchvision.models.efficientnet_v2_s
+    """
+    train_transform = transforms.ToTensor()
+    val_transform = transforms.ToTensor()
 
     if model=="EfficientNet_V2_S":
         weights = EfficientNet_V2_S_Weights.DEFAULT
@@ -159,8 +162,8 @@ def get_datasets(path, model):
             preprocess
             ])
         
-    if model=="ConvNeXtSmall":
-        weights = EfficientNet_V2_S_Weights.DEFAULT
+    elif model=="ConvNeXtSmall":
+        weights = ConvNeXt_Small_Weights.DEFAULT
         preprocess = weights.transforms()
 
         train_transform = transforms.Compose([
@@ -177,6 +180,33 @@ def get_datasets(path, model):
             preprocess
             ])
     
+    else:
+        raise ValueError(f"Unknown model: {model}")
+        
+    return train_transform, val_transform
+
+def get_datasets(path, model, test=False):
+    """
+    """
+    train_transform, val_transform = transform(model=model)
+
+    if test:
+        images, labels = collect_samples(path, test=True)
+        test_dataset = CSE144Dataset(images, labels, transform=val_transform)
+        return test_dataset
+    
+    # collect lists of images and labels from directory 
+    images, labels = collect_samples(path)
+
+    # split dataset into train and validate
+    # https://www.geeksforgeeks.org/deep-learning/how-to-split-a-dataset-using-pytorch/
+
+    train_images, val_images, train_labels, val_labels = train_test_split(
+        images, labels, test_size=0.2, stratify=labels, random_state=7
+    )
+    print("Number of training samples:", len(train_images))
+    print("Number of validation samples:", len(val_images))
+
     # create training and validation datasets
     train_dataset = CSE144Dataset(train_images, train_labels, transform=train_transform)
     val_dataset = CSE144Dataset(val_images, val_labels, transform=val_transform)
@@ -194,3 +224,11 @@ def get_dataloaders(data_dir, model, batch_size=32, num_workers=2, shuffle=True)
     val_dataloader = DataLoader(val_dataset, batch_size=batch_size, num_workers=num_workers, shuffle=False)
 
     return train_dataloader, val_dataloader
+
+def get_test_dataloader(data_dir, model, batch_size=32, num_workers=2):
+    """
+    """
+    test_dataset = get_datasets(data_dir, model, test=True)
+    test_dataloader = DataLoader(test_dataset, batch_size=batch_size, num_workers=num_workers, shuffle=False)
+
+    return test_dataloader

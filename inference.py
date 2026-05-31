@@ -6,6 +6,7 @@ import argparse
 from pathlib import Path
 
 import torch
+import torch.nn as nn
 
 from cse144_final_project.dataset import get_test_dataloader
 from cse144_final_project.model import build_model
@@ -39,6 +40,13 @@ def parse_args():
         help="Path to output submission CSV"
     )
 
+    parser.add_argument(
+        "--model", 
+        type=str, 
+        default='EfficientNet_V2_S', 
+        help="Pretrained model to use for transfer learning. Options are defined in model.py."
+    )
+
     return parser.parse_args()
 
 
@@ -54,7 +62,8 @@ def main():
 
     # Build test dataloader
     test_loader = get_test_dataloader(
-        test_dir=args.testdir,
+        data_dir=args.testdir,
+        model =args.model,
         batch_size=32,
         num_workers=2
     )
@@ -62,28 +71,22 @@ def main():
     print(f"Test samples: {len(test_loader.dataset)}")
 
     # Build model
-    model = build_model(num_classes=100, pretrained=False)
+    model = build_model(args.model, num_classes=100)
 
     # Load trained weights
-    load_checkpoint(model, args.checkpoint)
+    model.load_state_dict(torch.load(args.checkpoint))
 
     model = model.to(device)
 
     # Run inference
-    predictions = predict(
-        model=model,
-        dataloader=test_loader,
-        device=device
-    )
-
-    # Retrieve image IDs from dataset
-    image_ids = test_loader.dataset.image_ids
+    criterion = nn.CrossEntropyLoss(label_smoothing=0.1)
+    filenames, predictions = predict(device, model, test_loader, criterion)
 
     # Write submission CSV
     with open(args.outfile, "w") as f:
         f.write("ID,Label\n")
 
-        for image_id, pred in zip(image_ids, predictions):
+        for image_id, pred in zip(filenames, predictions):
             f.write(f"{image_id},{pred}\n")
 
     print("\nInference complete.")
