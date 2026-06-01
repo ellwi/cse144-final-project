@@ -11,7 +11,7 @@ class DataConfig(BaseModel):
 
 
 class ModelConfig(BaseModel):
-    model_name: str = "EfficientNet_V2_S"
+    model_name: str
     num_classes: int = 100
     checkpoint_path: Optional[Path] = None
 
