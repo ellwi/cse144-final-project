@@ -7,6 +7,7 @@ from cse144_final_project.model import build_model
 from cse144_final_project.train import fit, apply_unfreezing_strategy
 from cse144_final_project.utils import set_seed, make_plots
 from cse144_final_project.config import load_config
+from cse144_final_project.experiment import ExperimentRun
 
 import argparse
 from pathlib import Path
@@ -31,6 +32,10 @@ def main():
     
     args = parse_args()
     config = load_config(args.config)
+
+    run = ExperimentRun(config)
+    run.save_config()
+    run.save_manifest_entry()
 
     set_seed(config.training.seed)
 
@@ -103,6 +108,9 @@ def main():
         save_path=config.output.out_dir,
         #scheduler=scheduler
     )
+
+    run.save_history(history)
+    run.save_metrics(history)
 
     # Quick summary output of training results. Temporarily here for now, will likley move to a seperate module later.
     best_epoch = max(
