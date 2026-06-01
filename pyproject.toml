@@ -11,7 +11,8 @@ requires-python = ">=3.10,<3.11"
 dependencies = [
     "matplotlib",
     "tqdm",
-    "scikit-learn"
+    "scikit-learn",
+    "pydantic==2.13.4"
 ]
 
 [tool.setuptools]
