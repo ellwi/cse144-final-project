@@ -15,8 +15,7 @@ from pathlib import Path
 import torch
 import torch.nn as nn
 from torch.optim.lr_scheduler import CosineAnnealingLR
-
-import os
+import logging
 
 import os
 
@@ -34,6 +33,40 @@ def main():
     config = load_config(args.config)
 
     run = ExperimentRun(config)
+
+    logging_config = {
+        "version": 1,
+        "disable_existing_loggers": False,
+        "formatters": {
+            "simple": {
+                "format": "%(levelname)s: %(message)s"
+            },
+            "detailed": {
+                "format": "[%(levelname)s|%(module)s|%(lineno)d] %(asctime)s: %(message)s",
+                "datefmt": "%Y-%m-%dT%H:%M:%S%z"  # ISO 8601 with timezone
+            }
+        },
+        "handlers": {
+            "stdout": {
+                "class": "logging.StreamHandler",
+                "level": "INFO",
+                "formatter": "simple",
+                "stream": "ext://sys.stdout"
+            },
+            "file": {
+                "class": "logging.handlers.FileHandler",
+                "level": "DEBUG",
+                "formatter": "detailed",
+                "filename": str(run.log_path),
+            }
+        },
+        "loggers": {
+            "root": {"level": "DEBUG", "handlers": ["stdout", "file"]},
+        }
+    }
+
+    logging.config.dictConfig(config=logging_config)
+
     run.save_config()
     run.save_manifest_entry()
 
