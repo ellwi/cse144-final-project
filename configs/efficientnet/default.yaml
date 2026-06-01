@@ -1,0 +1,4 @@
+# This is the minimum config file for training a model. It relies on the defaults in the config module.
+
+model:
+  "model_name": "EfficientNet_V2_S"
