@@ -46,6 +46,14 @@ class ExperimentRun:
         self.metrics_path = self.run_dir / "metrics.json"
         self.plot_path = self.run_dir / "training_plots.png"
 
+        # Checkpoint paths
+        self.last_checkpoint_path = self.run_dir / "last_checkpoint.pth"
+        self.best_checkpoint_path = self.run_dir / "best_checkpoint.pth"
+        self.best_val_acc = 0.0
+
+        # Log path 
+        self.log_path = self.run_dir / "training.log"
+
         # Manifest file
         self.manifest_path = self.output_root / "manifest.tsv"
 
@@ -137,3 +145,30 @@ class ExperimentRun:
                 writer.writeheader()
 
             writer.writerow(manifest_entry)
+
+    def save_checkpoint(self, model, optimizer, epoch, val_acc):
+        """
+        Save model checkpoint for a current epoch, and update best checkpoint if this is the best validation accuracy so far.
+        """
+
+        self._save_checkpoint_to_file(model, optimizer, epoch, val_acc, self.last_checkpoint_path)
+        # Update best checkpoint if this is the best validation accuracy so far
+        if val_acc > self.best_val_acc:
+            self.best_val_acc = val_acc
+            self._save_checkpoint_to_file(model, optimizer, epoch, val_acc, self.best_checkpoint_path)
+
+
+    def _save_checkpoint_to_file(self, model, optimizer, epoch, val_acc, checkpoint_path):
+        """
+        Save model checkpoint to the specified path. This saves enough infomration to resume training if needed. However, its most likley that only model_state_dict will be used.
+        """
+
+        torch.save(
+            {
+                "model_state_dict": model.state_dict(),
+                "optimizer_state_dict": optimizer.state_dict(),
+                "epoch": epoch,
+                "val_acc": val_acc,
+            },
+            checkpoint_path
+        )
