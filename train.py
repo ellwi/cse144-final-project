@@ -17,8 +17,6 @@ import torch.nn as nn
 from torch.optim.lr_scheduler import CosineAnnealingLR
 import logging
 
-import os
-
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Train a model on the CSE144 dataset")
@@ -60,12 +58,14 @@ def main():
                 "filename": str(run.log_path),
             }
         },
-        "loggers": {
-            "root": {"level": "DEBUG", "handlers": ["stdout", "file"]},
+        "root": {
+            "level": "DEBUG",
+            "handlers": ["stdout", "file"]
         }
     }
-
     logging.config.dictConfig(config=logging_config)
+
+    logger = logging.getLogger(run.run_id)
 
     run.save_config()
     run.save_manifest_entry()
@@ -79,7 +79,7 @@ def main():
         device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
     # Assuming that we are on a CUDA machine, this should print a CUDA device:
-    print(f'Your device is: {device}')
+    logger.info(f'Your device is: {device}')
 
     # create DataLoaders with get_dataloaders() function from dataset.py
     train_loader, val_loader = get_dataloaders(data_dir=config.data.data_dir, model=config.model.model_name, batch_size=config.data.batch_size, num_workers=config.data.num_workers, shuffle=config.data.shuffle)
@@ -89,7 +89,7 @@ def main():
 
     if config.model.checkpoint_path is not None:
         net.load_state_dict(torch.load(config.model.checkpoint_path, map_location=device))
-        print(f"Loaded checkpoint from: {config.model.checkpoint_path}")
+        logger.info(f"Loaded checkpoint from: {config.model.checkpoint_path}")
     
     net = net.to(device)
 
@@ -126,10 +126,10 @@ def main():
     # Each epoch should append entries to each of these lists
 
     # use the fit function to train it and you're done!
-    print(f"optimizer={optimizer}")
-    print(f"criterion={criterion}")
+    logger.info(f"optimizer={optimizer}")
+    logger.info(f"criterion={criterion}")
 
-    print('\nBeginning training now:\n')
+    logger.info('\nBeginning training now:\n')
     history = fit(
         net=net,
         train_loader=train_loader,
@@ -156,14 +156,13 @@ def main():
         key=lambda i: history["val_acc"][i]
     )
 
-    print("\nTraining complete.")
-    print(f"Best epoch:      {best_epoch}")
-    print(f"Best val acc:    {history['val_acc'][best_epoch]:.4f}")
-    print(f"Best val loss:   {history['val_loss'][best_epoch]:.4f}")
-    print(f"Train acc @ best:{history['train_acc'][best_epoch]:.4f}")
-    print(f"Checkpoint saved to: {config.output.out_dir}")
+    logger.info("\nTraining complete.")
+    logger.info(f"Best epoch:      {best_epoch}")
+    logger.info(f"Best val acc:    {history['val_acc'][best_epoch]:.4f}")
+    logger.info(f"Best val loss:   {history['val_loss'][best_epoch]:.4f}")
+    logger.info(f"Train acc @ best:{history['train_acc'][best_epoch]:.4f}")
+    logger.info(f"Checkpoint saved to: {config.output.out_dir}")
 
-    
 
 if __name__ == "__main__":
     main()
