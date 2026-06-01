@@ -32,7 +32,7 @@ class TrainingConfig(BaseModel):
 
 
 class OutputConfig(BaseModel):
-    out_dir: Path = Path("./outputs/checkpoints")
+    out_dir: Path = Path("./outputs")
 
 
 class TransferLearningConfig(BaseModel):
