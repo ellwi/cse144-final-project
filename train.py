@@ -23,6 +23,7 @@ import os
 def parse_args():
     parser = argparse.ArgumentParser(description="Train a model on the CSE144 dataset")
     parser.add_argument("--config", type=Path, help="Path to YAML config file", required=True)
+    return parser.parse_args()
 
 
 def main():
