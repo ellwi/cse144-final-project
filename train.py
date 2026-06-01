@@ -59,7 +59,7 @@ def main():
     apply_unfreezing_strategy(net, classifier_layers=config.model.unfreeze_classifier_layers, backbone_layers=config.model.unfreeze_backbone_layers)
 
     # define loss function
-    criterion = nn.CrossEntropyLoss(label_smoothing=0.1)
+    criterion = nn.CrossEntropyLoss(label_smoothing=config.training.label_smoothing)
     
     # define optimizer
     feature_lr = config.optimizer.feature_lr
