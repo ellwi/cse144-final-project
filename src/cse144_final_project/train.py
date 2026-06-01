@@ -33,10 +33,24 @@ def apply_cutmix_or_mixup(inputs, labels, p=0.2):
     else:
         return mixup(inputs, labels)
 
-def fit(net, train_loader, val_loader, optimizer, criterion, device, epochs, save_path, scheduler=None):
+def fit(net, train_loader, val_loader, optimizer, criterion, device, epochs, scheduler=None, checkpoint_callback=None):
     """
     Fits a neural network to input data from train_loader and val_loader.
     Used by train.py wrapper, which defines all parameters. 
+
+    Args:
+        net: the neural network model to train
+        train_loader: DataLoader for training data
+        val_loader: DataLoader for validation data
+        optimizer: the optimizer to use for training
+        criterion: the loss function to optimize
+        device: the torch device to use for training (e.g. "cuda" or "cpu")
+        epochs: number of epochs to train for
+        scheduler: (optional) learning rate scheduler to step each epoch
+        checkpoint_callback: (optional) function to call for saving checkpoints, with signature checkpoint_callback(model, optimizer, epoch, val_acc)
+
+    Returns:
+        history: a dictionary containing training and validation loss and accuracy history across epochs, with format {"train_loss": [...], "train_acc": [...], "val_loss": [...], "val_acc": [...]}
     """
     # track time
     start = time.time()
@@ -67,15 +81,9 @@ def fit(net, train_loader, val_loader, optimizer, criterion, device, epochs, sav
         performance["val_loss"].append(val_loss)
         performance["val_acc"].append(val_accuracy)
 
-        # 4. keep track of best model
-        if val_accuracy > best_accuracy:
-            best_accuracy = val_accuracy
-            if save_path:
-                save_fp = Path(save_path)
-                save_fp.mkdir(parents=True, exist_ok=True)
-                save_fp = save_fp / "checkpoint.pth"
-                print(f'Saving model checkpoint to: {save_fp}')
-                torch.save(net.state_dict(), save_fp)
+        # 4. Call checkpoint callback if provided
+        if checkpoint_callback:
+            checkpoint_callback(net, optimizer, epoch, val_accuracy)
 
         # 5. track time
         elapsed = time.time() - start

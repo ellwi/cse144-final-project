@@ -105,8 +105,8 @@ def main():
         criterion=criterion,
         device=device,
         epochs=config.training.epochs,
-        save_path=config.output.out_dir,
         #scheduler=scheduler
+        checkpoint_callback = run.save_checkpoint # means (lamnda model, optimizer, epoch, val_acc: run.save_checkpoint(model, optimizer, epoch, val_acc)
     )
 
     # create loss and accuracy plots for training/validation
