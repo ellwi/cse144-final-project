@@ -28,6 +28,7 @@ import numpy as np
 import torch
 import os
 import matplotlib.pyplot as plt
+from typing import Tuple
 
 def set_seed(seed: int = 42) -> None:
     """
@@ -67,7 +68,7 @@ def load_checkpoint(model: torch.nn.Module, checkpoint_path: Path) -> None:
     checkpoint = torch.load(checkpoint_path, map_location="cpu")
     model.load_state_dict(checkpoint["model_state_dict"])
 
-def make_plots(history, outdir):
+def make_plots(history) -> plt.Figure:
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4))
 
     # loss plot
@@ -87,5 +88,5 @@ def make_plots(history, outdir):
     ax2.legend()
 
     plt.tight_layout()
-    figpath = os.path.join(outdir, "loss_accuracy.png")
-    plt.savefig(figpath)
+
+    return fig
