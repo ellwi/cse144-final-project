@@ -110,7 +110,7 @@ def main():
     )
 
     # create loss and accuracy plots for training/validation
-    accuracy_and_loss_figure = make_plots(history, config.output.out_dir)
+    accuracy_and_loss_figure = make_plots(history)
 
     # save history, metrics, and plots to the experiment directory
     run.save_history(history)
