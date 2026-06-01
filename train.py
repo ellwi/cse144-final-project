@@ -109,8 +109,13 @@ def main():
         #scheduler=scheduler
     )
 
+    # create loss and accuracy plots for training/validation
+    accuracy_and_loss_figure = make_plots(history, config.output.out_dir)
+
+    # save history, metrics, and plots to the experiment directory
     run.save_history(history)
     run.save_metrics(history)
+    run.save_plot(accuracy_and_loss_figure)
 
     # Quick summary output of training results. Temporarily here for now, will likley move to a seperate module later.
     best_epoch = max(
@@ -125,8 +130,7 @@ def main():
     print(f"Train acc @ best:{history['train_acc'][best_epoch]:.4f}")
     print(f"Checkpoint saved to: {config.output.out_dir}")
 
-    # create loss and accuracy plots for training/validation
-    make_plots(history, config.output.out_dir)
+    
 
 if __name__ == "__main__":
     main()
