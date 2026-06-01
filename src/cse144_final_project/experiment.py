@@ -44,8 +44,7 @@ class ExperimentRun:
         self.config_path = self.run_dir / "config.yaml"
         self.history_path = self.run_dir / "history.tsv"
         self.metrics_path = self.run_dir / "metrics.json"
-        self.loss_plot_path = self.run_dir / "loss.png"
-        self.accuracy_plot_path = self.run_dir / "accuracy.png"
+        self.plot_path = self.run_dir / "training_plots.png"
 
         # Manifest file
         self.manifest_path = self.output_root / "manifest.tsv"
@@ -104,12 +103,11 @@ class ExperimentRun:
         with open(self.metrics_path, "w") as f:
             json.dump(metrics, f, indent=4)
 
-    def save_plots(self, accuracy_figure, loss_figure):
+    def save_plot(self, figure):
         """
         Save training history plots.
         """
-        accuracy_figure.savefig(self.accuracy_plot_path)
-        loss_figure.savefig(self.loss_plot_path)
+        figure.savefig(self.plot_path)
 
     def save_manifest_entry(self):
         """
