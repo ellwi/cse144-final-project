@@ -22,4 +22,4 @@ training:
   label_smoothing: 0.0
 
 output:
-  out_dir: ./outputs/efficientnet_classifier_only
+  out_dir: ./outputs

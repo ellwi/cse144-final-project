@@ -23,4 +23,4 @@ training:
   label_smoothing: 0.0
 
 output:
-  out_dir: ./outputs/smoke_test
+  out_dir: ./outputs
