@@ -6,6 +6,7 @@ from cse144_final_project.dataset import get_dataloaders
 from cse144_final_project.model import build_model
 from cse144_final_project.train import fit, apply_unfreezing_strategy
 from cse144_final_project.utils import set_seed, make_plots
+from cse144_final_project.config import load_config
 
 import argparse
 from pathlib import Path
@@ -21,22 +22,16 @@ import os
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Train a model on the CSE144 dataset")
-    parser.add_argument("--datadir", type=Path, default="./data/train", help="Path to training data directory")
-    parser.add_argument("--outdir", type=Path, default="./outputs/checkpoints", help="Directory to save model checkpoints")
-    parser.add_argument("--checkpoint", type=Path, default=None, help="Path to a model checkpoint to load before training")
-    parser.add_argument("--model", type=str, default='EfficientNet_V2_S', help="Pretrained model to use for transfer learning. Options are defined in model.py.")
-    parser.add_argument("--epochs", type=int, default=10, help="Number of training epochs")
-    parser.add_argument("--unfreeze-classifier-layers", type=int, default=1, help="Number of classifier head layers to unfreeze for training. Default is 0, which means all layers are frozen.")
-    parser.add_argument("--unfreeze-backbone-layers", type=int, default=0, help="Number of backbone layers to unfreeze for training. Default is 0, which means all layers are frozen.")
-    return parser.parse_args()
+    parser.add_argument("--config", type=Path, help="Path to YAML config file", required=True)
 
 
 def main():
     # https://docs.pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html
     
     args = parse_args()
+    config = load_config(args.config)
 
-    set_seed(42)
+    set_seed(config.training.seed)
 
     # torch.accelerator is a new API and isn't shipped with all versions of PyTorch. If it's not available, we can fall back to the traditional device selection method.
     if hasattr(torch, 'accelerator') and torch.accelerator.is_available(): # type: ignore
@@ -48,27 +43,27 @@ def main():
     print(f'Your device is: {device}')
 
     # create DataLoaders with get_dataloaders() function from dataset.py
-    train_loader, val_loader = get_dataloaders(data_dir=args.datadir, model=args.model, batch_size=32, num_workers=2, shuffle=True)
-    
-    # build the neural network with build_model() function from model.py
-    net = build_model(model=args.model, num_classes=100)
+    train_loader, val_loader = get_dataloaders(data_dir=config.data.data_dir, model=config.model.model_name, batch_size=config.data.batch_size, num_workers=config.data.num_workers, shuffle=config.data.shuffle)
 
-    if args.checkpoint is not None:
-        net.load_state_dict(torch.load(args.checkpoint, map_location=device))
-        print(f"Loaded checkpoint from: {args.checkpoint}")
+    # build the neural network with build_model() function from model.py
+    net = build_model(model=config.model.model_name, num_classes=config.model.num_classes)
+
+    if config.model.checkpoint_path is not None:
+        net.load_state_dict(torch.load(config.model.checkpoint_path, map_location=device))
+        print(f"Loaded checkpoint from: {config.model.checkpoint_path}")
     
     net = net.to(device)
 
     # unfreeze layers for training
-    apply_unfreezing_strategy(net, classifier_layers=args.unfreeze_classifier_layers, backbone_layers=args.unfreeze_backbone_layers)
+    apply_unfreezing_strategy(net, classifier_layers=config.model.unfreeze_classifier_layers, backbone_layers=config.model.unfreeze_backbone_layers)
 
     # define loss function
     criterion = nn.CrossEntropyLoss(label_smoothing=0.1)
     
     # define optimizer
-    feature_lr = 1e-5
-    classifier_lr = 1e-4
-    weight_decay = 1e-4 # this is L2 regularization
+    feature_lr = config.optimizer.feature_lr
+    classifier_lr = config.optimizer.classifier_lr
+    weight_decay = config.optimizer.weight_decay # this is L2 regularization
     optimizer = torch.optim.AdamW(net.get_parameter_groups(feature_lr, classifier_lr), weight_decay=weight_decay)
 
     # adaptive learning rate scheduler
