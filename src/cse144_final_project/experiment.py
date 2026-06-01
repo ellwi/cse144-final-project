@@ -53,6 +53,7 @@ class ExperimentRun:
 
         # Log path 
         self.log_path = self.run_dir / "training.log"
+        self.log_path.touch(exist_ok=True)
 
         # Manifest file
         self.manifest_path = self.output_root / "manifest.tsv"
