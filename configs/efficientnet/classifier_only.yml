@@ -1,0 +1,25 @@
+# Train the classifier head of an EfficientNet_V2_S model, keeping the backbone frozen.
+data:
+  batch_size: 8
+  num_workers: 0
+  shuffle: true
+
+model:
+  model_name: EfficientNet_V2_S
+  num_classes: 100
+  unfreeze_classifier_layers: 1
+  unfreeze_backbone_layers: 0
+  checkpoint_path: null
+
+optimizer:
+  feature_lr: 1e-5
+  classifier_lr: 1e-3
+  weight_decay: 0.0
+
+training:
+  epochs: 1
+  seed: 42
+  label_smoothing: 0.0
+
+output:
+  out_dir: ./outputs/efficientnet_classifier_only

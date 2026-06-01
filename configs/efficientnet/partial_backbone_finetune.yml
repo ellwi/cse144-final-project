@@ -1,0 +1,26 @@
+# Fine tune a pretrained EfficientNet_V2_S model on the dataset, unfreezing the last 2 layers of the backbone and the last layer of the classifier head. This is a middle ground between training only the classifier head and fully fine-tuning the entire model, and can be a good option when you have a moderate amount of data and want to adapt some of the pretrained features while still benefiting from the pretrained weights in most of the model.
+
+data:
+  batch_size: 16
+  num_workers: 2
+  shuffle: true
+
+model:
+  model_name: EfficientNet_V2_S
+  num_classes: 100
+  unfreeze_classifier_layers: 1
+  unfreeze_backbone_layers: 2
+  checkpoint_path: null
+
+optimizer:
+  feature_lr: 1e-5
+  classifier_lr: 5e-4
+  weight_decay: 1e-4
+
+training:
+  epochs: 10
+  seed: 42
+  label_smoothing: 0.1
+
+output:
+  out_dir: ./outputs/efficientnet_partial_finetune

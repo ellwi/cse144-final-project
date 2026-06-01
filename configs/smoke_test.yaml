@@ -1,0 +1,26 @@
+# This is a smoke test config file for quickly testing the training pipeline on a small scale training experiment. It should run in a few minutes on a laptop CPU.
+
+data:
+  data_dir: ./data/train
+  batch_size: 4
+  num_workers: 0   # important for laptop CPU debugging
+  shuffle: true
+
+model:
+  model_name: EfficientNet_V2_S
+  num_classes: 100
+  unfreeze_classifier_layers: 1
+  unfreeze_backbone_layers: 0
+
+optimizer:
+  feature_lr: 1e-4
+  classifier_lr: 1e-3
+  weight_decay: 0.0
+
+training:
+  epochs: 1
+  seed: 42
+  label_smoothing: 0.0
+
+output:
+  out_dir: ./outputs/smoke_test
