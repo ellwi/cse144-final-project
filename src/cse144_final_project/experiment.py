@@ -82,7 +82,7 @@ class ExperimentRun:
 
     def save_metrics(self, history):
         """
-        Save summary metrics for the experiment.
+        Save summary metrics for the epoch of the experiment with the best validation accuracy.
         """
 
         best_epoch = max(
