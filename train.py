@@ -99,8 +99,8 @@ def main():
         optimizer=optimizer,
         criterion=criterion,
         device=device,
-        epochs=args.epochs,
-        save_path=args.outdir,
+        epochs=config.training.epochs,
+        save_path=config.output.out_dir,
         #scheduler=scheduler
     )
 
@@ -115,10 +115,10 @@ def main():
     print(f"Best val acc:    {history['val_acc'][best_epoch]:.4f}")
     print(f"Best val loss:   {history['val_loss'][best_epoch]:.4f}")
     print(f"Train acc @ best:{history['train_acc'][best_epoch]:.4f}")
-    print(f"Checkpoint saved to: {args.outdir}")
+    print(f"Checkpoint saved to: {config.output.out_dir}")
 
     # create loss and accuracy plots for training/validation
-    make_plots(history, args.outdir)
+    make_plots(history, config.output.out_dir)
 
 if __name__ == "__main__":
     main()
