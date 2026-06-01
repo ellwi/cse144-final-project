@@ -15,7 +15,7 @@ from pathlib import Path
 import torch
 import torch.nn as nn
 from torch.optim.lr_scheduler import CosineAnnealingLR
-import logging
+import logging.config
 
 
 def parse_args():
@@ -52,7 +52,7 @@ def main():
                 "stream": "ext://sys.stdout"
             },
             "file": {
-                "class": "logging.handlers.FileHandler",
+                "class": "logging.FileHandler",
                 "level": "DEBUG",
                 "formatter": "detailed",
                 "filename": str(run.log_path),
