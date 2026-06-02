@@ -100,7 +100,7 @@ def main():
     net = net.to(device)
 
     # unfreeze layers for training
-    apply_unfreezing_strategy(net, classifier_layers=config.model.unfreeze_classifier_layers, backbone_layers=config.model.unfreeze_backbone_layers)
+    apply_unfreezing_strategy(net, classifier_layers=config.model.unfreeze_classifier_layers, backbone_layers=config.model.unfreeze_backbone_layers, logger=logger)
 
     # define loss function
     criterion = nn.CrossEntropyLoss(label_smoothing=config.training.label_smoothing)
@@ -145,7 +145,8 @@ def main():
         device=device,
         epochs=config.training.epochs,
         #scheduler=scheduler
-        checkpoint_callback = run.save_checkpoint # means (lamnda model, optimizer, epoch, val_acc: run.save_checkpoint(model, optimizer, epoch, val_acc)
+        checkpoint_callback = run.save_checkpoint, # means (lamnda model, optimizer, epoch, val_acc: run.save_checkpoint(model, optimizer, epoch, val_acc)
+        logger=logger
     )
 
     # create loss and accuracy plots for training/validation
