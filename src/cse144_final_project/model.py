@@ -148,10 +148,10 @@ class ConvNeXtSmallTM(BaseTransferModel):
     def get_trainable_backbone_blocks(self) -> list[nn.Module]:
         return list(self.model.features)
 
-def build_model(model, num_classes=100) -> BaseTransferModel:
+def build_model(model, num_classes=100, logger=None) -> BaseTransferModel:
     # load pretrained backbone
-    print('Building model...')
-    print(f'Loading {model}...')
+    logger.info('Building model...')
+    logger.info(f'Loading {model}...')
     if model == "EfficientNet_V2_S":
         model = EfficientNetV2STM(num_classes=num_classes) # This can be swapped out for a different BaseTransferModel subclass and all pipeline code will work safely.
     if model == "ConvNeXtSmall":

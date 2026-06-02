@@ -91,7 +91,7 @@ def main():
         logger=logger)
 
     # build the neural network with build_model() function from model.py
-    net = build_model(model=config.model.model_name, num_classes=config.model.num_classes)
+    net = build_model(model=config.model.model_name, num_classes=config.model.num_classes, logger=logger)
 
     if config.model.checkpoint_path is not None:
         net.load_state_dict(torch.load(config.model.checkpoint_path, map_location=device))
