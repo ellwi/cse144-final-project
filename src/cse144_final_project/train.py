@@ -33,7 +33,7 @@ def apply_cutmix_or_mixup(inputs, labels, p=0.2):
     else:
         return mixup(inputs, labels)
 
-def fit(net, train_loader, val_loader, optimizer, criterion, device, epochs, scheduler=None, checkpoint_callback=None):
+def fit(net, train_loader, val_loader, optimizer, criterion, device, epochs, scheduler=None, checkpoint_callback=None, logger=None):
     """
     Fits a neural network to input data from train_loader and val_loader.
     Used by train.py wrapper, which defines all parameters. 
@@ -48,6 +48,7 @@ def fit(net, train_loader, val_loader, optimizer, criterion, device, epochs, sch
         epochs: number of epochs to train for
         scheduler: (optional) learning rate scheduler to step each epoch
         checkpoint_callback: (optional) function to call for saving checkpoints, with signature checkpoint_callback(model, optimizer, epoch, val_acc)
+        logger: (optional) logger to record training progress
 
     Returns:
         history: a dictionary containing training and validation loss and accuracy history across epochs, with format {"train_loss": [...], "train_acc": [...], "val_loss": [...], "val_acc": [...]}
@@ -60,15 +61,15 @@ def fit(net, train_loader, val_loader, optimizer, criterion, device, epochs, sch
     performance = {"train_loss": [], "train_acc": [], "val_loss": [], "val_acc": []}
     for epoch in range(epochs):
         # 1. train
-        print(f'Entering training epoch {epoch}...')
+        logger.info(f'Entering training epoch {epoch}...')
         train_loss, train_accuracy = train_one_epoch(device, net, train_loader, optimizer, criterion)
-        print(f'[epoch {epoch}] training loss: {train_loss:.3f}')
-        print(f'[epoch {epoch}] training accuracy: {train_accuracy} %')
+        logger.info(f'[epoch {epoch}] training loss: {train_loss:.3f}')
+        logger.info(f'[epoch {epoch}] training accuracy: {train_accuracy} %')
 
         # 2. validate
         val_loss, val_accuracy = validate(device, net, val_loader, criterion)
-        print(f'[epoch {epoch}] validation loss: {val_loss:.3f}')
-        print(f'[epoch {epoch}] validation accuracy: {val_accuracy} %')
+        logger.info(f'[epoch {epoch}] validation loss: {val_loss:.3f}')
+        logger.info(f'[epoch {epoch}] validation accuracy: {val_accuracy} %')
 
         # 2.5 update learning rate scheduler
         #scheduler.step(val_loss)
@@ -87,10 +88,10 @@ def fit(net, train_loader, val_loader, optimizer, criterion, device, epochs, sch
 
         # 5. track time
         elapsed = time.time() - start
-        print(f'Finished epoch {epoch} at {elapsed/60:.1f} minutes')
+        logger.info(f'Finished epoch {epoch} at {elapsed/60:.1f} minutes')
 
     elapsed = time.time() - start
-    print(f'Finished Training in {elapsed/60:.1f} minutes')        
+    logger.info(f'Finished Training in {elapsed/60:.1f} minutes')        
     
     # return the performance dictionary
     return performance
@@ -174,7 +175,7 @@ def validate(device, net, val_loader, criterion):
     return running_loss, accuracy
 
 
-def apply_unfreezing_strategy(model: BaseTransferModel, classifier_layers: int = -1, backbone_layers: int = -1) -> None:
+def apply_unfreezing_strategy(model: BaseTransferModel, classifier_layers: int = -1, backbone_layers: int = -1, logger=None) -> None:
     """
     Apply a freezing strategy to the model's parameters.
     """ 
@@ -182,13 +183,13 @@ def apply_unfreezing_strategy(model: BaseTransferModel, classifier_layers: int =
     if classifier_layers > 0:
         # unfreeze classifier head layers
         classifier_blocks = model.get_trainable_classifier_blocks()
-        print(f"Unfrozen classifier blocks:\n{classifier_layers} of {len(classifier_blocks)}")
+        logger.info(f"Unfrozen classifier blocks:\n{classifier_layers} of {len(classifier_blocks)}")
         unfreeze_from_end(classifier_blocks, classifier_layers)
     
     if backbone_layers > 0:
         # unfreeze backbone layers
         backbone_blocks = model.get_trainable_backbone_blocks()
-        print(f"Unfrozen backbone blocks:\n{backbone_layers} of {len(backbone_blocks)}")
+        logger.info(f"Unfrozen backbone blocks:\n{backbone_layers} of {len(backbone_blocks)}")
         unfreeze_from_end(backbone_blocks, backbone_layers)
 
 
