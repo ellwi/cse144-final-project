@@ -185,7 +185,7 @@ def transform(model="EfficientNet_V2_S"):
         
     return train_transform, val_transform
 
-def get_datasets(path, model, test=False):
+def get_datasets(path, model, test=False, logger=None):
     """
     """
     train_transform, val_transform = transform(model=model)
@@ -204,8 +204,8 @@ def get_datasets(path, model, test=False):
     train_images, val_images, train_labels, val_labels = train_test_split(
         images, labels, test_size=0.2, stratify=labels, random_state=7
     )
-    print("Number of training samples:", len(train_images))
-    print("Number of validation samples:", len(val_images))
+    logger.info(f"Number of training samples: {len(train_images)}")
+    logger.info(f"Number of validation samples: {len(val_images)}")
 
     # create training and validation datasets
     train_dataset = CSE144Dataset(train_images, train_labels, transform=train_transform)
@@ -213,11 +213,11 @@ def get_datasets(path, model, test=False):
 
     return train_dataset, val_dataset
 
-def get_dataloaders(data_dir, model, batch_size=32, num_workers=2, shuffle=True):
+def get_dataloaders(data_dir, model, batch_size=32, num_workers=2, shuffle=True, logger=None):
     """
     
     """
-    train_dataset, val_dataset = get_datasets(data_dir, model)
+    train_dataset, val_dataset = get_datasets(data_dir, model, logger=logger)
     # create DataLoaders
     # https://docs.pytorch.org/tutorials/beginner/basics/data_tutorial.html
     train_dataloader = DataLoader(train_dataset, batch_size=batch_size, num_workers=num_workers, shuffle=shuffle)
@@ -225,10 +225,10 @@ def get_dataloaders(data_dir, model, batch_size=32, num_workers=2, shuffle=True)
 
     return train_dataloader, val_dataloader
 
-def get_test_dataloader(data_dir, model, batch_size=32, num_workers=2):
+def get_test_dataloader(data_dir, model, batch_size=32, num_workers=2, logger=None):
     """
     """
-    test_dataset = get_datasets(data_dir, model, test=True)
+    test_dataset = get_datasets(data_dir, model, test=True, logger=logger)
     test_dataloader = DataLoader(test_dataset, batch_size=batch_size, num_workers=num_workers, shuffle=False)
 
     return test_dataloader

@@ -82,7 +82,13 @@ def main():
     logger.info(f'Your device is: {device}')
 
     # create DataLoaders with get_dataloaders() function from dataset.py
-    train_loader, val_loader = get_dataloaders(data_dir=config.data.data_dir, model=config.model.model_name, batch_size=config.data.batch_size, num_workers=config.data.num_workers, shuffle=config.data.shuffle)
+    train_loader, val_loader = get_dataloaders(
+        data_dir=config.data.data_dir, 
+        model=config.model.model_name, 
+        batch_size=config.data.batch_size, 
+        num_workers=config.data.num_workers, 
+        shuffle=config.data.shuffle, 
+        logger=logger)
 
     # build the neural network with build_model() function from model.py
     net = build_model(model=config.model.model_name, num_classes=config.model.num_classes)
