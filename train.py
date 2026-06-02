@@ -164,11 +164,11 @@ def main():
     )
 
     logger.info("\nTraining complete.")
-    logger.info(f"Best epoch:      {best_epoch}")
+    logger.info(f"Best epoch:      {best_epoch + 1}")
     logger.info(f"Best val acc:    {history['val_acc'][best_epoch]:.4f}")
     logger.info(f"Best val loss:   {history['val_loss'][best_epoch]:.4f}")
     logger.info(f"Train acc @ best:{history['train_acc'][best_epoch]:.4f}")
-    logger.info(f"Checkpoint saved to: {config.output.out_dir}")
+    logger.info(f"Artifacts saved to: {run.run_dir}")
 
 
 if __name__ == "__main__":
