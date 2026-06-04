@@ -5,12 +5,12 @@ WORKDIR /app
 # upgrade pip
 RUN pip install --no-cache-dir --upgrade pip
 
-# install PyTorch CPU wheels (IMPORTANT: stable official source)
+# install PyTorch
 RUN pip install --no-cache-dir \
-    torch==2.2.2 \
-    torchvision==0.17.2 \
-    torchaudio==2.2.2 \
-    --index-url https://download.pytorch.org/whl/cpu
+    torch \
+    torchvision \
+    torchaudio \
+    --index-url https://download.pytorch.org/whl/cu126
 
 # install dependencies
 RUN pip install --no-cache-dir \
