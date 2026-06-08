@@ -74,7 +74,8 @@ def main():
     model = build_model(args.model, num_classes=100)
 
     # Load trained weights
-    model.load_state_dict(torch.load(args.checkpoint))
+    checkpoint = torch.load(args.checkpoint)
+    model.load_state_dict(checkpoint['model_state_dict'])
 
     model = model.to(device)
 
