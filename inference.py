@@ -7,6 +7,7 @@ from pathlib import Path
 
 import torch
 import torch.nn as nn
+import logging.config
 
 from cse144_final_project.dataset import get_test_dataloader
 from cse144_final_project.model import build_model
@@ -51,11 +52,40 @@ def parse_args():
 
 
 def main():
+    logging_config = {
+        "version": 1,
+        "disable_existing_loggers": False,
+        "formatters": {
+            "simple": {
+                "format": "%(levelname)s: %(message)s"
+            },
+            "detailed": {
+                "format": "[%(levelname)s|%(module)s|%(lineno)d] %(asctime)s: %(message)s",
+                "datefmt": "%Y-%m-%dT%H:%M:%S%z"  # ISO 8601 with timezone
+            }
+        },
+        "handlers": {
+            "stdout": {
+                "class": "logging.StreamHandler",
+                "level": "INFO",
+                "formatter": "simple",
+                "stream": "ext://sys.stdout"
+            }
+        },
+        "root": {
+            "level": "DEBUG",
+            "handlers": ["stdout"]
+        }
+    }
+    logging.config.dictConfig(config=logging_config)
+
+    logger = logging.getLogger("inference")
+
     args = parse_args()
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    print(f"Using device: {device}")
+    logger.info(f"Using device: {device}")
 
     # Ensure output directory exists
     args.outfile.parent.mkdir(parents=True, exist_ok=True)
@@ -65,13 +95,14 @@ def main():
         data_dir=args.testdir,
         model =args.model,
         batch_size=32,
-        num_workers=2
+        num_workers=2,
+        logger=logger
     )
 
-    print(f"Test samples: {len(test_loader.dataset)}")
+    logger.info(f"Test samples: {len(test_loader.dataset)}")
 
     # Build model
-    model = build_model(args.model, num_classes=100)
+    model = build_model(args.model, num_classes=100, logger=logger)
 
     # Load trained weights
     checkpoint = torch.load(args.checkpoint)
@@ -90,8 +121,8 @@ def main():
         for image_id, pred in zip(filenames, predictions):
             f.write(f"{image_id},{pred}\n")
 
-    print("\nInference complete.")
-    print(f"Submission saved to: {args.outfile}")
+    logger.info("\nInference complete.")
+    logger.info(f"Submission saved to: {args.outfile}")
 
 
 if __name__ == "__main__":
