@@ -31,7 +31,7 @@ for the dataloaders. We set it to 8GB here. We also mount the output directory s
 TODO generate a final submission config and update the command below to use it.
 
 ```bash
-docker run --rm --shm-size=8g -v ./outputs/:/app/outputs cse144-final:latest \
+docker run --rm --gpus all --shm-size=8g -v ./outputs/:/app/outputs cse144-final:latest \
 python train.py --config /app/configs/<config_name>
 ```
 
@@ -76,7 +76,7 @@ Optionally adjust the `--outfile` argument to specify the name of the output fil
 be accessible if written to a mounted directory (like `./outputs`).
 
 ```bash
-docker run --rm --shm-size=8g -v ./outputs/:/app/outputs cse144-final:latest \
+docker run --rm --gpus all --shm-size=8g -v ./outputs/:/app/outputs cse144-final:latest \
 python inference.py --checkpoint /app/outputs/<run_id>/best_checkpoint.pth --outfile /app/outputs/final_submission.csv
 ```
 
