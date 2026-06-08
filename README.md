@@ -18,7 +18,7 @@ cd ~/.../cse144-final-project
 docker build -t cse144-final-project:latest .
 ```
 
-This step may take a multiple minutes. The installation of CUDA and PyTorch is the most time consuming step.
+This step may take multiple minutes. The installation of CUDA and PyTorch is the most time consuming step.
 
 The docker image will contain this repository. When we run it, the training and testing data will exist in /app/data. We will need to
 mount our output direcotry over the copied version of `./outputs`.
@@ -35,8 +35,8 @@ docker run --rm --shm-size=8g -v ./outputs/:/app/outputs cse144-final:latest \
 python train.py --config /app/configs/<config_name>
 ```
 
-This will generate a new entry into the output/manifest.tsv and create the associated directory with the run. To see the status
-of the training in the container see the output/<run_id>/train.log file.
+This will generate a new entry into the outputs/manifest.tsv and create the associated directory with the run. To see the status
+of the training in the container see the outputs/<run_id>/training.log file.
 
 Example manifest entry after 2 training runs:
 ```
@@ -67,11 +67,11 @@ outputs/
 	└── training_plots.png
 ```
 
-## Evaluate on the training data to generate a sumbission
+## Evaluate on the test data to generate a submission
 
-Now that the training is complete, we will use the container to evaulate the model on the training data.
+Now that the training is complete, we will use the container to evaluate the model on the test data.
 
-Look in output/manifest.tsv to find the run_id of the training run you want to evaluate. Then run the following command, replacing <run_id> with the actual run_id.
+Look in outputs/manifest.tsv to find the run_id of the training run you want to evaluate. Then run the following command, replacing <run_id> with the actual run_id.
 Optionally adjust the `--outfile` argument to specify the name of the output file. Remember that the output file path will be relative to the container and will only
 be accessible if written to a mounted directory (like `./outputs`).
 
