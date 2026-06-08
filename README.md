@@ -21,7 +21,7 @@ docker build -t cse144-final:latest .
 This step may take a multiple minutes. The installation of CUDA and PyTorch is the most time consuming step.
 
 The docker image will contain this repository. When we run it, the training and testing data will exist in /app/data. We will need to
-mount our output direcotry over the copied version of `./outputs`.
+mount our output directory over the copied version of `./outputs`.
 
 ### Running the training
 
