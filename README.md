@@ -5,9 +5,9 @@ Elina Wilson
 
 ## Final submission instructions
 
-Prerequisits:
-- Must have [docker](https://www.docker.com/) installed on your machine
-- Must have kaggle dataset downloaded and available in the `data/` directory in the project root.
+Prerequisites:
+- Must have [Docker](https://www.docker.com/) installed on your machine
+- Must have the Kaggle dataset downloaded and available in the `data/` directory in the project root.
 
 *Note: The docker image is designed to run on a CUDA system.*
 
