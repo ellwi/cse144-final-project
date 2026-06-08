@@ -15,7 +15,7 @@ Prerequisits:
 Navigate to the project root directory and build the docker image:
 ```bash
 cd ~/.../cse144-final-project
-docker build -t cse144-final-project:latest .
+docker build -t cse144-final:latest .
 ```
 
 This step may take a multiple minutes. The installation of CUDA and PyTorch is the most time consuming step.
