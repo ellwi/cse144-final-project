@@ -28,6 +28,8 @@ mount our output direcotry over the copied version of `./outputs`.
 Run the training using the docker container. It is important to make sure that the shared memory size is large enough 
 for the dataloaders. We set it to 8GB here. We also mount the output directory so that we can access the training output.
 
+TODO generate a final submission config and update the command below to use it.
+
 ```bash
 docker run --rm --shm-size=8g -v ./outputs/:/app/outputs cse144-final:latest \
 python train.py --config /app/configs/<config_name>
