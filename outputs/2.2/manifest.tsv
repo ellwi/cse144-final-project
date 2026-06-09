@@ -1,0 +1,3 @@
+run_id	timestamp	model_name	epochs	batch_size	run_dir
+run_20260609_032646_92d8	2026-06-09T03:26:46.964191	EfficientNet_V2_S	150	16	/app/outputs/7replicator_phase2/run_20260609_032646_92d8
+run_20260609_043852_4455	2026-06-09T04:38:52.925762	EfficientNet_V2_S	80	16	/app/outputs/7replicator_phase2/run_20260609_043852_4455

@@ -1,0 +1,8 @@
+{
+    "run_id": "run_20260609_060033_d7af",
+    "best_epoch": 19,
+    "best_val_acc": 78.70370370370371,
+    "best_val_loss": 1.5614954914365495,
+    "train_acc_at_best": 95.1332560834299,
+    "train_loss_at_best": 1.3622116987352018
+}

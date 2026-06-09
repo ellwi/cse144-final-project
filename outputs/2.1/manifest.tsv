@@ -1,0 +1,13 @@
+run_id	timestamp	model_name	epochs	batch_size	run_dir
+run_20260609_002430_3251	2026-06-09T00:24:30.664777	EfficientNet_V2_S	80	16	/app/outputs/7replicator_phase1/run_20260609_002430_3251
+run_20260609_004149_a29f	2026-06-09T00:41:49.476481	EfficientNet_V2_S	80	16	/app/outputs/7replicator_phase1/run_20260609_004149_a29f
+run_20260609_005442_ee49	2026-06-09T00:54:42.076521	EfficientNet_V2_S	80	16	/app/outputs/7replicator_phase1/run_20260609_005442_ee49
+run_20260609_011243_0ab0	2026-06-09T01:12:43.556548	EfficientNet_V2_S	80	16	/app/outputs/7replicator_phase1/run_20260609_011243_0ab0
+run_20260609_011745_8a68	2026-06-09T01:17:45.994395	EfficientNet_V2_S	80	16	/app/outputs/7replicator_phase1/run_20260609_011745_8a68
+run_20260609_012128_d757	2026-06-09T01:21:28.483319	EfficientNet_V2_S	80	16	/app/outputs/7replicator_phase1/run_20260609_012128_d757
+run_20260609_022210_5f5d	2026-06-09T02:22:10.899690	EfficientNet_V2_S	80	16	/app/outputs/7replicator_phase1/run_20260609_022210_5f5d
+run_20260609_030252_28a5	2026-06-09T03:02:52.792084	EfficientNet_V2_S	80	16	/app/outputs/7replicator_phase1/run_20260609_030252_28a5
+run_20260609_031532_75f4	2026-06-09T03:15:32.989295	EfficientNet_V2_S	10	16	/app/outputs/7replicator_phase1/run_20260609_031532_75f4
+run_20260609_031706_2b2c	2026-06-09T03:17:06.180824	EfficientNet_V2_S	10	16	/app/outputs/7replicator_phase1/run_20260609_031706_2b2c
+run_20260609_035645_2ac8	2026-06-09T03:56:45.025984	EfficientNet_V2_S	150	16	/app/outputs/7replicator_phase1/run_20260609_035645_2ac8
+run_20260609_043527_ed00	2026-06-09T04:35:27.876077	EfficientNet_V2_S	10	16	/app/outputs/7replicator_phase1/run_20260609_043527_ed00

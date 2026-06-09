@@ -1,0 +1,932 @@
+[INFO|train|82] 2026-06-09T05:34:07+0000: Your device is: cuda
+[INFO|dataset|206] 2026-06-09T05:34:07+0000: Number of training samples: 863
+[INFO|dataset|207] 2026-06-09T05:34:07+0000: Number of validation samples: 216
+[INFO|model|153] 2026-06-09T05:34:07+0000: Building model...
+[INFO|model|154] 2026-06-09T05:34:07+0000: Loading EfficientNet_V2_S...
+[INFO|train|102] 2026-06-09T05:34:15+0000: Loaded checkpoint from: /app/outputs/7replicator_phase3/run_20260609_045730_ffa6/best_checkpoint.pth
+[INFO|train|191] 2026-06-09T05:34:15+0000: Unfrozen classifier blocks:
+1 of 1
+[INFO|train|197] 2026-06-09T05:34:15+0000: Unfrozen backbone blocks:
+6 of 8
+[INFO|train|139] 2026-06-09T05:34:15+0000: optimizer=AdamW (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    decoupled_weight_decay: True
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    initial_lr: 1e-05
+    lr: 1e-05
+    maximize: False
+    weight_decay: 0.0001
+
+Parameter Group 1
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    decoupled_weight_decay: True
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    initial_lr: 0.0001
+    lr: 0.0001
+    maximize: False
+    weight_decay: 0.0001
+)
+[INFO|train|140] 2026-06-09T05:34:15+0000: criterion=CrossEntropyLoss()
+[INFO|train|142] 2026-06-09T05:34:15+0000: 
+Beginning training now:
+
+[INFO|train|70] 2026-06-09T05:34:15+0000: Entering training epoch 0...
+[DEBUG|Image|421] 2026-06-09T05:34:15+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:34:15+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:34:31+0000: [epoch 0] training loss: 1.534
+[INFO|train|73] 2026-06-09T05:34:31+0000: [epoch 0] training accuracy: 93.16338354577057 %
+[DEBUG|Image|421] 2026-06-09T05:34:31+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:34:32+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:34:33+0000: [epoch 0] validation loss: 1.688
+[INFO|train|78] 2026-06-09T05:34:33+0000: [epoch 0] validation accuracy: 73.14814814814815 %
+[INFO|train|97] 2026-06-09T05:34:35+0000: Finished epoch 0 at 0.3 minutes
+[INFO|train|70] 2026-06-09T05:34:35+0000: Entering training epoch 1...
+[DEBUG|Image|421] 2026-06-09T05:34:35+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:34:35+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:34:50+0000: [epoch 1] training loss: 1.662
+[INFO|train|73] 2026-06-09T05:34:50+0000: [epoch 1] training accuracy: 90.03476245654693 %
+[DEBUG|Image|421] 2026-06-09T05:34:50+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:34:50+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:34:52+0000: [epoch 1] validation loss: 1.683
+[INFO|train|78] 2026-06-09T05:34:52+0000: [epoch 1] validation accuracy: 71.75925925925925 %
+[INFO|train|97] 2026-06-09T05:34:53+0000: Finished epoch 1 at 0.6 minutes
+[INFO|train|70] 2026-06-09T05:34:53+0000: Entering training epoch 2...
+[DEBUG|Image|421] 2026-06-09T05:34:53+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:34:53+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:35:08+0000: [epoch 2] training loss: 1.623
+[INFO|train|73] 2026-06-09T05:35:08+0000: [epoch 2] training accuracy: 90.73001158748552 %
+[DEBUG|Image|421] 2026-06-09T05:35:08+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:35:08+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:35:09+0000: [epoch 2] validation loss: 1.624
+[INFO|train|78] 2026-06-09T05:35:09+0000: [epoch 2] validation accuracy: 72.68518518518519 %
+[INFO|train|97] 2026-06-09T05:35:10+0000: Finished epoch 2 at 0.9 minutes
+[INFO|train|70] 2026-06-09T05:35:10+0000: Entering training epoch 3...
+[DEBUG|Image|421] 2026-06-09T05:35:10+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:35:10+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:35:25+0000: [epoch 3] training loss: 1.652
+[INFO|train|73] 2026-06-09T05:35:25+0000: [epoch 3] training accuracy: 90.03476245654693 %
+[DEBUG|Image|421] 2026-06-09T05:35:25+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:35:25+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:35:27+0000: [epoch 3] validation loss: 1.620
+[INFO|train|78] 2026-06-09T05:35:27+0000: [epoch 3] validation accuracy: 71.75925925925925 %
+[INFO|train|97] 2026-06-09T05:35:28+0000: Finished epoch 3 at 1.2 minutes
+[INFO|train|70] 2026-06-09T05:35:28+0000: Entering training epoch 4...
+[DEBUG|Image|421] 2026-06-09T05:35:28+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:35:28+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:35:43+0000: [epoch 4] training loss: 1.453
+[INFO|train|73] 2026-06-09T05:35:43+0000: [epoch 4] training accuracy: 91.88876013904982 %
+[DEBUG|Image|421] 2026-06-09T05:35:43+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:35:43+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:35:44+0000: [epoch 4] validation loss: 1.603
+[INFO|train|78] 2026-06-09T05:35:44+0000: [epoch 4] validation accuracy: 72.22222222222223 %
+[INFO|train|97] 2026-06-09T05:35:45+0000: Finished epoch 4 at 1.5 minutes
+[INFO|train|70] 2026-06-09T05:35:45+0000: Entering training epoch 5...
+[DEBUG|Image|421] 2026-06-09T05:35:46+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:35:46+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:36:00+0000: [epoch 5] training loss: 1.615
+[INFO|train|73] 2026-06-09T05:36:00+0000: [epoch 5] training accuracy: 87.48551564310544 %
+[DEBUG|Image|421] 2026-06-09T05:36:00+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:36:00+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:36:02+0000: [epoch 5] validation loss: 1.612
+[INFO|train|78] 2026-06-09T05:36:02+0000: [epoch 5] validation accuracy: 72.68518518518519 %
+[INFO|train|97] 2026-06-09T05:36:03+0000: Finished epoch 5 at 1.8 minutes
+[INFO|train|70] 2026-06-09T05:36:03+0000: Entering training epoch 6...
+[DEBUG|Image|421] 2026-06-09T05:36:03+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:36:03+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:36:18+0000: [epoch 6] training loss: 1.565
+[INFO|train|73] 2026-06-09T05:36:18+0000: [epoch 6] training accuracy: 88.64426419466976 %
+[DEBUG|Image|421] 2026-06-09T05:36:18+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:36:18+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:36:19+0000: [epoch 6] validation loss: 1.597
+[INFO|train|78] 2026-06-09T05:36:19+0000: [epoch 6] validation accuracy: 72.68518518518519 %
+[INFO|train|97] 2026-06-09T05:36:21+0000: Finished epoch 6 at 2.1 minutes
+[INFO|train|70] 2026-06-09T05:36:21+0000: Entering training epoch 7...
+[DEBUG|Image|421] 2026-06-09T05:36:21+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:36:21+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:36:35+0000: [epoch 7] training loss: 1.612
+[INFO|train|73] 2026-06-09T05:36:35+0000: [epoch 7] training accuracy: 90.49826187717265 %
+[DEBUG|Image|421] 2026-06-09T05:36:35+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:36:35+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:36:37+0000: [epoch 7] validation loss: 1.619
+[INFO|train|78] 2026-06-09T05:36:37+0000: [epoch 7] validation accuracy: 74.07407407407408 %
+[INFO|train|97] 2026-06-09T05:36:39+0000: Finished epoch 7 at 2.4 minutes
+[INFO|train|70] 2026-06-09T05:36:39+0000: Entering training epoch 8...
+[DEBUG|Image|421] 2026-06-09T05:36:39+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:36:39+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:36:54+0000: [epoch 8] training loss: 1.620
+[INFO|train|73] 2026-06-09T05:36:54+0000: [epoch 8] training accuracy: 91.30938586326766 %
+[DEBUG|Image|421] 2026-06-09T05:36:54+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:36:54+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:36:56+0000: [epoch 8] validation loss: 1.602
+[INFO|train|78] 2026-06-09T05:36:56+0000: [epoch 8] validation accuracy: 74.53703703703704 %
+[INFO|train|97] 2026-06-09T05:36:58+0000: Finished epoch 8 at 2.7 minutes
+[INFO|train|70] 2026-06-09T05:36:58+0000: Entering training epoch 9...
+[DEBUG|Image|421] 2026-06-09T05:36:58+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:36:58+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:37:13+0000: [epoch 9] training loss: 1.552
+[INFO|train|73] 2026-06-09T05:37:13+0000: [epoch 9] training accuracy: 92.35225955967555 %
+[DEBUG|Image|421] 2026-06-09T05:37:13+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:37:13+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:37:15+0000: [epoch 9] validation loss: 1.621
+[INFO|train|78] 2026-06-09T05:37:15+0000: [epoch 9] validation accuracy: 76.38888888888889 %
+[INFO|train|97] 2026-06-09T05:37:17+0000: Finished epoch 9 at 3.0 minutes
+[INFO|train|70] 2026-06-09T05:37:17+0000: Entering training epoch 10...
+[DEBUG|Image|421] 2026-06-09T05:37:17+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:37:17+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:37:32+0000: [epoch 10] training loss: 1.498
+[INFO|train|73] 2026-06-09T05:37:32+0000: [epoch 10] training accuracy: 89.80301274623406 %
+[DEBUG|Image|421] 2026-06-09T05:37:32+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:37:32+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:37:34+0000: [epoch 10] validation loss: 1.590
+[INFO|train|78] 2026-06-09T05:37:34+0000: [epoch 10] validation accuracy: 73.61111111111111 %
+[INFO|train|97] 2026-06-09T05:37:35+0000: Finished epoch 10 at 3.3 minutes
+[INFO|train|70] 2026-06-09T05:37:35+0000: Entering training epoch 11...
+[DEBUG|Image|421] 2026-06-09T05:37:35+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:37:35+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:37:50+0000: [epoch 11] training loss: 1.581
+[INFO|train|73] 2026-06-09T05:37:50+0000: [epoch 11] training accuracy: 88.99188876013905 %
+[DEBUG|Image|421] 2026-06-09T05:37:50+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:37:50+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:37:51+0000: [epoch 11] validation loss: 1.629
+[INFO|train|78] 2026-06-09T05:37:51+0000: [epoch 11] validation accuracy: 72.68518518518519 %
+[INFO|train|97] 2026-06-09T05:37:53+0000: Finished epoch 11 at 3.6 minutes
+[INFO|train|70] 2026-06-09T05:37:53+0000: Entering training epoch 12...
+[DEBUG|Image|421] 2026-06-09T05:37:53+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:37:53+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:38:08+0000: [epoch 12] training loss: 1.550
+[INFO|train|73] 2026-06-09T05:38:08+0000: [epoch 12] training accuracy: 91.88876013904982 %
+[DEBUG|Image|421] 2026-06-09T05:38:08+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:38:08+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:38:09+0000: [epoch 12] validation loss: 1.600
+[INFO|train|78] 2026-06-09T05:38:09+0000: [epoch 12] validation accuracy: 75.0 %
+[INFO|train|97] 2026-06-09T05:38:10+0000: Finished epoch 12 at 3.9 minutes
+[INFO|train|70] 2026-06-09T05:38:10+0000: Entering training epoch 13...
+[DEBUG|Image|421] 2026-06-09T05:38:10+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:38:10+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:38:25+0000: [epoch 13] training loss: 1.517
+[INFO|train|73] 2026-06-09T05:38:25+0000: [epoch 13] training accuracy: 88.41251448435689 %
+[DEBUG|Image|421] 2026-06-09T05:38:25+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:38:25+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:38:26+0000: [epoch 13] validation loss: 1.607
+[INFO|train|78] 2026-06-09T05:38:26+0000: [epoch 13] validation accuracy: 74.53703703703704 %
+[INFO|train|97] 2026-06-09T05:38:28+0000: Finished epoch 13 at 4.2 minutes
+[INFO|train|70] 2026-06-09T05:38:28+0000: Entering training epoch 14...
+[DEBUG|Image|421] 2026-06-09T05:38:28+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:38:28+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:38:43+0000: [epoch 14] training loss: 1.343
+[INFO|train|73] 2026-06-09T05:38:43+0000: [epoch 14] training accuracy: 93.279258400927 %
+[DEBUG|Image|421] 2026-06-09T05:38:43+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:38:43+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:38:44+0000: [epoch 14] validation loss: 1.600
+[INFO|train|78] 2026-06-09T05:38:44+0000: [epoch 14] validation accuracy: 75.92592592592592 %
+[INFO|train|97] 2026-06-09T05:38:45+0000: Finished epoch 14 at 4.5 minutes
+[INFO|train|70] 2026-06-09T05:38:45+0000: Entering training epoch 15...
+[DEBUG|Image|421] 2026-06-09T05:38:45+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:38:45+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:39:00+0000: [epoch 15] training loss: 1.421
+[INFO|train|73] 2026-06-09T05:39:00+0000: [epoch 15] training accuracy: 90.73001158748552 %
+[DEBUG|Image|421] 2026-06-09T05:39:00+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:39:00+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:39:02+0000: [epoch 15] validation loss: 1.572
+[INFO|train|78] 2026-06-09T05:39:02+0000: [epoch 15] validation accuracy: 74.53703703703704 %
+[INFO|train|97] 2026-06-09T05:39:03+0000: Finished epoch 15 at 4.8 minutes
+[INFO|train|70] 2026-06-09T05:39:03+0000: Entering training epoch 16...
+[DEBUG|Image|421] 2026-06-09T05:39:03+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:39:03+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:39:18+0000: [epoch 16] training loss: 1.431
+[INFO|train|73] 2026-06-09T05:39:18+0000: [epoch 16] training accuracy: 95.24913093858633 %
+[DEBUG|Image|421] 2026-06-09T05:39:18+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:39:18+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:39:20+0000: [epoch 16] validation loss: 1.596
+[INFO|train|78] 2026-06-09T05:39:20+0000: [epoch 16] validation accuracy: 75.0 %
+[INFO|train|97] 2026-06-09T05:39:21+0000: Finished epoch 16 at 5.1 minutes
+[INFO|train|70] 2026-06-09T05:39:21+0000: Entering training epoch 17...
+[DEBUG|Image|421] 2026-06-09T05:39:21+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:39:21+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:39:36+0000: [epoch 17] training loss: 1.451
+[INFO|train|73] 2026-06-09T05:39:36+0000: [epoch 17] training accuracy: 91.54113557358053 %
+[DEBUG|Image|421] 2026-06-09T05:39:36+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:39:36+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:39:37+0000: [epoch 17] validation loss: 1.590
+[INFO|train|78] 2026-06-09T05:39:37+0000: [epoch 17] validation accuracy: 73.61111111111111 %
+[INFO|train|97] 2026-06-09T05:39:39+0000: Finished epoch 17 at 5.4 minutes
+[INFO|train|70] 2026-06-09T05:39:39+0000: Entering training epoch 18...
+[DEBUG|Image|421] 2026-06-09T05:39:39+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:39:39+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:39:53+0000: [epoch 18] training loss: 1.571
+[INFO|train|73] 2026-06-09T05:39:53+0000: [epoch 18] training accuracy: 91.30938586326766 %
+[DEBUG|Image|421] 2026-06-09T05:39:53+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:39:53+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:39:55+0000: [epoch 18] validation loss: 1.590
+[INFO|train|78] 2026-06-09T05:39:55+0000: [epoch 18] validation accuracy: 74.53703703703704 %
+[INFO|train|97] 2026-06-09T05:39:56+0000: Finished epoch 18 at 5.7 minutes
+[INFO|train|70] 2026-06-09T05:39:56+0000: Entering training epoch 19...
+[DEBUG|Image|421] 2026-06-09T05:39:56+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:39:56+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:40:11+0000: [epoch 19] training loss: 1.576
+[INFO|train|73] 2026-06-09T05:40:11+0000: [epoch 19] training accuracy: 87.02201622247972 %
+[DEBUG|Image|421] 2026-06-09T05:40:11+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:40:11+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:40:12+0000: [epoch 19] validation loss: 1.611
+[INFO|train|78] 2026-06-09T05:40:12+0000: [epoch 19] validation accuracy: 75.0 %
+[INFO|train|97] 2026-06-09T05:40:14+0000: Finished epoch 19 at 6.0 minutes
+[INFO|train|70] 2026-06-09T05:40:14+0000: Entering training epoch 20...
+[DEBUG|Image|421] 2026-06-09T05:40:14+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:40:14+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:40:29+0000: [epoch 20] training loss: 1.444
+[INFO|train|73] 2026-06-09T05:40:29+0000: [epoch 20] training accuracy: 91.54113557358053 %
+[DEBUG|Image|421] 2026-06-09T05:40:29+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:40:29+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:40:30+0000: [epoch 20] validation loss: 1.610
+[INFO|train|78] 2026-06-09T05:40:30+0000: [epoch 20] validation accuracy: 73.14814814814815 %
+[INFO|train|97] 2026-06-09T05:40:31+0000: Finished epoch 20 at 6.3 minutes
+[INFO|train|70] 2026-06-09T05:40:31+0000: Entering training epoch 21...
+[DEBUG|Image|421] 2026-06-09T05:40:31+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:40:31+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:40:46+0000: [epoch 21] training loss: 1.595
+[INFO|train|73] 2026-06-09T05:40:46+0000: [epoch 21] training accuracy: 90.61413673232909 %
+[DEBUG|Image|421] 2026-06-09T05:40:46+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:40:46+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:40:48+0000: [epoch 21] validation loss: 1.614
+[INFO|train|78] 2026-06-09T05:40:48+0000: [epoch 21] validation accuracy: 73.14814814814815 %
+[INFO|train|97] 2026-06-09T05:40:49+0000: Finished epoch 21 at 6.6 minutes
+[INFO|train|70] 2026-06-09T05:40:49+0000: Entering training epoch 22...
+[DEBUG|Image|421] 2026-06-09T05:40:49+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:40:49+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:41:04+0000: [epoch 22] training loss: 1.535
+[INFO|train|73] 2026-06-09T05:41:04+0000: [epoch 22] training accuracy: 90.73001158748552 %
+[DEBUG|Image|421] 2026-06-09T05:41:04+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:41:04+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:41:05+0000: [epoch 22] validation loss: 1.591
+[INFO|train|78] 2026-06-09T05:41:05+0000: [epoch 22] validation accuracy: 74.07407407407408 %
+[INFO|train|97] 2026-06-09T05:41:06+0000: Finished epoch 22 at 6.9 minutes
+[INFO|train|70] 2026-06-09T05:41:06+0000: Entering training epoch 23...
+[DEBUG|Image|421] 2026-06-09T05:41:07+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:41:07+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:41:21+0000: [epoch 23] training loss: 1.535
+[INFO|train|73] 2026-06-09T05:41:21+0000: [epoch 23] training accuracy: 88.64426419466976 %
+[DEBUG|Image|421] 2026-06-09T05:41:21+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:41:21+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:41:23+0000: [epoch 23] validation loss: 1.578
+[INFO|train|78] 2026-06-09T05:41:23+0000: [epoch 23] validation accuracy: 76.38888888888889 %
+[INFO|train|97] 2026-06-09T05:41:24+0000: Finished epoch 23 at 7.1 minutes
+[INFO|train|70] 2026-06-09T05:41:24+0000: Entering training epoch 24...
+[DEBUG|Image|421] 2026-06-09T05:41:24+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:41:24+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:41:39+0000: [epoch 24] training loss: 1.558
+[INFO|train|73] 2026-06-09T05:41:39+0000: [epoch 24] training accuracy: 86.558516801854 %
+[DEBUG|Image|421] 2026-06-09T05:41:39+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:41:39+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:41:41+0000: [epoch 24] validation loss: 1.588
+[INFO|train|78] 2026-06-09T05:41:41+0000: [epoch 24] validation accuracy: 76.38888888888889 %
+[INFO|train|97] 2026-06-09T05:41:42+0000: Finished epoch 24 at 7.4 minutes
+[INFO|train|70] 2026-06-09T05:41:42+0000: Entering training epoch 25...
+[DEBUG|Image|421] 2026-06-09T05:41:42+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:41:42+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:41:57+0000: [epoch 25] training loss: 1.338
+[INFO|train|73] 2026-06-09T05:41:57+0000: [epoch 25] training accuracy: 92.9316338354577 %
+[DEBUG|Image|421] 2026-06-09T05:41:57+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:41:57+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:41:58+0000: [epoch 25] validation loss: 1.588
+[INFO|train|78] 2026-06-09T05:41:58+0000: [epoch 25] validation accuracy: 75.92592592592592 %
+[INFO|train|97] 2026-06-09T05:41:59+0000: Finished epoch 25 at 7.7 minutes
+[INFO|train|70] 2026-06-09T05:41:59+0000: Entering training epoch 26...
+[DEBUG|Image|421] 2026-06-09T05:41:59+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:41:59+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:42:15+0000: [epoch 26] training loss: 1.521
+[INFO|train|73] 2026-06-09T05:42:15+0000: [epoch 26] training accuracy: 89.9188876013905 %
+[DEBUG|Image|421] 2026-06-09T05:42:15+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:42:15+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:42:16+0000: [epoch 26] validation loss: 1.605
+[INFO|train|78] 2026-06-09T05:42:16+0000: [epoch 26] validation accuracy: 77.77777777777777 %
+[INFO|train|97] 2026-06-09T05:42:19+0000: Finished epoch 26 at 8.1 minutes
+[INFO|train|70] 2026-06-09T05:42:19+0000: Entering training epoch 27...
+[DEBUG|Image|421] 2026-06-09T05:42:19+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:42:19+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:42:34+0000: [epoch 27] training loss: 1.437
+[INFO|train|73] 2026-06-09T05:42:34+0000: [epoch 27] training accuracy: 89.80301274623406 %
+[DEBUG|Image|421] 2026-06-09T05:42:34+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:42:34+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:42:35+0000: [epoch 27] validation loss: 1.585
+[INFO|train|78] 2026-06-09T05:42:35+0000: [epoch 27] validation accuracy: 76.85185185185185 %
+[INFO|train|97] 2026-06-09T05:42:37+0000: Finished epoch 27 at 8.4 minutes
+[INFO|train|70] 2026-06-09T05:42:37+0000: Entering training epoch 28...
+[DEBUG|Image|421] 2026-06-09T05:42:37+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:42:37+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:42:51+0000: [epoch 28] training loss: 1.541
+[INFO|train|73] 2026-06-09T05:42:51+0000: [epoch 28] training accuracy: 90.61413673232909 %
+[DEBUG|Image|421] 2026-06-09T05:42:51+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:42:51+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:42:53+0000: [epoch 28] validation loss: 1.639
+[INFO|train|78] 2026-06-09T05:42:53+0000: [epoch 28] validation accuracy: 76.38888888888889 %
+[INFO|train|97] 2026-06-09T05:42:54+0000: Finished epoch 28 at 8.6 minutes
+[INFO|train|70] 2026-06-09T05:42:54+0000: Entering training epoch 29...
+[DEBUG|Image|421] 2026-06-09T05:42:54+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:42:54+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:43:09+0000: [epoch 29] training loss: 1.503
+[INFO|train|73] 2026-06-09T05:43:09+0000: [epoch 29] training accuracy: 93.16338354577057 %
+[DEBUG|Image|421] 2026-06-09T05:43:09+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:43:09+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:43:11+0000: [epoch 29] validation loss: 1.600
+[INFO|train|78] 2026-06-09T05:43:11+0000: [epoch 29] validation accuracy: 76.85185185185185 %
+[INFO|train|97] 2026-06-09T05:43:12+0000: Finished epoch 29 at 8.9 minutes
+[INFO|train|70] 2026-06-09T05:43:12+0000: Entering training epoch 30...
+[DEBUG|Image|421] 2026-06-09T05:43:12+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:43:12+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:43:27+0000: [epoch 30] training loss: 1.393
+[INFO|train|73] 2026-06-09T05:43:27+0000: [epoch 30] training accuracy: 92.9316338354577 %
+[DEBUG|Image|421] 2026-06-09T05:43:27+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:43:27+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:43:28+0000: [epoch 30] validation loss: 1.581
+[INFO|train|78] 2026-06-09T05:43:28+0000: [epoch 30] validation accuracy: 75.92592592592592 %
+[INFO|train|97] 2026-06-09T05:43:30+0000: Finished epoch 30 at 9.2 minutes
+[INFO|train|70] 2026-06-09T05:43:30+0000: Entering training epoch 31...
+[DEBUG|Image|421] 2026-06-09T05:43:30+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:43:30+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:43:45+0000: [epoch 31] training loss: 1.366
+[INFO|train|73] 2026-06-09T05:43:45+0000: [epoch 31] training accuracy: 90.96176129779838 %
+[DEBUG|Image|421] 2026-06-09T05:43:45+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:43:45+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:43:46+0000: [epoch 31] validation loss: 1.570
+[INFO|train|78] 2026-06-09T05:43:46+0000: [epoch 31] validation accuracy: 76.38888888888889 %
+[INFO|train|97] 2026-06-09T05:43:47+0000: Finished epoch 31 at 9.5 minutes
+[INFO|train|70] 2026-06-09T05:43:47+0000: Entering training epoch 32...
+[DEBUG|Image|421] 2026-06-09T05:43:47+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:43:47+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:44:02+0000: [epoch 32] training loss: 1.555
+[INFO|train|73] 2026-06-09T05:44:02+0000: [epoch 32] training accuracy: 88.87601390498261 %
+[DEBUG|Image|421] 2026-06-09T05:44:02+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:44:02+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:44:04+0000: [epoch 32] validation loss: 1.620
+[INFO|train|78] 2026-06-09T05:44:04+0000: [epoch 32] validation accuracy: 76.85185185185185 %
+[INFO|train|97] 2026-06-09T05:44:05+0000: Finished epoch 32 at 9.8 minutes
+[INFO|train|70] 2026-06-09T05:44:05+0000: Entering training epoch 33...
+[DEBUG|Image|421] 2026-06-09T05:44:05+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:44:05+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:44:20+0000: [epoch 33] training loss: 1.370
+[INFO|train|73] 2026-06-09T05:44:20+0000: [epoch 33] training accuracy: 93.85863267670915 %
+[DEBUG|Image|421] 2026-06-09T05:44:20+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:44:20+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:44:21+0000: [epoch 33] validation loss: 1.563
+[INFO|train|78] 2026-06-09T05:44:21+0000: [epoch 33] validation accuracy: 76.38888888888889 %
+[INFO|train|97] 2026-06-09T05:44:22+0000: Finished epoch 33 at 10.1 minutes
+[INFO|train|70] 2026-06-09T05:44:22+0000: Entering training epoch 34...
+[DEBUG|Image|421] 2026-06-09T05:44:22+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:44:23+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:44:37+0000: [epoch 34] training loss: 1.420
+[INFO|train|73] 2026-06-09T05:44:37+0000: [epoch 34] training accuracy: 91.4252607184241 %
+[DEBUG|Image|421] 2026-06-09T05:44:37+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:44:37+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:44:39+0000: [epoch 34] validation loss: 1.575
+[INFO|train|78] 2026-06-09T05:44:39+0000: [epoch 34] validation accuracy: 76.38888888888889 %
+[INFO|train|97] 2026-06-09T05:44:40+0000: Finished epoch 34 at 10.4 minutes
+[INFO|train|70] 2026-06-09T05:44:40+0000: Entering training epoch 35...
+[DEBUG|Image|421] 2026-06-09T05:44:40+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:44:40+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:44:55+0000: [epoch 35] training loss: 1.543
+[INFO|train|73] 2026-06-09T05:44:55+0000: [epoch 35] training accuracy: 87.36964078794901 %
+[DEBUG|Image|421] 2026-06-09T05:44:55+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:44:55+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:44:56+0000: [epoch 35] validation loss: 1.554
+[INFO|train|78] 2026-06-09T05:44:56+0000: [epoch 35] validation accuracy: 74.53703703703704 %
+[INFO|train|97] 2026-06-09T05:44:58+0000: Finished epoch 35 at 10.7 minutes
+[INFO|train|70] 2026-06-09T05:44:58+0000: Entering training epoch 36...
+[DEBUG|Image|421] 2026-06-09T05:44:58+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:44:58+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:45:12+0000: [epoch 36] training loss: 1.250
+[INFO|train|73] 2026-06-09T05:45:12+0000: [epoch 36] training accuracy: 95.24913093858633 %
+[DEBUG|Image|421] 2026-06-09T05:45:12+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:45:12+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:45:14+0000: [epoch 36] validation loss: 1.553
+[INFO|train|78] 2026-06-09T05:45:14+0000: [epoch 36] validation accuracy: 78.70370370370371 %
+[INFO|train|97] 2026-06-09T05:45:16+0000: Finished epoch 36 at 11.0 minutes
+[INFO|train|70] 2026-06-09T05:45:16+0000: Entering training epoch 37...
+[DEBUG|Image|421] 2026-06-09T05:45:16+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:45:16+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:45:32+0000: [epoch 37] training loss: 1.363
+[INFO|train|73] 2026-06-09T05:45:32+0000: [epoch 37] training accuracy: 91.4252607184241 %
+[DEBUG|Image|421] 2026-06-09T05:45:32+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:45:32+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:45:33+0000: [epoch 37] validation loss: 1.621
+[INFO|train|78] 2026-06-09T05:45:33+0000: [epoch 37] validation accuracy: 75.92592592592592 %
+[INFO|train|97] 2026-06-09T05:45:34+0000: Finished epoch 37 at 11.3 minutes
+[INFO|train|70] 2026-06-09T05:45:34+0000: Entering training epoch 38...
+[DEBUG|Image|421] 2026-06-09T05:45:35+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:45:35+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:45:49+0000: [epoch 38] training loss: 1.395
+[INFO|train|73] 2026-06-09T05:45:49+0000: [epoch 38] training accuracy: 91.88876013904982 %
+[DEBUG|Image|421] 2026-06-09T05:45:49+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:45:49+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:45:51+0000: [epoch 38] validation loss: 1.551
+[INFO|train|78] 2026-06-09T05:45:51+0000: [epoch 38] validation accuracy: 77.31481481481481 %
+[INFO|train|97] 2026-06-09T05:45:52+0000: Finished epoch 38 at 11.6 minutes
+[INFO|train|70] 2026-06-09T05:45:52+0000: Entering training epoch 39...
+[DEBUG|Image|421] 2026-06-09T05:45:52+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:45:52+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:46:07+0000: [epoch 39] training loss: 1.444
+[INFO|train|73] 2026-06-09T05:46:07+0000: [epoch 39] training accuracy: 92.69988412514485 %
+[DEBUG|Image|421] 2026-06-09T05:46:07+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:46:07+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:46:08+0000: [epoch 39] validation loss: 1.579
+[INFO|train|78] 2026-06-09T05:46:08+0000: [epoch 39] validation accuracy: 77.31481481481481 %
+[INFO|train|97] 2026-06-09T05:46:10+0000: Finished epoch 39 at 11.9 minutes
+[INFO|train|70] 2026-06-09T05:46:10+0000: Entering training epoch 40...
+[DEBUG|Image|421] 2026-06-09T05:46:10+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:46:10+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:46:24+0000: [epoch 40] training loss: 1.420
+[INFO|train|73] 2026-06-09T05:46:24+0000: [epoch 40] training accuracy: 91.19351100811124 %
+[DEBUG|Image|421] 2026-06-09T05:46:25+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:46:25+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:46:26+0000: [epoch 40] validation loss: 1.614
+[INFO|train|78] 2026-06-09T05:46:26+0000: [epoch 40] validation accuracy: 76.38888888888889 %
+[INFO|train|97] 2026-06-09T05:46:27+0000: Finished epoch 40 at 12.2 minutes
+[INFO|train|70] 2026-06-09T05:46:27+0000: Entering training epoch 41...
+[DEBUG|Image|421] 2026-06-09T05:46:27+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:46:27+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:46:42+0000: [epoch 41] training loss: 1.328
+[INFO|train|73] 2026-06-09T05:46:42+0000: [epoch 41] training accuracy: 93.39513325608343 %
+[DEBUG|Image|421] 2026-06-09T05:46:42+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:46:42+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:46:44+0000: [epoch 41] validation loss: 1.585
+[INFO|train|78] 2026-06-09T05:46:44+0000: [epoch 41] validation accuracy: 78.24074074074075 %
+[INFO|train|97] 2026-06-09T05:46:45+0000: Finished epoch 41 at 12.5 minutes
+[INFO|train|70] 2026-06-09T05:46:45+0000: Entering training epoch 42...
+[DEBUG|Image|421] 2026-06-09T05:46:45+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:46:45+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:47:00+0000: [epoch 42] training loss: 1.320
+[INFO|train|73] 2026-06-09T05:47:00+0000: [epoch 42] training accuracy: 95.36500579374275 %
+[DEBUG|Image|421] 2026-06-09T05:47:00+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:47:00+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:47:01+0000: [epoch 42] validation loss: 1.573
+[INFO|train|78] 2026-06-09T05:47:01+0000: [epoch 42] validation accuracy: 75.0 %
+[INFO|train|97] 2026-06-09T05:47:03+0000: Finished epoch 42 at 12.8 minutes
+[INFO|train|70] 2026-06-09T05:47:03+0000: Entering training epoch 43...
+[DEBUG|Image|421] 2026-06-09T05:47:03+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:47:03+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:47:18+0000: [epoch 43] training loss: 1.410
+[INFO|train|73] 2026-06-09T05:47:18+0000: [epoch 43] training accuracy: 89.80301274623406 %
+[DEBUG|Image|421] 2026-06-09T05:47:18+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:47:18+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:47:19+0000: [epoch 43] validation loss: 1.588
+[INFO|train|78] 2026-06-09T05:47:19+0000: [epoch 43] validation accuracy: 76.85185185185185 %
+[INFO|train|97] 2026-06-09T05:47:20+0000: Finished epoch 43 at 13.1 minutes
+[INFO|train|70] 2026-06-09T05:47:20+0000: Entering training epoch 44...
+[DEBUG|Image|421] 2026-06-09T05:47:20+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:47:20+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:47:35+0000: [epoch 44] training loss: 1.529
+[INFO|train|73] 2026-06-09T05:47:35+0000: [epoch 44] training accuracy: 89.68713789107764 %
+[DEBUG|Image|421] 2026-06-09T05:47:35+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:47:35+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:47:37+0000: [epoch 44] validation loss: 1.591
+[INFO|train|78] 2026-06-09T05:47:37+0000: [epoch 44] validation accuracy: 77.77777777777777 %
+[INFO|train|97] 2026-06-09T05:47:38+0000: Finished epoch 44 at 13.4 minutes
+[INFO|train|70] 2026-06-09T05:47:38+0000: Entering training epoch 45...
+[DEBUG|Image|421] 2026-06-09T05:47:38+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:47:38+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:47:53+0000: [epoch 45] training loss: 1.281
+[INFO|train|73] 2026-06-09T05:47:53+0000: [epoch 45] training accuracy: 92.81575898030127 %
+[DEBUG|Image|421] 2026-06-09T05:47:53+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:47:53+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:47:54+0000: [epoch 45] validation loss: 1.581
+[INFO|train|78] 2026-06-09T05:47:54+0000: [epoch 45] validation accuracy: 77.77777777777777 %
+[INFO|train|97] 2026-06-09T05:47:55+0000: Finished epoch 45 at 13.7 minutes
+[INFO|train|70] 2026-06-09T05:47:55+0000: Entering training epoch 46...
+[DEBUG|Image|421] 2026-06-09T05:47:56+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:47:56+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:48:11+0000: [epoch 46] training loss: 1.420
+[INFO|train|73] 2026-06-09T05:48:11+0000: [epoch 46] training accuracy: 92.35225955967555 %
+[DEBUG|Image|421] 2026-06-09T05:48:11+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:48:11+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:48:12+0000: [epoch 46] validation loss: 1.579
+[INFO|train|78] 2026-06-09T05:48:12+0000: [epoch 46] validation accuracy: 77.77777777777777 %
+[INFO|train|97] 2026-06-09T05:48:14+0000: Finished epoch 46 at 14.0 minutes
+[INFO|train|70] 2026-06-09T05:48:14+0000: Entering training epoch 47...
+[DEBUG|Image|421] 2026-06-09T05:48:14+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:48:14+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:48:28+0000: [epoch 47] training loss: 1.494
+[INFO|train|73] 2026-06-09T05:48:29+0000: [epoch 47] training accuracy: 89.68713789107764 %
+[DEBUG|Image|421] 2026-06-09T05:48:29+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:48:29+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:48:30+0000: [epoch 47] validation loss: 1.604
+[INFO|train|78] 2026-06-09T05:48:30+0000: [epoch 47] validation accuracy: 76.85185185185185 %
+[INFO|train|97] 2026-06-09T05:48:31+0000: Finished epoch 47 at 14.3 minutes
+[INFO|train|70] 2026-06-09T05:48:31+0000: Entering training epoch 48...
+[DEBUG|Image|421] 2026-06-09T05:48:31+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:48:31+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:48:47+0000: [epoch 48] training loss: 1.601
+[INFO|train|73] 2026-06-09T05:48:47+0000: [epoch 48] training accuracy: 89.22363847045192 %
+[DEBUG|Image|421] 2026-06-09T05:48:47+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:48:47+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:48:49+0000: [epoch 48] validation loss: 1.585
+[INFO|train|78] 2026-06-09T05:48:49+0000: [epoch 48] validation accuracy: 77.31481481481481 %
+[INFO|train|97] 2026-06-09T05:48:50+0000: Finished epoch 48 at 14.6 minutes
+[INFO|train|70] 2026-06-09T05:48:50+0000: Entering training epoch 49...
+[DEBUG|Image|421] 2026-06-09T05:48:50+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:48:50+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:49:05+0000: [epoch 49] training loss: 1.409
+[INFO|train|73] 2026-06-09T05:49:05+0000: [epoch 49] training accuracy: 93.74275782155273 %
+[DEBUG|Image|421] 2026-06-09T05:49:05+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:49:05+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:49:07+0000: [epoch 49] validation loss: 1.586
+[INFO|train|78] 2026-06-09T05:49:07+0000: [epoch 49] validation accuracy: 76.38888888888889 %
+[INFO|train|97] 2026-06-09T05:49:08+0000: Finished epoch 49 at 14.9 minutes
+[INFO|train|70] 2026-06-09T05:49:08+0000: Entering training epoch 50...
+[DEBUG|Image|421] 2026-06-09T05:49:08+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:49:08+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:49:23+0000: [epoch 50] training loss: 1.429
+[INFO|train|73] 2026-06-09T05:49:23+0000: [epoch 50] training accuracy: 92.35225955967555 %
+[DEBUG|Image|421] 2026-06-09T05:49:23+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:49:23+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:49:24+0000: [epoch 50] validation loss: 1.588
+[INFO|train|78] 2026-06-09T05:49:24+0000: [epoch 50] validation accuracy: 77.77777777777777 %
+[INFO|train|97] 2026-06-09T05:49:25+0000: Finished epoch 50 at 15.2 minutes
+[INFO|train|70] 2026-06-09T05:49:25+0000: Entering training epoch 51...
+[DEBUG|Image|421] 2026-06-09T05:49:25+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:49:25+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:49:40+0000: [epoch 51] training loss: 1.520
+[INFO|train|73] 2026-06-09T05:49:40+0000: [epoch 51] training accuracy: 90.61413673232909 %
+[DEBUG|Image|421] 2026-06-09T05:49:40+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:49:40+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:49:42+0000: [epoch 51] validation loss: 1.614
+[INFO|train|78] 2026-06-09T05:49:42+0000: [epoch 51] validation accuracy: 75.92592592592592 %
+[INFO|train|97] 2026-06-09T05:49:43+0000: Finished epoch 51 at 15.5 minutes
+[INFO|train|70] 2026-06-09T05:49:43+0000: Entering training epoch 52...
+[DEBUG|Image|421] 2026-06-09T05:49:43+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:49:43+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:49:58+0000: [epoch 52] training loss: 1.447
+[INFO|train|73] 2026-06-09T05:49:58+0000: [epoch 52] training accuracy: 88.64426419466976 %
+[DEBUG|Image|421] 2026-06-09T05:49:58+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:49:58+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:49:59+0000: [epoch 52] validation loss: 1.577
+[INFO|train|78] 2026-06-09T05:49:59+0000: [epoch 52] validation accuracy: 77.77777777777777 %
+[INFO|train|97] 2026-06-09T05:50:01+0000: Finished epoch 52 at 15.8 minutes
+[INFO|train|70] 2026-06-09T05:50:01+0000: Entering training epoch 53...
+[DEBUG|Image|421] 2026-06-09T05:50:01+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:50:01+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:50:16+0000: [epoch 53] training loss: 1.295
+[INFO|train|73] 2026-06-09T05:50:16+0000: [epoch 53] training accuracy: 94.66975666280418 %
+[DEBUG|Image|421] 2026-06-09T05:50:16+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:50:16+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:50:17+0000: [epoch 53] validation loss: 1.553
+[INFO|train|78] 2026-06-09T05:50:17+0000: [epoch 53] validation accuracy: 77.77777777777777 %
+[INFO|train|97] 2026-06-09T05:50:18+0000: Finished epoch 53 at 16.1 minutes
+[INFO|train|70] 2026-06-09T05:50:18+0000: Entering training epoch 54...
+[DEBUG|Image|421] 2026-06-09T05:50:18+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:50:18+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:50:33+0000: [epoch 54] training loss: 1.392
+[INFO|train|73] 2026-06-09T05:50:33+0000: [epoch 54] training accuracy: 90.03476245654693 %
+[DEBUG|Image|421] 2026-06-09T05:50:33+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:50:33+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:50:35+0000: [epoch 54] validation loss: 1.592
+[INFO|train|78] 2026-06-09T05:50:35+0000: [epoch 54] validation accuracy: 75.92592592592592 %
+[INFO|train|97] 2026-06-09T05:50:36+0000: Finished epoch 54 at 16.3 minutes
+[INFO|train|70] 2026-06-09T05:50:36+0000: Entering training epoch 55...
+[DEBUG|Image|421] 2026-06-09T05:50:36+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:50:36+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:50:51+0000: [epoch 55] training loss: 1.458
+[INFO|train|73] 2026-06-09T05:50:51+0000: [epoch 55] training accuracy: 91.54113557358053 %
+[DEBUG|Image|421] 2026-06-09T05:50:51+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:50:51+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:50:52+0000: [epoch 55] validation loss: 1.580
+[INFO|train|78] 2026-06-09T05:50:52+0000: [epoch 55] validation accuracy: 77.31481481481481 %
+[INFO|train|97] 2026-06-09T05:50:53+0000: Finished epoch 55 at 16.6 minutes
+[INFO|train|70] 2026-06-09T05:50:53+0000: Entering training epoch 56...
+[DEBUG|Image|421] 2026-06-09T05:50:53+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:50:53+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:51:08+0000: [epoch 56] training loss: 1.405
+[INFO|train|73] 2026-06-09T05:51:08+0000: [epoch 56] training accuracy: 93.39513325608343 %
+[DEBUG|Image|421] 2026-06-09T05:51:08+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:51:08+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:51:10+0000: [epoch 56] validation loss: 1.598
+[INFO|train|78] 2026-06-09T05:51:10+0000: [epoch 56] validation accuracy: 76.85185185185185 %
+[INFO|train|97] 2026-06-09T05:51:11+0000: Finished epoch 56 at 16.9 minutes
+[INFO|train|70] 2026-06-09T05:51:11+0000: Entering training epoch 57...
+[DEBUG|Image|421] 2026-06-09T05:51:11+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:51:11+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:51:26+0000: [epoch 57] training loss: 1.359
+[INFO|train|73] 2026-06-09T05:51:26+0000: [epoch 57] training accuracy: 93.279258400927 %
+[DEBUG|Image|421] 2026-06-09T05:51:26+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:51:26+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:51:27+0000: [epoch 57] validation loss: 1.545
+[INFO|train|78] 2026-06-09T05:51:27+0000: [epoch 57] validation accuracy: 76.38888888888889 %
+[INFO|train|97] 2026-06-09T05:51:28+0000: Finished epoch 57 at 17.2 minutes
+[INFO|train|70] 2026-06-09T05:51:28+0000: Entering training epoch 58...
+[DEBUG|Image|421] 2026-06-09T05:51:28+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:51:28+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:51:43+0000: [epoch 58] training loss: 1.341
+[INFO|train|73] 2026-06-09T05:51:43+0000: [epoch 58] training accuracy: 92.58400926998841 %
+[DEBUG|Image|421] 2026-06-09T05:51:43+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:51:43+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:51:45+0000: [epoch 58] validation loss: 1.573
+[INFO|train|78] 2026-06-09T05:51:45+0000: [epoch 58] validation accuracy: 77.77777777777777 %
+[INFO|train|97] 2026-06-09T05:51:46+0000: Finished epoch 58 at 17.5 minutes
+[INFO|train|70] 2026-06-09T05:51:46+0000: Entering training epoch 59...
+[DEBUG|Image|421] 2026-06-09T05:51:46+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:51:46+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:52:01+0000: [epoch 59] training loss: 1.448
+[INFO|train|73] 2026-06-09T05:52:01+0000: [epoch 59] training accuracy: 92.00463499420626 %
+[DEBUG|Image|421] 2026-06-09T05:52:01+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:52:01+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:52:02+0000: [epoch 59] validation loss: 1.582
+[INFO|train|78] 2026-06-09T05:52:02+0000: [epoch 59] validation accuracy: 77.77777777777777 %
+[INFO|train|97] 2026-06-09T05:52:04+0000: Finished epoch 59 at 17.8 minutes
+[INFO|train|70] 2026-06-09T05:52:04+0000: Entering training epoch 60...
+[DEBUG|Image|421] 2026-06-09T05:52:04+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:52:04+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:52:18+0000: [epoch 60] training loss: 1.443
+[INFO|train|73] 2026-06-09T05:52:18+0000: [epoch 60] training accuracy: 90.49826187717265 %
+[DEBUG|Image|421] 2026-06-09T05:52:19+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:52:19+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:52:20+0000: [epoch 60] validation loss: 1.590
+[INFO|train|78] 2026-06-09T05:52:20+0000: [epoch 60] validation accuracy: 77.77777777777777 %
+[INFO|train|97] 2026-06-09T05:52:21+0000: Finished epoch 60 at 18.1 minutes
+[INFO|train|70] 2026-06-09T05:52:21+0000: Entering training epoch 61...
+[DEBUG|Image|421] 2026-06-09T05:52:21+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:52:21+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:52:36+0000: [epoch 61] training loss: 1.315
+[INFO|train|73] 2026-06-09T05:52:36+0000: [epoch 61] training accuracy: 94.7856315179606 %
+[DEBUG|Image|421] 2026-06-09T05:52:36+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:52:36+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:52:37+0000: [epoch 61] validation loss: 1.550
+[INFO|train|78] 2026-06-09T05:52:37+0000: [epoch 61] validation accuracy: 76.38888888888889 %
+[INFO|train|97] 2026-06-09T05:52:39+0000: Finished epoch 61 at 18.4 minutes
+[INFO|train|70] 2026-06-09T05:52:39+0000: Entering training epoch 62...
+[DEBUG|Image|421] 2026-06-09T05:52:39+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:52:39+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:52:54+0000: [epoch 62] training loss: 1.394
+[INFO|train|73] 2026-06-09T05:52:54+0000: [epoch 62] training accuracy: 88.87601390498261 %
+[DEBUG|Image|421] 2026-06-09T05:52:54+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:52:54+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:52:55+0000: [epoch 62] validation loss: 1.589
+[INFO|train|78] 2026-06-09T05:52:55+0000: [epoch 62] validation accuracy: 76.85185185185185 %
+[INFO|train|97] 2026-06-09T05:52:56+0000: Finished epoch 62 at 18.7 minutes
+[INFO|train|70] 2026-06-09T05:52:56+0000: Entering training epoch 63...
+[DEBUG|Image|421] 2026-06-09T05:52:56+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:52:56+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:53:11+0000: [epoch 63] training loss: 1.422
+[INFO|train|73] 2026-06-09T05:53:11+0000: [epoch 63] training accuracy: 92.58400926998841 %
+[DEBUG|Image|421] 2026-06-09T05:53:11+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:53:11+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:53:13+0000: [epoch 63] validation loss: 1.595
+[INFO|train|78] 2026-06-09T05:53:13+0000: [epoch 63] validation accuracy: 78.70370370370371 %
+[INFO|train|97] 2026-06-09T05:53:14+0000: Finished epoch 63 at 19.0 minutes
+[INFO|train|70] 2026-06-09T05:53:14+0000: Entering training epoch 64...
+[DEBUG|Image|421] 2026-06-09T05:53:14+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:53:14+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:53:29+0000: [epoch 64] training loss: 1.311
+[INFO|train|73] 2026-06-09T05:53:29+0000: [epoch 64] training accuracy: 93.279258400927 %
+[DEBUG|Image|421] 2026-06-09T05:53:29+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:53:29+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:53:31+0000: [epoch 64] validation loss: 1.551
+[INFO|train|78] 2026-06-09T05:53:31+0000: [epoch 64] validation accuracy: 78.24074074074075 %
+[INFO|train|97] 2026-06-09T05:53:32+0000: Finished epoch 64 at 19.3 minutes
+[INFO|train|70] 2026-06-09T05:53:32+0000: Entering training epoch 65...
+[DEBUG|Image|421] 2026-06-09T05:53:32+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:53:32+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:53:47+0000: [epoch 65] training loss: 0.840
+[INFO|train|73] 2026-06-09T05:53:47+0000: [epoch 65] training accuracy: 100.0 %
+[DEBUG|Image|421] 2026-06-09T05:53:47+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:53:47+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:53:48+0000: [epoch 65] validation loss: 1.509
+[INFO|train|78] 2026-06-09T05:53:48+0000: [epoch 65] validation accuracy: 77.77777777777777 %
+[INFO|train|97] 2026-06-09T05:53:49+0000: Finished epoch 65 at 19.6 minutes
+[INFO|train|70] 2026-06-09T05:53:49+0000: Entering training epoch 66...
+[DEBUG|Image|421] 2026-06-09T05:53:49+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:53:49+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:54:05+0000: [epoch 66] training loss: 0.843
+[INFO|train|73] 2026-06-09T05:54:05+0000: [epoch 66] training accuracy: 100.0 %
+[DEBUG|Image|421] 2026-06-09T05:54:05+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:54:05+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:54:07+0000: [epoch 66] validation loss: 1.503
+[INFO|train|78] 2026-06-09T05:54:07+0000: [epoch 66] validation accuracy: 76.85185185185185 %
+[INFO|train|97] 2026-06-09T05:54:08+0000: Finished epoch 66 at 19.9 minutes
+[INFO|train|70] 2026-06-09T05:54:08+0000: Entering training epoch 67...
+[DEBUG|Image|421] 2026-06-09T05:54:08+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:54:08+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:54:23+0000: [epoch 67] training loss: 0.844
+[INFO|train|73] 2026-06-09T05:54:23+0000: [epoch 67] training accuracy: 100.0 %
+[DEBUG|Image|421] 2026-06-09T05:54:23+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:54:23+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:54:24+0000: [epoch 67] validation loss: 1.517
+[INFO|train|78] 2026-06-09T05:54:24+0000: [epoch 67] validation accuracy: 77.31481481481481 %
+[INFO|train|97] 2026-06-09T05:54:25+0000: Finished epoch 67 at 20.2 minutes
+[INFO|train|70] 2026-06-09T05:54:25+0000: Entering training epoch 68...
+[DEBUG|Image|421] 2026-06-09T05:54:25+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:54:25+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:54:40+0000: [epoch 68] training loss: 0.839
+[INFO|train|73] 2026-06-09T05:54:40+0000: [epoch 68] training accuracy: 100.0 %
+[DEBUG|Image|421] 2026-06-09T05:54:40+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:54:40+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:54:42+0000: [epoch 68] validation loss: 1.522
+[INFO|train|78] 2026-06-09T05:54:42+0000: [epoch 68] validation accuracy: 76.38888888888889 %
+[INFO|train|97] 2026-06-09T05:54:43+0000: Finished epoch 68 at 20.5 minutes
+[INFO|train|70] 2026-06-09T05:54:43+0000: Entering training epoch 69...
+[DEBUG|Image|421] 2026-06-09T05:54:43+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:54:43+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:54:58+0000: [epoch 69] training loss: 0.847
+[INFO|train|73] 2026-06-09T05:54:58+0000: [epoch 69] training accuracy: 99.88412514484357 %
+[DEBUG|Image|421] 2026-06-09T05:54:58+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:54:58+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:54:59+0000: [epoch 69] validation loss: 1.510
+[INFO|train|78] 2026-06-09T05:54:59+0000: [epoch 69] validation accuracy: 77.77777777777777 %
+[INFO|train|97] 2026-06-09T05:55:01+0000: Finished epoch 69 at 20.8 minutes
+[INFO|train|70] 2026-06-09T05:55:01+0000: Entering training epoch 70...
+[DEBUG|Image|421] 2026-06-09T05:55:01+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:55:01+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:55:15+0000: [epoch 70] training loss: 0.840
+[INFO|train|73] 2026-06-09T05:55:15+0000: [epoch 70] training accuracy: 100.0 %
+[DEBUG|Image|421] 2026-06-09T05:55:15+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:55:15+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:55:17+0000: [epoch 70] validation loss: 1.521
+[INFO|train|78] 2026-06-09T05:55:17+0000: [epoch 70] validation accuracy: 76.85185185185185 %
+[INFO|train|97] 2026-06-09T05:55:18+0000: Finished epoch 70 at 21.0 minutes
+[INFO|train|70] 2026-06-09T05:55:18+0000: Entering training epoch 71...
+[DEBUG|Image|421] 2026-06-09T05:55:18+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:55:18+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:55:33+0000: [epoch 71] training loss: 0.838
+[INFO|train|73] 2026-06-09T05:55:33+0000: [epoch 71] training accuracy: 100.0 %
+[DEBUG|Image|421] 2026-06-09T05:55:33+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:55:33+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:55:35+0000: [epoch 71] validation loss: 1.524
+[INFO|train|78] 2026-06-09T05:55:35+0000: [epoch 71] validation accuracy: 77.77777777777777 %
+[INFO|train|97] 2026-06-09T05:55:36+0000: Finished epoch 71 at 21.3 minutes
+[INFO|train|70] 2026-06-09T05:55:36+0000: Entering training epoch 72...
+[DEBUG|Image|421] 2026-06-09T05:55:36+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:55:36+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:55:51+0000: [epoch 72] training loss: 0.840
+[INFO|train|73] 2026-06-09T05:55:51+0000: [epoch 72] training accuracy: 100.0 %
+[DEBUG|Image|421] 2026-06-09T05:55:51+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:55:51+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:55:52+0000: [epoch 72] validation loss: 1.515
+[INFO|train|78] 2026-06-09T05:55:52+0000: [epoch 72] validation accuracy: 76.38888888888889 %
+[INFO|train|97] 2026-06-09T05:55:53+0000: Finished epoch 72 at 21.6 minutes
+[INFO|train|70] 2026-06-09T05:55:53+0000: Entering training epoch 73...
+[DEBUG|Image|421] 2026-06-09T05:55:53+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:55:53+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:56:09+0000: [epoch 73] training loss: 0.846
+[INFO|train|73] 2026-06-09T05:56:09+0000: [epoch 73] training accuracy: 100.0 %
+[DEBUG|Image|421] 2026-06-09T05:56:09+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:56:09+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:56:10+0000: [epoch 73] validation loss: 1.514
+[INFO|train|78] 2026-06-09T05:56:10+0000: [epoch 73] validation accuracy: 78.24074074074075 %
+[INFO|train|97] 2026-06-09T05:56:11+0000: Finished epoch 73 at 21.9 minutes
+[INFO|train|70] 2026-06-09T05:56:11+0000: Entering training epoch 74...
+[DEBUG|Image|421] 2026-06-09T05:56:11+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:56:11+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:56:26+0000: [epoch 74] training loss: 0.841
+[INFO|train|73] 2026-06-09T05:56:26+0000: [epoch 74] training accuracy: 100.0 %
+[DEBUG|Image|421] 2026-06-09T05:56:26+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:56:26+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:56:28+0000: [epoch 74] validation loss: 1.520
+[INFO|train|78] 2026-06-09T05:56:28+0000: [epoch 74] validation accuracy: 78.24074074074075 %
+[INFO|train|97] 2026-06-09T05:56:29+0000: Finished epoch 74 at 22.2 minutes
+[INFO|train|70] 2026-06-09T05:56:29+0000: Entering training epoch 75...
+[DEBUG|Image|421] 2026-06-09T05:56:29+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:56:29+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:56:44+0000: [epoch 75] training loss: 0.841
+[INFO|train|73] 2026-06-09T05:56:44+0000: [epoch 75] training accuracy: 100.0 %
+[DEBUG|Image|421] 2026-06-09T05:56:44+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:56:44+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:56:45+0000: [epoch 75] validation loss: 1.514
+[INFO|train|78] 2026-06-09T05:56:45+0000: [epoch 75] validation accuracy: 76.85185185185185 %
+[INFO|train|97] 2026-06-09T05:56:47+0000: Finished epoch 75 at 22.5 minutes
+[INFO|train|70] 2026-06-09T05:56:47+0000: Entering training epoch 76...
+[DEBUG|Image|421] 2026-06-09T05:56:47+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:56:47+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:57:02+0000: [epoch 76] training loss: 0.842
+[INFO|train|73] 2026-06-09T05:57:02+0000: [epoch 76] training accuracy: 100.0 %
+[DEBUG|Image|421] 2026-06-09T05:57:02+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:57:02+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:57:03+0000: [epoch 76] validation loss: 1.515
+[INFO|train|78] 2026-06-09T05:57:03+0000: [epoch 76] validation accuracy: 78.24074074074075 %
+[INFO|train|97] 2026-06-09T05:57:04+0000: Finished epoch 76 at 22.8 minutes
+[INFO|train|70] 2026-06-09T05:57:04+0000: Entering training epoch 77...
+[DEBUG|Image|421] 2026-06-09T05:57:04+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:57:04+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:57:19+0000: [epoch 77] training loss: 0.839
+[INFO|train|73] 2026-06-09T05:57:19+0000: [epoch 77] training accuracy: 100.0 %
+[DEBUG|Image|421] 2026-06-09T05:57:19+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:57:19+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:57:21+0000: [epoch 77] validation loss: 1.526
+[INFO|train|78] 2026-06-09T05:57:21+0000: [epoch 77] validation accuracy: 77.31481481481481 %
+[INFO|train|97] 2026-06-09T05:57:22+0000: Finished epoch 77 at 23.1 minutes
+[INFO|train|70] 2026-06-09T05:57:22+0000: Entering training epoch 78...
+[DEBUG|Image|421] 2026-06-09T05:57:22+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:57:22+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:57:37+0000: [epoch 78] training loss: 0.840
+[INFO|train|73] 2026-06-09T05:57:37+0000: [epoch 78] training accuracy: 100.0 %
+[DEBUG|Image|421] 2026-06-09T05:57:37+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:57:37+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:57:38+0000: [epoch 78] validation loss: 1.512
+[INFO|train|78] 2026-06-09T05:57:38+0000: [epoch 78] validation accuracy: 79.16666666666667 %
+[INFO|train|97] 2026-06-09T05:57:41+0000: Finished epoch 78 at 23.4 minutes
+[INFO|train|70] 2026-06-09T05:57:41+0000: Entering training epoch 79...
+[DEBUG|Image|421] 2026-06-09T05:57:41+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:57:41+0000: Importing JpegImagePlugin
+[INFO|train|72] 2026-06-09T05:57:56+0000: [epoch 79] training loss: 0.844
+[INFO|train|73] 2026-06-09T05:57:56+0000: [epoch 79] training accuracy: 100.0 %
+[DEBUG|Image|421] 2026-06-09T05:57:56+0000: Importing JpegImagePlugin
+[DEBUG|Image|421] 2026-06-09T05:57:56+0000: Importing JpegImagePlugin
+[INFO|train|77] 2026-06-09T05:57:57+0000: [epoch 79] validation loss: 1.515
+[INFO|train|78] 2026-06-09T05:57:57+0000: [epoch 79] validation accuracy: 77.31481481481481 %
+[INFO|train|97] 2026-06-09T05:57:58+0000: Finished epoch 79 at 23.7 minutes
+[INFO|train|100] 2026-06-09T05:57:58+0000: Finished Training in 23.7 minutes
+[DEBUG|pyplot|496] 2026-06-09T05:57:58+0000: Loaded backend agg version v2.2.
+[DEBUG|font_manager|1471] 2026-06-09T05:57:58+0000: findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=10.0.
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymBol.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBol.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymBol.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-BoldOblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Oblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 1.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralItalic.ttf', name='STIXGeneral', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansDisplay.ttf', name='DejaVu Sans Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymReg.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/cmr10.ttf', name='cmr10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymBol.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/cmmi10.ttf', name='cmmi10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/cmss10.ttf', name='cmss10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUni.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 0.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/cmb10.ttf', name='cmb10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymReg.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Bold.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerifDisplay.ttf', name='DejaVu Serif Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymReg.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBolIta.ttf', name='STIXGeneral', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Oblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Bold.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Italic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneral.ttf', name='STIXGeneral', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-BoldOblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 1.335
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymReg.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/cmex10.ttf', name='cmex10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-BoldItalic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBolIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Bold.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 0.33499999999999996
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymBol.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/cmsy10.ttf', name='cmsy10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFiveSymReg.ttf', name='STIXSizeFiveSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/cmtt10.ttf', name='cmtt10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBol.ttf', name='STIXGeneral', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+[DEBUG|font_manager|1483] 2026-06-09T05:57:58+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1515] 2026-06-09T05:57:58+0000: findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=10.0 to DejaVu Sans ('/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000.
+[DEBUG|font_manager|1471] 2026-06-09T05:57:59+0000: findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=12.0.
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymBol.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBol.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymBol.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-BoldOblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Oblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 1.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralItalic.ttf', name='STIXGeneral', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansDisplay.ttf', name='DejaVu Sans Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymReg.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/cmr10.ttf', name='cmr10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymBol.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/cmmi10.ttf', name='cmmi10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/cmss10.ttf', name='cmss10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUni.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 0.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/cmb10.ttf', name='cmb10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymReg.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Bold.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerifDisplay.ttf', name='DejaVu Serif Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymReg.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBolIta.ttf', name='STIXGeneral', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Oblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Bold.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Italic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneral.ttf', name='STIXGeneral', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-BoldOblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 1.335
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymReg.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/cmex10.ttf', name='cmex10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-BoldItalic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBolIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Bold.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 0.33499999999999996
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymBol.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/cmsy10.ttf', name='cmsy10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFiveSymReg.ttf', name='STIXSizeFiveSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/cmtt10.ttf', name='cmtt10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBol.ttf', name='STIXGeneral', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+[DEBUG|font_manager|1483] 2026-06-09T05:57:59+0000: findfont: score(FontEntry(fname='/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+[DEBUG|font_manager|1515] 2026-06-09T05:57:59+0000: findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=12.0 to DejaVu Sans ('/usr/local/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000.
+[INFO|train|171] 2026-06-09T05:57:59+0000: 
+Training complete.
+[INFO|train|172] 2026-06-09T05:57:59+0000: Best epoch:      79
+[INFO|train|173] 2026-06-09T05:57:59+0000: Best val acc:    79.1667
+[INFO|train|174] 2026-06-09T05:57:59+0000: Best val loss:   1.5116
+[INFO|train|175] 2026-06-09T05:57:59+0000: Train acc @ best:100.0000
+[INFO|train|176] 2026-06-09T05:57:59+0000: Artifacts saved to: /app/outputs/7replicator_phase4/run_20260609_053407_aa2f
