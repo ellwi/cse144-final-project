@@ -151,16 +151,15 @@ def transform(model="EfficientNet_V2_S"):
         train_transform = transforms.Compose([
             transforms.RandomHorizontalFlip(),
             transforms.RandomRotation(15),
-            transforms.RandomResizedCrop(384, scale=(0.7, 1.0)), #384 is efficientnet scale
+            transforms.RandomResizedCrop(384, scale=(0.7, 1.0)),
             transforms.ColorJitter(brightness=0.3, contrast=0.3, saturation=0.3, hue=0.1),
             transforms.RandomGrayscale(p=0.1),
-            transforms.ToTensor(),
-            transforms.RandomErasing(p=0.3),
-            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-            ])
+            preprocess
+        ])
+
         val_transform = transforms.Compose([
             preprocess
-            ])
+        ])
         
     elif model=="ConvNeXtSmall":
         weights = ConvNeXt_Small_Weights.DEFAULT

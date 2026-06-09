@@ -25,7 +25,7 @@ from torchvision.transforms.v2 import CutMix, MixUp
 cutmix = CutMix(num_classes=100, alpha=1.0)
 mixup = MixUp(num_classes=100, alpha=0.2)
 
-def apply_cutmix_or_mixup(inputs, labels, p=0.2):
+def apply_cutmix_or_mixup(inputs, labels, p):
     if torch.rand(1) > p:
         return inputs, labels  # 1-p batches pass through clean
     if torch.rand(1) < 0.5:
@@ -33,7 +33,7 @@ def apply_cutmix_or_mixup(inputs, labels, p=0.2):
     else:
         return mixup(inputs, labels)
 
-def fit(net, train_loader, val_loader, optimizer, criterion, device, epochs, scheduler=None, checkpoint_callback=None, logger=None):
+def fit(net, train_loader, val_loader, optimizer, criterion, device, epochs, scheduler=None, cutmix_mixup_percent=0.0, checkpoint_callback=None, logger=None):
     """
     Fits a neural network to input data from train_loader and val_loader.
     Used by train.py wrapper, which defines all parameters. 
@@ -56,13 +56,19 @@ def fit(net, train_loader, val_loader, optimizer, criterion, device, epochs, sch
     # track time
     start = time.time()
     best_accuracy = 0.0
+
+    # want accuracy boost at the end of training
+    disable_mixup_epochs = 15
+    mixup_cutoff_epoch = epochs - disable_mixup_epochs
     
     # training and validation loop 
     performance = {"train_loss": [], "train_acc": [], "val_loss": [], "val_acc": []}
     for epoch in range(epochs):
+        if epochs >= 50 and epoch >= mixup_cutoff_epoch:
+            cutmix_mixup_percent = 0.0
         # 1. train
         logger.info(f'Entering training epoch {epoch}...')
-        train_loss, train_accuracy = train_one_epoch(device, net, train_loader, optimizer, criterion)
+        train_loss, train_accuracy = train_one_epoch(device, net, train_loader, optimizer, criterion, cutmix_mixup_percent)
         logger.info(f'[epoch {epoch}] training loss: {train_loss:.3f}')
         logger.info(f'[epoch {epoch}] training accuracy: {train_accuracy} %')
 
@@ -96,7 +102,7 @@ def fit(net, train_loader, val_loader, optimizer, criterion, device, epochs, sch
     # return the performance dictionary
     return performance
 
-def train_one_epoch(device, net, train_loader, optimizer, criterion):
+def train_one_epoch(device, net, train_loader, optimizer, criterion, cutmix_mixup_percent):
     """
     Trains a neural network for one epoch; used by fit().
     """
@@ -112,7 +118,7 @@ def train_one_epoch(device, net, train_loader, optimizer, criterion):
         inputs, labels = data[0].to(device), data[1].to(device)
 
         # apply cutmix/mixup
-        #inputs, labels = apply_cutmix_or_mixup(inputs, labels)
+        inputs, labels = apply_cutmix_or_mixup(inputs, labels, cutmix_mixup_percent)
 
         # zero the parameter gradients
         optimizer.zero_grad()
@@ -123,7 +129,6 @@ def train_one_epoch(device, net, train_loader, optimizer, criterion):
         # predicted label is the output with max weight/energy
         _, predicted = torch.max(outputs, 1)
         total += labels.size(0)
-        #correct += (predicted == labels).sum().item()
 
         if labels.ndim == 2:  # soft labels from cutmix/mixup
             hard_labels = labels.argmax(dim=1)

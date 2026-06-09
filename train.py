@@ -94,7 +94,11 @@ def main():
     net = build_model(model=config.model.model_name, num_classes=config.model.num_classes, logger=logger)
 
     if config.model.checkpoint_path is not None:
-        net.load_state_dict(torch.load(config.model.checkpoint_path, map_location=device))
+        checkpoint = torch.load(config.model.checkpoint_path, map_location=device)
+        if "model_state_dict" in checkpoint:
+            net.load_state_dict(checkpoint["model_state_dict"])
+        else:
+            net.load_state_dict(checkpoint)
         logger.info(f"Loaded checkpoint from: {config.model.checkpoint_path}")
     
     net = net.to(device)
@@ -121,11 +125,11 @@ def main():
     )"""
 
 
-    """scheduler = CosineAnnealingLR(
+    scheduler = CosineAnnealingLR(
         optimizer,
-        T_max=10,    # match your epoch count
-        eta_min=1e-7  # floor — don't go to zero
-    )"""
+        T_max=config.training.epochs,    # match your epoch count
+        eta_min=1e-6  # floor — don't go to zero
+    )
 
     # This is where the training loop happens.
     # History should be a dictionary with this format: {"train_loss": [], "train_acc": [], "val_loss": [], "val_acc": []}
@@ -144,7 +148,8 @@ def main():
         criterion=criterion,
         device=device,
         epochs=config.training.epochs,
-        #scheduler=scheduler
+        scheduler=scheduler,
+        cutmix_mixup_percent=config.training.cutmix_mixup_percent,
         checkpoint_callback = run.save_checkpoint, # means (lamnda model, optimizer, epoch, val_acc: run.save_checkpoint(model, optimizer, epoch, val_acc)
         logger=logger
     )

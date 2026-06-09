@@ -29,6 +29,7 @@ class TrainingConfig(BaseModel):
     epochs: int = 10
     seed: int = 42
     label_smoothing: float = 0.1
+    cutmix_mixup_percent: float = 0.2
 
 
 class OutputConfig(BaseModel):
