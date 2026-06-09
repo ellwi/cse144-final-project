@@ -1,0 +1,22 @@
+data:
+  data_dir: /app/finalproject_data/train
+  batch_size: 16
+  num_workers: 2
+  shuffle: true
+model:
+  model_name: EfficientNet_V2_S
+  num_classes: 100
+  unfreeze_classifier_layers: 1
+  unfreeze_backbone_layers: 6
+  checkpoint_path:
+optimizer:
+  feature_lr: 1e-5
+  classifier_lr: 1e-4
+  weight_decay: 1e-4
+training:
+  epochs: 80
+  seed: 42
+  label_smoothing: 0.1
+  cutmix_mixup_percent: 0.8
+output:
+  out_dir:
