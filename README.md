@@ -3,7 +3,11 @@ CSE 144 Applied Machine Learning Final Project
 Piet Rottinghuis  
 Elina Wilson  
 
-## Final submission instructions
+### Trained Model Weights: [Link](https://drive.google.com/file/d/1RwQEFVAAv67fvc7dnA2dMUzoNMN6SHmd/view?usp=sharing)
+### Kaggle submission:
+![kaggle leaderboard screenshot](kaggle_leaderboard.png)
+
+## How To Use
 
 Prerequisites:
 - Must have [Docker](https://www.docker.com/) installed on your machine
@@ -23,20 +27,25 @@ This step may take multiple minutes. The installation of CUDA and PyTorch is the
 The docker image will contain this repository. When we run it, the training and testing data will exist in /app/data. We will need to
 mount our output directory over the copied version of `./outputs`.
 
-### Running the training
+## Training
 
-Run the training using the docker container. It is important to make sure that the shared memory size is large enough 
-for the dataloaders. We set it to 8GB here. We also mount the output directory so that we can access the training output.
+Training runs have config files associated with them which allow you to specify the checkpoint to load, number of unfrozen layers, learning rates, epochs, etc. Fully training a model involves a series of different configs, an example of which is provided in the `2.1.yml` to `2.4.yml` series.
 
-TODO generate a final submission config and update the command below to use it.
+For this example, we will demonstrate a final cooldown phase of training with the model in our final submission, using the config `final_submission.yml`.
+To test it, please download the model weights from the [link](https://drive.google.com/file/d/1RwQEFVAAv67fvc7dnA2dMUzoNMN6SHmd/view?usp=sharing) and place it directly in the ouputs directory.
+
+Next, run the training script using the docker container. It is important to make sure that the shared memory size is large enough 
+for the dataloaders. We set it to 8GB here. We also mount the output and config directories so that we can access them.
 
 ```bash
-docker run --rm --gpus all --shm-size=8g -v ./outputs/:/app/outputs cse144-final:latest \
-python train.py --config /app/configs/<config_name>
+docker run --rm --gpus all --shm-size=8g `                                                                                                                                                              
+-v ./outputs:/app/outputs `                                                    
+-v ./configs:/app/configs `                     
+cse144-final:latest python train.py --config /app/configs/efficientnet/final_submission.yml
 ```
 
-This will generate a new entry into the outputs/manifest.tsv and create the associated directory with the run. To see the status
-of the training in the container see the outputs/<run_id>/training.log file.
+This will generate a new entry in `outputs/manifest.tsv` and create the associated directory with the run. To see the status
+of the training in the container see the `outputs/<run_id>/training.log` file.
 
 Example manifest entry after 2 training runs:
 ```
@@ -67,7 +76,7 @@ outputs/
 	└── training_plots.png
 ```
 
-## Evaluate on the test data to generate a submission
+## Infrence and submission generation
 
 Now that the training is complete, we will use the container to evaluate the model on the test data.
 
@@ -76,8 +85,10 @@ Optionally adjust the `--outfile` argument to specify the name of the output fil
 be accessible if written to a mounted directory (like `./outputs`).
 
 ```bash
-docker run --rm --gpus all --shm-size=8g -v ./outputs/:/app/outputs cse144-final:latest \
-python inference.py --checkpoint /app/outputs/<run_id>/best_checkpoint.pth --outfile /app/outputs/final_submission.csv
+docker run --rm --gpus all --shm-size=8g `                                                                                                                                                              
+-v .\outputs:/app/outputs `                                                   
+cse144-final:latest `                                                                     
+python inference.py --testdir ./data/test --checkpoint /app/outputs/<run_id>/best_checkpoint.pth --outfile /app/outputs/final_submission.csv
 ```
 
 Find the generated `final_submission.csv` file in the path provided to the `--outfile` argument. This file can be submitted to Kaggle for evaluation.
