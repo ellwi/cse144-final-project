@@ -1,5 +1,8 @@
+# This config file is used for a final cooldown run and/or test run of the model used for final submission.
+# Please ensure the project input data is in the 'data' directory in project root, or specify otherwise.
+# Please ensure that the model weights are in the 'outputs' directory.
 data:
-  data_dir: /app/finalproject_data/train
+  data_dir: /app/data/train
   batch_size: 16
   num_workers: 2
   shuffle: true
@@ -8,13 +11,13 @@ model:
   num_classes: 100
   unfreeze_classifier_layers: 1
   unfreeze_backbone_layers: 8
-  checkpoint_path:
+  checkpoint_path: /app/outputs/checkpoint.pth
 optimizer:
-  feature_lr: 1e-7
-  classifier_lr: 1e-6
+  feature_lr: 1e-6
+  classifier_lr: 1e-5
   weight_decay: 1e-4
 training:
-  epochs: 80
+  epochs: 10
   seed: 42
   label_smoothing: 0.1
   cutmix_mixup_percent: 0.0
