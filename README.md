@@ -32,7 +32,7 @@ cse144-final-project/
 └── ...
 ```
 
-### Environment setup
+### 1. Environment setup
 Navigate to the project root directory and build the docker image:
 ```bash
 cd ~/.../cse144-final-project
@@ -91,7 +91,7 @@ outputs/
 	└── training_plots.png
 ```
 
-## Infrence and submission generation
+### 3. Evaluate on the test data to generate a submission
 
 Now that the training is complete, we will use the container to evaluate the model on the test data.
 
