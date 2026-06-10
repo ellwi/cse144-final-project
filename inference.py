@@ -12,7 +12,7 @@ import logging.config
 from cse144_final_project.dataset import get_test_dataloader
 from cse144_final_project.model import build_model
 from cse144_final_project.inference import predict
-from cse144_final_project.utils import load_checkpoint
+from cse144_final_project.utils import set_seed
 
 
 def parse_args():
@@ -32,6 +32,13 @@ def parse_args():
         type=Path,
         required=True,
         help="Path to trained model checkpoint"
+    )
+
+    parser.add_argument(
+        "--seed",
+        type=int,
+        default=42,
+        help="Random seed for reproducibility"
     )
 
     parser.add_argument(
@@ -82,6 +89,8 @@ def main():
     logger = logging.getLogger("inference")
 
     args = parse_args()
+
+    set_seed(args.seed)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
