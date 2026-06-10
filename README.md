@@ -38,10 +38,8 @@ Next, run the training script using the docker container. It is important to mak
 for the dataloaders. We set it to 8GB here. We also mount the output and config directories so that we can access them.
 
 ```bash
-docker run --rm --gpus all --shm-size=8g `                                                                                                                                                              
--v ./outputs:/app/outputs `                                                    
--v ./configs:/app/configs `                     
-cse144-final:latest python train.py --config /app/configs/efficientnet/final_submission.yml
+docker run --rm --gpus all --shm-size=8g -v ./outputs/:/app/outputs cse144-final:latest \
+python train.py --config /app/configs/efficientnet/final_submission.yml
 ```
 
 This will generate a new entry in `outputs/manifest.tsv` and create the associated directory with the run. To see the status
