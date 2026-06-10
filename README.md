@@ -52,7 +52,7 @@ For this example, we will demonstrate a final cooldown phase of training with th
 To test it, please download the model weights from the [link](https://drive.google.com/file/d/1RwQEFVAAv67fvc7dnA2dMUzoNMN6SHmd/view?usp=sharing) and place it directly in the ouputs directory.
 
 Next, run the training script using the docker container. It is important to make sure that the shared memory size is large enough 
-for the dataloaders. We set it to 8GB here. We also mount the output and config directories so that we can access them.
+for the dataloaders. We set it to 8GB here. We also mount the output directory so we can write to it.
 
 ```bash
 docker run --rm --gpus all --shm-size=8g -v ./outputs/:/app/outputs cse144-final:latest \
