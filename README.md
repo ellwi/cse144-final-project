@@ -15,32 +15,14 @@ Prerequisites:
 
 *Note: The docker image is designed to run on a CUDA system.*
 
-### Data directory structure
-
 The project root should contain a `data/` directory with the downloaded Kaggle dataset organized as follows:
 
 ```
 cse144-final-project/
-├── data/                     # Dataset location (download from Kaggle)
-│   ├── train/                # Training data organized by class
-│   │   ├── 0/                # Class 0 images
-│   │   │   ├── image_001.jpg
-│   │   │   ├── image_002.jpg
-│   │   │   └── ...
-│   │   ├── 1/                # Class 1 images
-│   │   │   ├── image_001.jpg
-│   │   │   ├── image_002.jpg
-│   │   │   └── ...
-│   │   ├── 2/
-│   │   │   └── ...
-│   │   └── 99/               # Class 99 images (100 classes total: 0-99)
-│   │       └── ...
-│   ├── test/                 # Test data (unlabeled images for predictions)
-│   │   ├── 0.jpg
-│   │   ├── 1.jpg
-│   │   ├── 2.jpg
-│   │   └── ...
-│   └── sample_submission.csv # Template for submission format
+├── data/
+│   ├── train/
+│   ├── test/
+│   └── sample_submission.csv
 ├── src/
 ├── configs/
 ├── outputs/
@@ -50,12 +32,6 @@ cse144-final-project/
 └── ...
 ```
 
-**Key points:**
-- `train/` contains 100 subdirectories (labeled 0-99) representing the 100 image classes
-- Each class directory contains images for that class
-- `test/` contains unlabeled test images used for generating predictions
-- Images should be in standard formats (JPG, PNG, etc.)
-
 ### Environment setup
 Navigate to the project root directory and build the docker image:
 ```bash
@@ -63,7 +39,7 @@ cd ~/.../cse144-final-project
 docker build -t cse144-final:latest .
 ```
 
-This step may take multiple minutes. The installation of CUDA and PyTorch is the most time consuming step.
+This step may take multiple minutes.
 
 The docker image will contain this repository. When we run it, the training and testing data will exist in /app/data. We will need to
 mount our output directory over the copied version of `./outputs`.
@@ -83,8 +59,8 @@ docker run --rm --gpus all --shm-size=8g -v ./outputs/:/app/outputs cse144-final
 python train.py --config /app/configs/efficientnet/final_submission.yml
 ```
 
-This will generate a new entry in `outputs/manifest.tsv` and create the associated directory with the run. To see the status
-of the training in the container see the `outputs/<run_id>/training.log` file.
+This will generate a new entry into `outputs/manifest.tsv` and create the associated directory with the run. Logging messages will display in the terminal and be saved
+to `./outputs/<run_id>/training.log`. The best and last checkpoints will be saved to the run directory, along with training history, metrics, and plots.
 
 Example manifest entry after 2 training runs:
 ```
@@ -119,18 +95,24 @@ outputs/
 
 Now that the training is complete, we will use the container to evaluate the model on the test data.
 
-Look in outputs/manifest.tsv to find the run_id of the training run you want to evaluate. Then run the following command, replacing <run_id> with the actual run_id.
-Optionally adjust the `--outfile` argument to specify the name of the output file. Remember that the output file path will be relative to the container and will only
-be accessible if written to a mounted directory (like `./outputs`).
+Look in `./outputs/manifest.tsv` to find the run_id of the training run you want to evaluate. The id for the most recent run can be found in the first colomn in the bottom row.
 
-```bash
-docker run --rm --gpus all --shm-size=8g `                                                                                                                                                              
--v .\outputs:/app/outputs `                                                   
-cse144-final:latest `                                                                     
-python inference.py --testdir ./data/test --checkpoint /app/outputs/<run_id>/best_checkpoint.pth --outfile /app/outputs/final_submission.csv
+For example, the most recent run ID in the example manifest below is `run_20260608_000035_2ca3`.
+
+```
+run_id	timestamp	model_name	epochs	batch_size	run_dir
+run_20260604_213526_fe56	2026-06-04T21:35:26.593249	EfficientNet_V2_S	20	15	outputs/run_20260604_213526_fe56
+run_20260608_000035_2ca3	2026-06-08T00:00:35.335291	EfficientNet_V2_S	60	10	outputs/run_20260608_000035_2ca3
 ```
 
-Find the generated `final_submission.csv` file in the path provided to the `--outfile` argument. This file can be submitted to Kaggle for evaluation.
+Run the following command, replacing <run_id> with the actual run_id.
+
+```bash
+docker run --rm --gpus all --shm-size=8g -v ./outputs/:/app/outputs cse144-final:latest \
+python inference.py --checkpoint /app/outputs/<run_id>/best_checkpoint.pth --outfile /app/outputs/submission.csv
+```
+
+Find the generated `submission.csv` at `./outputs/submission.csv`. This file can be submitted to Kaggle for evaluation.
 
 ## Developer environment setup
 
