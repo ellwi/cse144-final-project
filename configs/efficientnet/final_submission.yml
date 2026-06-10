@@ -22,4 +22,4 @@ training:
   label_smoothing: 0.1
   cutmix_mixup_percent: 0.0
 output:
-  out_dir:
+  out_dir: ./outputs
