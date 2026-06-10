@@ -44,7 +44,7 @@ This step may take multiple minutes.
 The docker image will contain this repository. When we run it, the training and testing data will exist in /app/data. We will need to
 mount our output directory over the copied version of `./outputs`.
 
-## Training
+### 2. Training
 
 Training runs have config files associated with them which allow you to specify the checkpoint to load, number of unfrozen layers, learning rates, epochs, etc. Fully training a model involves a series of different configs, an example of which is provided in the `2.1.yml` to `2.4.yml` series.
 
@@ -91,7 +91,7 @@ outputs/
 	└── training_plots.png
 ```
 
-### 3. Evaluate on the test data to generate a submission
+### 3. Inference and submission generation
 
 Now that the training is complete, we will use the container to evaluate the model on the test data.
 
