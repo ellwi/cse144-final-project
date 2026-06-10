@@ -15,6 +15,47 @@ Prerequisites:
 
 *Note: The docker image is designed to run on a CUDA system.*
 
+### Data directory structure
+
+The project root should contain a `data/` directory with the downloaded Kaggle dataset organized as follows:
+
+```
+cse144-final-project/
+├── data/                     # Dataset location (download from Kaggle)
+│   ├── train/                # Training data organized by class
+│   │   ├── 0/                # Class 0 images
+│   │   │   ├── image_001.jpg
+│   │   │   ├── image_002.jpg
+│   │   │   └── ...
+│   │   ├── 1/                # Class 1 images
+│   │   │   ├── image_001.jpg
+│   │   │   ├── image_002.jpg
+│   │   │   └── ...
+│   │   ├── 2/
+│   │   │   └── ...
+│   │   └── 99/               # Class 99 images (100 classes total: 0-99)
+│   │       └── ...
+│   ├── test/                 # Test data (unlabeled images for predictions)
+│   │   ├── 0.jpg
+│   │   ├── 1.jpg
+│   │   ├── 2.jpg
+│   │   └── ...
+│   └── sample_submission.csv # Template for submission format
+├── src/
+├── configs/
+├── outputs/
+├── train.py
+├── inference.py
+├── Dockerfile
+└── ...
+```
+
+**Key points:**
+- `train/` contains 100 subdirectories (labeled 0-99) representing the 100 image classes
+- Each class directory contains images for that class
+- `test/` contains unlabeled test images used for generating predictions
+- Images should be in standard formats (JPG, PNG, etc.)
+
 ### Environment setup
 Navigate to the project root directory and build the docker image:
 ```bash
